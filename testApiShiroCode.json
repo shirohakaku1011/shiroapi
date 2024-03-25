@@ -1,0 +1,167 @@
+{
+	"data": [
+		{
+		"id" : 1,
+		"tieude": "Date A Live IV",
+		"poster": "https://animehay.me//upload/poster/3485.jpg",
+		"namphathanh" : "2022",
+		"diemdanhgia" : "9.1",
+		"theloai":[
+			"drama",
+			"điện ảnh"
+			
+		] ,
+		"anh":[
+			"https://animehay.me//upload/poster/3485.jpg",
+
+			"https://animehay.me//upload/poster/3485.jpg",
+			"https://animehay.me//upload/poster/3485.jpg"
+
+		]
+
+		},
+
+		{
+		"id" : 2,
+		"tieude": "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai",
+		"poster": "https://animehay.me/upload/poster/2661.jpg",
+		"namphathanh" : "2018",
+		"diemdanhgia" : "9.7",
+		"xuatxu":"japan",
+		"theloai":[
+			"anime",
+			"học "
+		] ,
+		"anh":[
+			"https://animehay.me/upload/poster/2661.jpg",
+
+			"https://animehay.me/upload/poster/2661.jpg",
+			"https://animehay.me/upload/poster/2661.jpg"
+
+		]
+
+		},
+
+		{
+		"id" : 3,
+		"tieude": "Hikikomari Kyuuketsuki no Monmon",
+		"poster": "https://animehay.me//upload/poster/3918.jpg",
+		"namphathanh" : "2023",
+		"diemdanhgia" : "9.2",
+		"xuatxu":"japan",
+		"theloai":[
+			"học ",
+			"comedy",
+			""
+		] ,
+		"anh":[
+			"https://animehay.me//upload/poster/3918.jpg",
+
+			"https://animehay.me//upload/poster/3918.jpg",
+			"https://animehay.me//upload/poster/3918.jpg"
+
+		]
+
+		},
+
+		{
+		"id" : 4,
+		"tieude": "Spy Kyoushitsu 2nd Season",
+		"poster": "https://animehay.me//upload/poster/3842.jpg",
+		"namphathanh" : "2022",
+		"diemdanhgia" : "7.9",
+		"xuatxu":"japan",
+		"theloai":[
+			"drama",
+			"học đường"
+		] ,
+		"anh":[
+			"https://animehay.me//upload/poster/3842.jpg",
+
+			"https://animehay.me//upload/poster/3842.jpg",
+			"https://animehay.me//upload/poster/3842.jpg"
+
+		]
+
+		},
+
+		{
+		"id" : 5,
+		"tieude": "Liar Liar",
+		"poster": "https://animehay.me//upload/poster/3831.jpg",
+		"namphathanh" : "2022",
+		"diemdanhgia" : "9.3",
+		"xuatxu":"japan",
+		"theloai":[
+			"lãng mạng",
+			"game",
+			"comedy",
+			"học đường"
+		] ,
+		"anh":[
+			"https://animehay.me//upload/poster/3831.jpg",
+
+			"https://animehay.me//upload/poster/3831.jpg",
+			"https://animehay.me//upload/poster/3831.jpg"
+
+		]
+
+		},
+
+		{
+		"id" : 6,
+		"tieude": "Otonari no Tenshi-sama ni Itsunomanika Dame Ningen ni Sareteita Ken",
+		"poster": "https://animehay.me//upload/poster/3680.jpg",
+		"namphathanh" : "2023",
+		"diemdanhgia" : "9.7",
+		"xuatxu":"japan",
+		"theloai":[
+			"drama",
+			"tình cảm"
+
+		] ,
+		"anh":[
+			"https://animehay.me//upload/poster/3680.jpg",
+
+			"https://animehay.me//upload/poster/3680.jpg",
+			"https://animehay.me//upload/poster/3680.jpg"
+
+		]
+
+		},
+
+		{
+		"id" : 7,
+		"tieude": "Fuufu Ijou, Koibito Miman.",
+		"poster": "https://animehay.me//upload/poster/3623.jpg",
+		"namphathanh" : "2022",
+		"diemdanhgia" : "8.9",
+		"xuatxu":"japan",
+		"theloai":[
+			"drama",
+			"tình cảm",
+			"học đường"
+		] ,
+		"anh":[
+			"https://animehay.me//upload/poster/3623.jpg",
+
+			"https://animehay.me//upload/poster/3623.jpg",
+			"https://animehay.me//upload/poster/3623.jpg"
+
+		]
+
+		}
+
+
+
+
+		
+	],
+	"metadata":{
+			"current_page":"1",
+			"per_page":10,
+			"page_count":25,
+			"total_count": 250
+		}
+}
+	
