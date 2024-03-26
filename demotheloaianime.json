@@ -1,0 +1,36 @@
+{
+	"data":[
+		{
+			"id":1,
+			"theloai":"tinhcam"
+		},
+
+		{
+			"id":2,
+			"theloai":"action"
+		},
+		{
+			"id":3,
+			"theloai":"điện ảnh"
+		},
+		{
+			"id":4,
+			"theloai":"học đường"
+		},
+		{
+			"id":5,
+			"theloai":"anime"
+		},
+		{
+			"id":6,
+			"theloai":"tinhcam"
+		},
+		{
+			"id":7,
+			"theloai":"game"
+		},
+
+
+
+	]
+}
