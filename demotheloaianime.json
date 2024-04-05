@@ -1,35 +1,34 @@
-[
+
 	
 		{
 			"id":1,
-			"name":"tinhcam"
+			"theloai":"tinhcam"
 		},
 
 		{
 			"id":2,
-			"name":"action"
+			"theloai":"action"
 		},
 		{
 			"id":3,
-			"name":"điện ảnh"
+			"theloai":"điện ảnh"
 		},
 		{
 			"id":4,
-			"name":"học đường"
+			"theloai":"học đường"
 		},
 		{
 			"id":5,
-			"name":"anime"
+			"theloai":"anime"
 		},
 		{
 			"id":6,
-			"name":"tinhcam"
+			"theloai":"drama"
 		},
 		{
 			"id":7,
-			"name":"game"
-		}
-]
+			"theloai":"game"
+		},
 
 
 
