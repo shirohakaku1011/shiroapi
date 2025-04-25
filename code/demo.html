@@ -64,10 +64,20 @@
             filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.7));
         }
 
+        nav {
+            display: flex;
+            align-items: center;
+            flex-grow: 1; /* Allows nav to take remaining space */
+        }
+
         nav ul {
             list-style: none;
             display: flex;
             gap: 30px;
+        }
+
+        nav ul li {
+            position: relative;
         }
 
         nav ul li a {
@@ -85,25 +95,77 @@
             transform: translateY(-3px);
         }
 
-        .contact-btn {
-            background: linear-gradient(45deg, #00ffcc, #ff6600);
-            color: #fff;
-            padding: 12px 30px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
-            margin-left: auto;
-            position: relative;
-            overflow: hidden;
+        /* Secondary Menu (Menu cấp 2) */
+        .dropdown {
+            margin-left: auto; /* Pushes dropdown to the far right */
         }
 
-        .contact-btn:hover {
+        .dropdown-toggle {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
+            display: inline-block;
+        }
+
+        .dropdown-toggle:hover {
             transform: translateY(-3px);
             box-shadow: 0 0 25px rgba(0, 255, 204, 0.8);
             background: linear-gradient(45deg, #ff6600, #00ffcc);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(255, 102, 0, 0.2));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+            margin: 5px 0; /* Reduced margin for vertical layout */
+        }
+
+        .dropdown-menu li a {
+            color: #00ffcc; /* Neon green to match theme */
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            display: block;
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .dropdown-menu li a:hover {
+            background: rgba(0, 255, 204, 0.3);
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
         }
 
         /* Phần thân */
@@ -147,13 +209,14 @@
             min-width: 300px;
             max-width: 340px;
             text-align: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-radius 0.4s ease;
             z-index: 1;
         }
 
         .hot-product:hover {
             transform: scale(1.05);
             box-shadow: 0 15px 30px rgba(0, 255, 204, 0.5);
+            border-radius: 20px; /* Rounded corners on hover */
             z-index: 2;
         }
 
@@ -186,8 +249,8 @@
             color: #d1d1d1;
         }
 
-        /* Sản phẩm */
-        .product-section {
+        /* Dịch vụ tiêu biểu */
+        .service-section {
             background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
             backdrop-filter: blur(15px);
             border-radius: 20px;
@@ -197,7 +260,7 @@
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
         }
 
-        .product-section h2 {
+        .service-section h2 {
             font-family: 'Orbitron', sans-serif;
             font-size: 40px;
             font-weight: 700;
@@ -207,30 +270,31 @@
             text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
         }
 
-        .products {
+        .services {
             display: flex;
             flex-wrap: nowrap;
             justify-content: center;
             gap: 40px;
         }
 
-        .product {
+        .service {
             position: relative;
             flex: 1;
             min-width: 300px;
             max-width: 340px;
             text-align: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-radius 0.4s ease;
             z-index: 1;
         }
 
-        .product:hover {
+        .service:hover {
             transform: scale(1.05);
             box-shadow: 0 15px 30px rgba(0, 255, 204, 0.5);
+            border-radius: 20px; /* Rounded corners on hover */
             z-index: 2;
         }
 
-        .product img {
+        .service img {
             width: 100%;
             height: 240px;
             object-fit: cover;
@@ -242,19 +306,19 @@
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .product:hover img {
+        .service:hover img {
             transform: scale(1.1);
             box-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
         }
 
-        .product h3 {
+        .service h3 {
             font-family: 'Orbitron', sans-serif;
             font-size: 26px;
             font-weight: 600;
             margin-bottom: 10px;
         }
 
-        .product p {
+        .service p {
             font-size: 16px;
             color: #d1d1d1;
         }
@@ -444,29 +508,53 @@
             text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
         }
 
-        footer .footer-section p,
-        footer .footer-section ul li a {
+        footer .footer-section p {
             font-size: 16px;
             color: #d1d1d1;
+            line-height: 1.8;
+        }
+
+        footer .footer-section ul li a {
+            font-size: 16px;
+            color: #00ffcc; /* Neon green to match theme */
             text-decoration: none;
             line-height: 1.8;
             transition: color 0.3s;
         }
 
         footer .footer-section ul li a:hover {
+            color: #00ffcc; /* Maintain neon green on hover */
+        }
+
+        /* Styling for Contact Section in Footer */
+        .footer-section.contact-section p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section.contact-section a {
+            color: #00ffcc; /* Neon green to match theme */
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .footer-section.contact-section a:hover {
             color: #00ffcc;
+            transform: translateX(5px);
         }
 
         /* Responsive */
         @media (max-width: 1024px) {
             .hot-products,
-            .products {
+            .services {
                 flex-wrap: wrap;
                 justify-content: center;
             }
 
             .hot-product,
-            .product {
+            .service {
                 max-width: 300px;
             }
         }
@@ -482,18 +570,23 @@
                 margin-right: 0;
             }
 
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
             nav ul {
                 gap: 15px;
                 flex-direction: column;
                 align-items: center;
             }
 
-            .contact-btn {
+            .dropdown {
                 margin-left: 0;
             }
 
             .hot-section,
-            .product-section,
+            .service-section,
             .about-section,
             .event-section,
             .map-section {
@@ -501,7 +594,7 @@
             }
 
             .hot-product img,
-            .product img {
+            .service img {
                 height: 200px;
             }
 
@@ -525,21 +618,25 @@
                 flex-direction: column;
                 text-align: center;
             }
+
+            .footer-section.contact-section p {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 480px) {
             .hot-product img,
-            .product img {
+            .service img {
                 height: 180px;
             }
 
             .hot-product h3,
-            .product h3 {
+            .service h3 {
                 font-size: 22px;
             }
 
             .hot-product p,
-            .product p {
+            .service p {
                 font-size: 14px;
             }
 
@@ -576,47 +673,49 @@
                 <li><a href="#products">Sản phẩm</a></li>
                 <li><a href="#events">Sự kiện</a></li>
             </ul>
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Liên hệ</a>
+                <ul class="dropdown-menu">
+                    <li><a href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank">Facebook</a></li>
+                    <li><a href="tel:+84847465539">Số điện thoại: 0847465539</a></li>
+                    <li><a href="https://zalo.me/0888312727" target="_blank">Zalo</a></li>
+                </ul>
+            </div>
         </nav>
-        <a href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" class="contact-btn" target="_blank">Liên hệ</a>
     </header>
     <main>
         <section class="hot-section fade-in">
             <h2>Mặt hàng nổi bật</h2>
             <div class="hot-products">
                 <div class="hot-product">
-                    <img src="2.avif" alt="Meta Quest 3">
-                    <h3>Meta Quest 3</h3>
-                    <p>Kính VR đỉnh cao, mở ra thế giới thực tế ảo sống động.</p>
+                    <img src="2.avif" alt="Meta Quest">
+                    <h3>Meta Quest</h3>
+                    <p>Kính Meta Quest 3<br>Kính Meta Quest 3S</p>
                 </div>
                 <div class="hot-product">
-                    <img src="3.jpg" alt="Meta Quest 3S">
-                    <h3>Meta Quest 3S</h3>
-                    <p>Giá hợp lý, chất lượng cao, lý tưởng cho mọi người.</p>
+                    <img src="3.jpg" alt="Thiết bị thực tế ảo">
+                    <h3>Thiết bị thực tế ảo</h3>
+                    <p>Pico 4<br>Apple Vision Pro<br>HTC VR</p>
                 </div>
                 <div class="hot-product">
-                    <img src="4.webp" alt="Meta Quest 2">
-                    <h3>Meta Quest 2</h3>
-                    <p>Phổ biến, đa dạng ứng dụng, hoàn hảo cho người mới.</p>
+                    <img src="4.webp" alt="Phụ kiện">
+                    <h3>Phụ kiện</h3>
+                    <p>Strap BoboVR<br>Sạc BoboVR<br>Pin BoboVR</p>
                 </div>
             </div>
         </section>
-        <section class="product-section fade-in" id="products">
-            <h2>Sản phẩm tiêu biểu</h2>
-            <div class="products">
-                <div class="product">
-                    <img src="2.avif" alt="Meta Quest 3">
-                    <h3>Meta Quest 3</h3>
-                    <p>Hiệu năng vượt trội, trải nghiệm VR mượt mà, sắc nét.</p>
+        <section class="service-section fade-in" id="products">
+            <h2>Dịch vụ tiêu biểu</h2>
+            <div class="services">
+                <div class="service">
+                    <img src="2.avif" alt="Kinh doanh VR">
+                    <h3>Kinh doanh VR</h3>
+                    <p>Cung cấp thiết bị VR chất lượng cao, đáp ứng mọi nhu cầu giải trí và công việc.</p>
                 </div>
-                <div class="product">
-                    <img src="3.jpg" alt="Meta Quest 3S">
-                    <h3>Meta Quest 3S</h3>
-                    <p>Giá hợp lý, chất lượng cao, lý tưởng cho mọi người.</p>
-                </div>
-                <div class="product">
-                    <img src="4.webp" alt="Meta Quest 2">
-                    <h3>Meta Quest 2</h3>
-                    <p>Phổ biến, đa dạng ứng dụng, hoàn hảo cho người mới.</p>
+                <div class="service">
+                    <img src="3.jpg" alt="Tổ chức sự kiện">
+                    <h3>Tổ chức sự kiện</h3>
+                    <p>Tạo ra các sự kiện VR độc đáo, mang lại trải nghiệm thực tế ảo đáng nhớ.</p>
                 </div>
             </div>
         </section>
@@ -687,12 +786,12 @@
                 <li><a href="https://m.me/pham.huuly.1" target="_blank">Liên hệ</a></li>
             </ul>
         </div>
-        <div class="footer-section">
+        <div class="footer-section contact-section">
             <h3>Liên hệ</h3>
             <p>Email: <a href="mailto:contact@vrshop.vn">contact@vrshop.vn</a></p>
             <p>Số điện thoại: <a href="tel:+84847465539">0847465539</a></p>
-            <p>Địa chỉ: Flora Panorama 2 FP2, Mizuki Park, Bình Hưng, Bình Chánh, TP. HCM</p>
-            <p><a href="https://m.me/pham.huuly.1" target="_blank">FACEBOOK SHOP</a></p>
+            <p>Địa chỉ: <span>Flora Panorama 2 FP2, Mizuki Park, Bình Hưng, Bình Chánh, TP. HCM</span></p>
+            <p><a href="https://m.me/pham.huuly.1" target="_blank">Facebook Shop</a></p>
         </div>
     </footer>
     <script>
