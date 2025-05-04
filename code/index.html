@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cửa hàng chuyên cung cấp các loại kính VR chính hãng, chất lượng cao và giá cả hợp lý, cùng với các dịch vụ hỗ trợ và tư vấn chuyên nghiệp cho người dùng VR.">
+    <meta name="keywords" content="VR, kính thực tế ảo, Meta Quest, công nghệ, VR Shop, oasis, oasisvrzone">
+    <title>Oasis Vr Zone-Vũ Trụ Trong Tầm Mắt</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap">
+    <link rel="icon" href="ai.png" type="image/x-icon">
+    <style>
+        /* Reset mặc định */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Font và background */
+        body {
+            background: linear-gradient(180deg, #0a0a0a, #1c2526);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng fade-in khi cuộn */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(90deg, #1a1a1a, #2c2c2c);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
+        }
+
+        .logo {
+            margin-right: 10px;
+        }
+
+        .logo img {
+            height: 60px;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        .logo img:hover {
+            transform: rotate(10deg) scale(1.15);
+            filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.7));
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #00ffcc;
+            transform: translateY(-3px);
+        }
+
+        /* Secondary Menu (Menu cấp 2) */
+        .dropdown {
+            margin-left: auto;
+        }
+
+        .dropdown-toggle {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            padding: 10px 25px;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
+            display: inline-block;
+            touch-action: manipulation;
+        }
+
+        .dropdown-toggle:hover,
+        .dropdown-toggle:focus,
+        .dropdown-toggle:active {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.8);
+            background: linear-gradient(45deg, #ff6600, #00ffcc);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(255, 102, 0, 0.2));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 10px;
+            min-width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dropdown.active .dropdown-menu,
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+            margin: 5px 0;
+        }
+
+        .dropdown-menu li a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            display: block;
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .dropdown-menu li a:hover,
+        .dropdown-menu li a:focus {
+            background: rgba(0, 255, 204, 0.3);
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+        }
+
+        /* Phần thân */
+        main {
+            padding: 100px 20px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Mặt hàng hot */
+        .hot-section {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 80px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+        }
+
+        .hot-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+        }
+
+        .hot-products {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .hot-product {
+            position: relative;
+            flex: 1;
+            min-width: 300px;
+            max-width: 340px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-radius 0.4s ease;
+            z-index: 1;
+        }
+
+        .hot-product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 255, 204, 0.5);
+            border-radius: 20px;
+            z-index: 2;
+        }
+
+        .hot-product img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            padding: 3px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .hot-product:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
+        }
+
+        .hot-product h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .hot-product p {
+            font-size: 16px;
+            color: #d1d1d1;
+        }
+
+        /* Dịch vụ tiêu biểu */
+        .service-section {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 80px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+        }
+
+        .service-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+        }
+
+        .services {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .service {
+            position: relative;
+            flex: 1;
+            min-width: 300px;
+            max-width: 340px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-radius 0.4s ease;
+            z-index: 1;
+        }
+
+        .service:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 255, 204, 0.5);
+            border-radius: 20px;
+            z-index: 2;
+        }
+
+        .service img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            padding: 3px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .service:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
+        }
+
+        .service h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .service p {
+            font-size: 16px;
+            color: #d1d1d1;
+        }
+
+        /* Giới thiệu */
+        .about-section {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 80px;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+        }
+
+        .about-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+        }
+
+        .about-item {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .about-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 255, 204, 0.5);
+        }
+
+        .about-item img {
+            width: 100%;
+            max-width: 340px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            padding: 3px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .about-item:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
+        }
+
+        .about-item .content h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .about-item .content p {
+            font-size: 16px;
+            color: #d1d1d1;
+        }
+
+        /* Sự kiện */
+        .event-section {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 80px;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+        }
+
+        .event-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+        }
+
+        .event {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .event:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 255, 204, 0.5);
+        }
+
+        .event img {
+            width: 100%;
+            max-width: 340px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            padding: 3px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .event:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
+        }
+
+        .event .content h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .event .content p {
+            font-size: 16px;
+            color: #d1d1d1;
+        }
+
+        /* Bản đồ */
+        .map-section {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 80px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 102, 0, 0.2);
+        }
+
+        .map-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+        }
+
+        .map-section iframe {
+            width: 100%;
+            height: 500px;
+            border: 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(255, 102, 0, 0.3);
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            padding: 3px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #1a1a1a, #2c2c2c);
+            padding: 60px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            color: #d1d1d1;
+            box-shadow: 0 -4px 10px rgba(0, 255, 204, 0.2);
+        }
+
+        footer .footer-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #00ffcc;
+            text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
+        }
+
+        footer .footer-section p {
+            font-size: 16px;
+            color: #d1d1d1;
+            line-height: 1.8;
+        }
+
+        footer .footer-section ul li a {
+            font-size: 16px;
+            color: #00ffcc;
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+
+        footer .footer-section ul li a:hover {
+            color: #00ffcc;
+        }
+
+        .footer-section.contact-section p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section.contact-section a {
+            color: #00ffcc;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .footer-section.contact-section a:hover {
+            color: #00ffcc;
+            transform: translateX(5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hot-products,
+            .services {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hot-product,
+            .service {
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 8px 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: row;
+                background: linear-gradient(90deg, #1a1a1a, #2c2c2c); /* Preserve original color */
+                box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
+            }
+
+            .logo {
+                margin-right: 5px;
+                flex-shrink: 0;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            nav {
+                flex-direction: row;
+                align-items: center;
+                flex-grow: 0;
+            }
+
+            nav ul {
+                gap: 5px; /* Reduced gap to fit all items */
+                flex-direction: row;
+                align-items: center;
+                margin-right: 5px;
+            }
+
+            nav ul li {
+                display: inline-block; /* Show all menu items */
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+
+            nav ul li a {
+                font-size: 12px; /* Reduced font size to fit */
+                padding: 5px 8px;
+            }
+
+            .dropdown {
+                margin-left: 0;
+                flex-shrink: 0;
+            }
+
+            .dropdown-toggle {
+                font-size: 12px; /* Reduced font size */
+                padding: 6px 12px;
+                background: linear-gradient(45deg, #00ffcc, #ff6600); /* Preserve original gradient */
+            }
+
+            .dropdown-menu {
+                min-width: 150px; /* Slightly smaller for mobile */
+                padding: 8px;
+                top: calc(100% + 5px);
+                right: 0;
+                z-index: 1001;
+                background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(255, 102, 0, 0.2)); /* Preserve original gradient */
+                backdrop-filter: blur(10px);
+                border-radius: 10px;
+                box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+                display: none; /* Controlled by JS */
+            }
+
+            .dropdown.active .dropdown-menu {
+                display: flex;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .dropdown:hover .dropdown-menu,
+            .dropdown:focus-within .dropdown-menu {
+                display: flex; /* Ensure hover/focus works, fallback to JS on mobile */
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .dropdown-menu li a {
+                font-size: 12px; /* Reduced font size */
+                padding: 6px 12px;
+            }
+
+            .hot-section,
+            .service-section,
+            .about-section,
+            .event-section,
+            .map-section {
+                padding: 30px;
+            }
+
+            .hot-product img,
+            .service img {
+                height: 200px;
+            }
+
+            .about-item,
+            .event {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-item img,
+            .event img {
+                max-width: 100%;
+                height: 200px;
+            }
+
+            .map-section iframe {
+                height: 400px;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-section.contact-section p {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 6px 8px;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            nav ul li a {
+                font-size: 10px;
+                padding: 4px 6px;
+            }
+
+            .dropdown-toggle {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .dropdown-menu {
+                min-width: 140px;
+                right: 0;
+            }
+
+            .dropdown-menu li a {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .hot-product img,
+            .service img {
+                height: 180px;
+            }
+
+            .hot-product h3,
+            .service h3 {
+                font-size: 22px;
+            }
+
+            .hot-product p,
+            .service p {
+                font-size: 14px;
+            }
+
+            .about-section h2,
+            .event-section h2,
+            .map-section h2 {
+                font-size: 30px;
+            }
+
+            .about-item .content h3,
+            .event .content h3 {
+                font-size: 24px;
+            }
+
+            .about-item .content p,
+            .event .content p {
+                font-size: 15px;
+            }
+
+            .map-section iframe {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="VR Shop Logo">
+        </div>
+        <nav>
+            <ul>
+                <li class="home-link"><a href="#home">Trang chủ</a></li>
+                <li><a href="#products">Sản phẩm</a></li>
+                <li><a href="#events">Sự kiện</a></li>
+            </ul>
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Liên hệ</a>
+                <ul class="dropdown-menu">
+                    <li><a href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank">Facebook</a></li>
+                    <li><a href="tel:+84847465539">Số điện thoại: 0847465539</a></li>
+                    <li><a href="https://zalo.me/0888312727" target="_blank">Zalo</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="hot-section fade-in">
+            <h2>Mặt hàng nổi bật</h2>
+            <div class="hot-products">
+                <div class="hot-product">
+                    <img src="a3.jpg" alt="Meta Quest">
+                    <h3>Meta Quest</h3>
+                    <p>Meta Quest 3<br>Meta Quest 3S<br>Meta Ray-Ban</p>
+                </div>
+                <div class="hot-product">
+                    <img src="a4.jpg" alt="Thiết bị thực tế ảo">
+                    <h3>Thiết bị thực tế ảo</h3>
+                    <p>Pico 4<br>Apple Vision Pro<br>HTC VR</p>
+                </div>
+                <div class="hot-product">
+                    <img src="a1.jpg" alt="Phụ kiện">
+                    <h3>Phụ kiện</h3>
+                    <p>Strap BoboVR<br>Sạc BoboVR<br>Facecover BoboVR</p>
+                </div>
+            </div>
+        </section>
+        <section class="service-section fade-in" id="products">
+            <h2>Dịch vụ tiêu biểu</h2>
+            <div class="services">
+                <div class="service">
+                    <img src="7.png" alt="Kinh doanh VR">
+                    <h3>Kinh doanh VR</h3>
+                    <p>🔥 OASIS VR ZONE – Không chỉ là cửa hàng, mà còn là hệ sinh thái thực tế ảo hàng đầu, nơi bạn có thể tìm thấy các thiết bị VR chính hãng, công nghệ tiên tiến nhất với mức giá hợp lý.<br>
+🎮 Chúng tôi cung cấp:<br>
+✅ Kính VR chất lượng cao – Từ Meta Quest, Apple Vision Pro đến HTC Vive và nhiều thương hiệu khác.<br>
+✅ Hỗ trợ tư vấn chuyên sâu – Giúp bạn lựa chọn thiết bị VR phù hợp với nhu cầu chơi game, làm việc, giải trí hay sáng tạo nội dung.<br>
+✅ Dịch vụ cài đặt & bảo trì – Đảm bảo trải nghiệm VR của bạn mượt mà, tối ưu nhất.</p>
+                </div>
+                <div class="service">
+                    <img src="a5.jpg" alt="Tổ chức sự kiện">
+                    <h3>Tổ chức sự kiện</h3>
+                    <p>✨Tổ chức sự kiện giải trí VR: Thiết kế chương trình teambuilding, sự kiện doanh nghiệp, hội chợ công nghệ... với các trò chơi VR hấp dẫn, tương tác cao.<br>
+✨ Ứng dụng VR trong giáo dục: Cung cấp giải pháp đưa thực tế ảo vào trường học – hỗ trợ giảng dạy lịch sử, sinh học, địa lý... giúp học sinh học qua trải nghiệm thực tế sống động.<br>
+✨ Hỗ trợ nghiên cứu & phát triển: Cung cấp thiết bị, nền tảng VR/MR phục vụ nghiên cứu khoa học, đào tạo mô phỏng y khoa, kiến trúc, kỹ thuật.<br>
+✨ Tùy chỉnh giải pháp theo yêu cầu: Hỗ trợ cá nhân hóa dịch vụ VR cho doanh nghiệp, viện nghiên cứu, trường học hoặc dự án sáng tạo riêng biệt.</p>
+                </div>
+            </div>
+        </section>
+        <section class="about-section fade-in">
+            <h2>Giới thiệu VR Shop</h2>
+            <div class="about-item">
+                <img src="a6.jpg" alt="Lịch sử">
+                <div class="content">
+                    <h3>🌟 OASIS VR ZONE – Khởi Nguồn Đam Mê Khám Phá Thực Tế Ảo 🌟</h3>
+                    <p>Từ những ngày đầu chỉ là một niềm đam mê công nghệ đơn thuần, OASIS VR ZONE đã hình thành với mong muốn mang thế giới thực tế ảo (VR) và thực tế hỗn hợp (MR) đến gần hơn với mọi người.<br>
+Chúng tôi tin rằng công nghệ không chỉ để giải trí, mà còn là cánh cửa mở ra tri thức, sáng tạo và kết nối.<br>
+OASIS ra đời như một "ốc đảo" – nơi ai cũng có thể chạm tay vào tương lai, trải nghiệm thế giới mới lạ và tìm thấy nguồn cảm hứng bất tận qua từng thiết bị, từng trò chơi và từng khoảnh khắc nhập vai.<br>
+Đam mê dẫn lối, công nghệ thắp sáng — OASIS VR ZONE cam kết đồng hành cùng cộng đồng trên hành trình khám phá, học hỏi và vươn xa hơn mỗi ngày! 🚀</p>
+                </div>
+            </div>
+            <div class="about-item">
+                <img src="a7.jpg" alt="Sứ mệnh">
+                <div class="content">
+                    <h3>🌟 OASIS VR ZONE – SỨ MỆNH TIÊN PHONG MỞ RA KỶ NGUYÊN THỰC TẾ ẢO 🌟</h3>
+                    <p>Tại OASIS VR ZONE, chúng tôi không chỉ đơn thuần kinh doanh thiết bị công nghệ – chúng tôi mang trong mình sứ mệnh tiên phong:<br>
+Đưa thực tế ảo (VR) và thực tế hỗn hợp (MR) trở thành một phần thiết thực trong cuộc sống hàng ngày.<br>
+🎯 Sứ mệnh của chúng tôi:<br>
+Tiên phong phổ cập VR/MR đến với mọi tầng lớp, từ giải trí, giáo dục, đến nghiên cứu và sáng tạo.<br>
+Xây dựng cộng đồng yêu công nghệ, kết nối đam mê và truyền cảm hứng cho thế hệ trẻ.<br>
+Mang trải nghiệm nhập vai chất lượng cao đến tận tay người dùng với dịch vụ tận tâm và chuyên nghiệp nhất.<br>
+Bằng sự đổi mới không ngừng và tinh thần dám nghĩ dám làm, OASIS VR ZONE cam kết trở thành ngọn cờ đầu trong hành trình đưa thực tế ảo từ giấc mơ đến đời sống thực tiễn.</p>
+                </div>
+            </div>
+            <div class="about-item">
+                <img src="a8.jpg" alt="Đội ngũ">
+                <div class="content">
+                    <h3>👨‍💻 ĐỘI NGŨ CHUYÊN GIA TẠI OASIS VR ZONE – KIẾN THỨC VỮNG VÀNG, HÀNH ĐỘNG CHUYÊN NGHIỆP 👩‍💻</h3>
+                    <p>Tại OASIS VR ZONE, chúng tôi tự hào sở hữu đội ngũ chuyên gia giàu kinh nghiệm trong lĩnh vực thực tế ảo (VR), thực tế hỗn hợp (MR) và công nghệ XR.<br>
+🔹 Am hiểu sâu về thiết bị: Tư vấn đúng nhu cầu, tối ưu hiệu suất.<br>
+🔹 Kỹ thuật setup và hỗ trợ bài bản: Cài đặt full game, app PCVR, MR, hỗ trợ trải nghiệm mượt mà.<br>
+🔹 Đồng hành cùng khách hàng: Hướng dẫn chi tiết, sẵn sàng hỗ trợ từ A-Z sau bán hàng.<br>
+🔹 Luôn cập nhật công nghệ mới nhất: Theo kịp xu hướng XR toàn cầu để mang đến dịch vụ tốt nhất.<br>
+Tập trung – Chuyên sâu – Tận tâm là phương châm của đội ngũ OASIS VR ZONE trên mỗi chặng đường đồng hành cùng khách hàng.</p>
+                </div>
+            </div>
+        </section>
+        <section class="event-section fade-in" id="events">
+            <h2>Sự kiện nổi bật</h2>
+            <div class="event">
+                <img src="a10.jpg" alt="Sự kiện 1">
+                <div class="content">
+                    <h3>Sự Kiện Setup Kính Thực Tế Ảo</h3>
+                    <p>Tổ chức sự kiện giải trí VR: Thiết kế chương trình teambuilding, sự kiện doanh nghiệp, hội chợ công nghệ... với các trò chơi VR hấp dẫn, tương tác cao.</p>
+                </div>
+            </div>
+            <div class="event">
+                <img src="a11.jpg" alt="Sự kiện 2">
+                <div class="content">
+                    <h3>Ứng dụng VR trong giáo dục</h3>
+                    <p>Cung cấp giải pháp đưa thực tế ảo vào trường học – hỗ trợ giảng dạy lịch sử, sinh học, địa lý... giúp học sinh học qua trải nghiệm thực tế sống động.</p>
+                </div>
+            </div>
+            <div class="event">
+                <img src="a2.jpg" alt="Sự kiện 3">
+                <div class="content">
+                    <h3>Sự Kiện Ưu Đãi</h3>
+                    <p>OASIS VR ZONE – LUÔN CÓ ƯU ĐÃI HẤP DẪN DÀNH RIÊNG CHO BẠN </p>
+                </div>
+            </div>
+        </section>
+        <section class="map-section fade-in">
+            <h2>Thăm cửa hàng của chúng tôi</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.660998614071!2d106.6616182!3d10.7119529!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f0043942385%3A0x8f68728046758a4f!2sFlora%20Panorama%202%20-%20FP2!5e0!3m2!1sen!2s!4v1697641234567!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-section">
+            <h3>Liên kết nhanh</h3>
+            <ul>
+                <li><a href="#home">Trang chủ</a></li>
+                <li><a href="#products">Sản phẩm</a></li>
+                <li><a href="#events">Sự kiện</a></li>
+                <li><a href="https://m.me/pham.huuly.1" target="_blank">Liên hệ</a></li>
+            </ul>
+        </div>
+        <div class="footer-section contact-section">
+            <h3>Liên hệ</h3>
+            <p>Email: <a href="mailto:oasisvrzone@gmail.com">oasisvrzone@gmail.com</a></p>
+            <p>Số điện thoại 1: <a href="tel:+84847465539">0847465539</a></p>
+            <p>Số điện thoại 2: <a href="tel:+0888312727">0888312727</a></p>
+            <p>Địa chỉ: <span>Flora Panorama 2 FP2, Mizuki Park, Bình Hưng, Bình Chánh, TP. HCM</span></p>
+            <p><a href="https://www.facebook.com/profile.php?id=61553293358830" target="_blank">Facebook Shop</a></p>
+        </div>
+    </footer>
+    <script>
+        // Hiệu ứng fade-in khi cuộn
+        const fadeIns = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeIns.forEach(element => observer.observe(element));
+
+        // Toggle dropdown menu on mobile
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdown = document.querySelector('.dropdown');
+
+        function toggleDropdown(e) {
+            e.preventDefault();
+            dropdown.classList.toggle('active');
+        }
+
+        dropdownToggle.addEventListener('click', toggleDropdown);
+        dropdownToggle.addEventListener('touchstart', toggleDropdown);
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
