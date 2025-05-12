@@ -6,7 +6,7 @@
     <meta name="description" content="Cửa hàng chuyên cung cấp các loại kính VR chính hãng, chất lượng cao và giá cả hợp lý, cùng với các dịch vụ hỗ trợ và tư vấn chuyên nghiệp cho người dùng VR.">
     <meta name="keywords" content="VR, kính thực tế ảo, Meta Quest, công nghệ, VR Shop, oasis, oasisvrzone">
     <title>Oasis Vr Zone - Vũ Trụ Trong Tầm Mắt</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Manrope:wght@400;600&family=Orbitron:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="ai.png" type="image/x-icon">
     <style>
@@ -20,13 +20,10 @@
         /* Font và background */
         body {
             background: linear-gradient(180deg, #0a0a0a, #1c2526);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto', sans-serif;
             color: #fff;
             line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         /* Hiệu ứng fade-in khi cuộn */
@@ -77,7 +74,7 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 25px;
+            gap: 20px;
             align-items: center;
         }
 
@@ -86,35 +83,18 @@
         }
 
         nav ul li a {
-            color: #e0f7fa;
+            color: #fff;
             text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
             font-weight: 500;
             letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-            transition: color 0.3s ease, transform 0.3s ease;
+            transition: color 0.3s, transform 0.3s;
         }
 
         nav ul li a:hover {
             color: #00ffcc;
             transform: translateY(-3px);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: #00ffcc;
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
         }
 
         /* Dropdown */
@@ -123,10 +103,10 @@
         }
 
         .dropdown-toggle {
-            color: #e0f7fa;
+            color: #fff;
             text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
             font-weight: 500;
             letter-spacing: 1px;
             padding: 10px 25px;
@@ -180,8 +160,8 @@
         .dropdown-menu li a {
             color: #00ffcc;
             text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
             font-weight: 400;
             display: block;
             padding: 8px 15px;
@@ -201,7 +181,9 @@
             padding: 100px 20px 80px;
             max-width: 1400px;
             margin: 0 auto;
-            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* Slider Section */
@@ -213,11 +195,12 @@
             margin-bottom: 80px;
             text-align: center;
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            width: 100%;
         }
 
         .slider-section h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 40px;
@@ -235,6 +218,7 @@
         .slider-container {
             display: flex;
             width: 100%;
+            justify-content: center;
         }
 
         .slider-wrapper {
@@ -272,9 +256,9 @@
         }
 
         .slider-product h3 {
-            font-family: 'Manrope', sans-serif;
-            font-size: 20px;
-            font-weight: 600;
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
             margin-bottom: 10px;
             height: 30px;
             line-height: 30px;
@@ -284,9 +268,8 @@
         }
 
         .slider-product p {
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
             color: #d1d1d1;
             text-align: center;
             height: 40px;
@@ -305,8 +288,8 @@
             color: #fff;
             text-decoration: none;
             border-radius: 50px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
             transition: transform 0.3s, box-shadow 0.3s;
             margin-top: 20px;
         }
@@ -352,11 +335,12 @@
             margin-bottom: 80px;
             text-align: center;
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            width: 100%;
         }
 
         .hot-section h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 40px;
@@ -378,7 +362,6 @@
             max-width: 340px;
             text-align: center;
             transition: transform 0.4s ease, box-shadow 0.4s ease, border-radius 0.4s ease;
-            z-index: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -389,7 +372,6 @@
             transform: scale(1.05);
             box-shadow: 0 15px 30px rgba(0, 255, 204, 0.5);
             border-radius: 20px;
-            z-index: 2;
         }
 
         .hot-product img {
@@ -410,16 +392,15 @@
         }
 
         .hot-product h3 {
-            font-family: 'Manrope', sans-serif;
-            font-size: 26px;
-            font-weight: 600;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
             margin-bottom: 10px;
         }
 
         .hot-product p {
-            font-family: 'Inter', sans-serif;
-            font-size: 18px;
-            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
             color: #d1d1d1;
             text-align: center;
         }
@@ -433,11 +414,12 @@
             margin-bottom: 80px;
             text-align: center;
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            width: 100%;
         }
 
         .service-section h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 40px;
@@ -459,7 +441,6 @@
             max-width: 340px;
             text-align: center;
             transition: transform 0.4s ease, box-shadow 0.4s ease, border-radius 0.4s ease;
-            z-index: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -470,7 +451,6 @@
             transform: scale(1.05);
             box-shadow: 0 15px 30px rgba(0, 255, 204, 0.5);
             border-radius: 20px;
-            z-index: 2;
         }
 
         .service img {
@@ -491,16 +471,15 @@
         }
 
         .service h3 {
-            font-family: 'Manrope', sans-serif;
-            font-size: 26px;
-            font-weight: 600;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
             margin-bottom: 10px;
         }
 
         .service p {
-            font-family: 'Inter', sans-serif;
-            font-size: 18px;
-            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
             color: #d1d1d1;
             text-align: center;
         }
@@ -513,11 +492,12 @@
             padding: 50px;
             margin-bottom: 80px;
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            width: 100%;
         }
 
         .about-section h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 700;
             letter-spacing: 2px;
             text-align: center;
@@ -560,16 +540,15 @@
         }
 
         .about-item .content h3 {
-            font-family: 'Manrope', sans-serif;
-            font-size: 28px;
-            font-weight: 600;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
             margin-bottom: 15px;
         }
 
         .about-item .content p {
-            font-family: 'Inter', sans-serif;
-            font-size: 18px;
-            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
             color: #d1d1d1;
         }
 
@@ -581,11 +560,12 @@
             padding: 50px;
             margin-bottom: 80px;
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            width: 100%;
         }
 
         .event-section h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 700;
             letter-spacing: 2px;
             text-align: center;
@@ -628,16 +608,15 @@
         }
 
         .event .content h3 {
-            font-family: 'Manrope', sans-serif;
-            font-size: 28px;
-            font-weight: 600;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
             margin-bottom: 15px;
         }
 
         .event .content p {
-            font-family: 'Inter', sans-serif;
-            font-size: 18px;
-            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
             color: #d1d1d1;
         }
 
@@ -650,11 +629,12 @@
             margin-bottom: 80px;
             text-align: center;
             box-shadow: 0 0 30px rgba(255, 102, 0, 0.2);
+            width: 100%;
         }
 
         .map-section h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 30px;
@@ -673,84 +653,55 @@
             padding: 3px;
         }
 
-        /* Footer */
+        /* Footer với animation background */
         footer {
             background: linear-gradient(90deg, #1a1a1a, #2c2c2c);
-            padding: 40px 20px;
+            padding: 60px 20px;
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 50px;
-            color: #d1e8ec;
+            justify-content: space-between;
+            gap: 40px;
+            color: #d1d1d1;
             box-shadow: 0 -4px 10px rgba(0, 255, 204, 0.2);
-            text-align: center;
-            position: relative;
-            flex-shrink: 0;
-            width: 100%;
+            animation: bgShift 10s infinite ease-in-out;
         }
 
-        footer .footer-section {
-            flex: 1;
-            min-width: 250px;
-            position: relative;
-            z-index: 1;
+        @keyframes bgShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         footer .footer-section h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
             margin-bottom: 20px;
             color: #00ffcc;
             text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
         }
 
-        footer .footer-section ul {
-            list-style: none;
-        }
-
-        footer .footer-section ul li {
-            margin: 10px 0;
+        footer .footer-section p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            color: #d1d1d1;
+            line-height: 1.8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         footer .footer-section ul li a {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
             color: #00ffcc;
             text-decoration: none;
-            position: relative;
-            transition: color 0.3s ease, transform 0.3s ease;
+            line-height: 1.8;
+            transition: color 0.3s;
         }
 
         footer .footer-section ul li a:hover {
             color: #ff6600;
-            transform: translateY(-2px);
-        }
-
-        footer .footer-section ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -2px;
-            left: 0;
-            background-color: #ff6600;
-            transition: width 0.3s ease;
-        }
-
-        footer .footer-section ul li a:hover::after {
-            width: 100%;
-        }
-
-        .footer-section.contact-section p {
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            font-weight: 400;
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
         }
 
         .footer-section.contact-section p i {
@@ -758,9 +709,11 @@
         }
 
         .footer-section.contact-section a {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
             color: #00ffcc;
             text-decoration: none;
-            transition: color 0.3s ease, transform 0.3s ease;
+            transition: color 0.3s, transform 0.3s;
         }
 
         .footer-section.contact-section a:hover {
@@ -788,128 +741,18 @@
             }
         }
 
-        /* Tablet (768px - 1024px) */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            header {
-                padding: 10px 20px;
-            }
-
-            .logo img {
-                height: 50px;
-            }
-
-            nav ul {
-                gap: 15px;
-            }
-
-            nav ul li a {
-                font-size: 14px;
-            }
-
-            .dropdown-toggle {
-                font-size: 14px;
-                padding: 8px 20px;
-            }
-
-            .dropdown-menu {
-                min-width: 160px;
-            }
-
-            .dropdown-menu li a {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-
-            .hot-section,
-            .service-section,
-            .about-section,
-            .event-section,
-            .map-section,
-            .slider-section {
-                padding: 40px;
-            }
-
-            .hot-product img,
-            .service img {
-                height: 200px;
-            }
-
-            .slider-product img {
-                height: 260px;
-            }
-
-            .slider-product h3 {
-                font-size: 18px;
-            }
-
-            .slider-product p {
-                font-size: 14px;
-            }
-
-            .hot-product h3,
-            .service h3 {
-                font-size: 24px;
-            }
-
-            .hot-product p,
-            .service p {
-                font-size: 16px;
-            }
-
-            .about-item,
-            .event {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .about-item img,
-            .event img {
-                max-width: 100%;
-                height: 200px;
-            }
-
-            .about-item .content h3,
-            .event .content h3 {
-                font-size: 26px;
-            }
-
-            .about-item .content p,
-            .event .content p {
-                font-size: 16px;
-            }
-
-            .map-section iframe {
-                height: 400px;
-            }
-
-            footer {
-                padding: 30px 20px;
-                gap: 30px;
-            }
-
-            footer .footer-section h3 {
-                font-size: 20px;
-            }
-
-            footer .footer-section ul li a {
-                font-size: 14px;
-            }
-
-            .footer-section.contact-section p {
-                font-size: 14px;
-            }
-        }
-
-        /* Mobile (max-width: 768px) */
         @media (max-width: 768px) {
             header {
                 padding: 8px 10px;
-                flex-direction: row;
+                display: flex;
                 justify-content: space-between;
+                align-items: center;
+                flex-direction: row;
             }
 
             .logo {
                 margin-right: 5px;
+                flex-shrink: 0;
             }
 
             .logo img {
@@ -924,20 +767,25 @@
 
             nav ul {
                 gap: 5px;
+                flex-direction: row;
+                align-items: center;
                 margin-right: 5px;
             }
 
             nav ul li {
+                display: inline-block;
+                flex-shrink: 0;
                 white-space: nowrap;
             }
 
             nav ul li a {
                 font-size: 12px;
-                padding: 5px 6px;
+                padding: 5px 8px;
             }
 
             .dropdown {
                 margin-left: 0;
+                flex-shrink: 0;
             }
 
             .dropdown-toggle {
@@ -946,7 +794,8 @@
             }
 
             .dropdown-menu {
-                min-width: 140px;
+                min-width: 150px;
+                padding: 8px;
                 top: calc(100% + 5px);
                 right: 0;
                 display: none;
@@ -954,16 +803,22 @@
 
             .dropdown.active .dropdown-menu {
                 display: flex;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
             }
 
             .dropdown:hover .dropdown-menu,
             .dropdown:focus-within .dropdown-menu {
                 display: flex;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
             }
 
             .dropdown-menu li a {
-                font-size: 10px;
-                padding: 5px 10px;
+                font-size: 12px;
+                padding: 6px 12px;
             }
 
             .hot-section,
@@ -984,24 +839,6 @@
                 height: 260px;
             }
 
-            .slider-product h3 {
-                font-size: 16px;
-            }
-
-            .slider-product p {
-                font-size: 12px;
-            }
-
-            .hot-product h3,
-            .service h3 {
-                font-size: 22px;
-            }
-
-            .hot-product p,
-            .service p {
-                font-size: 14px;
-            }
-
             .about-item,
             .event {
                 flex-direction: column;
@@ -1014,39 +851,17 @@
                 height: 200px;
             }
 
-            .about-item .content h3,
-            .event .content h3 {
-                font-size: 24px;
-            }
-
-            .about-item .content p,
-            .event .content p {
-                font-size: 14px;
-            }
-
             .map-section iframe {
                 height: 400px;
             }
 
             footer {
                 flex-direction: column;
-                padding: 20px;
-            }
-
-            footer .footer-section {
                 text-align: center;
             }
 
-            footer .footer-section h3 {
-                font-size: 18px;
-            }
-
-            footer .footer-section ul li a {
-                font-size: 12px;
-            }
-
             .footer-section.contact-section p {
-                font-size: 12px;
+                justify-content: center;
             }
         }
 
@@ -1093,10 +908,20 @@
                 height: 220px;
             }
 
+            .hot-product h3,
+            .service h3 {
+                font-size: 18px;
+            }
+
             .slider-product h3 {
-                font-size: 14px;
+                font-size: 16px;
                 height: 25px;
                 line-height: 25px;
+            }
+
+            .hot-product p,
+            .service p {
+                font-size: 12px;
             }
 
             .slider-product p {
@@ -1105,35 +930,34 @@
                 line-height: 17px;
             }
 
-            .hot-product h3,
-            .service h3 {
-                font-size: 20px;
-            }
-
-            .hot-product p,
-            .service p {
-                font-size: 14px;
-            }
-
             .about-section h2,
             .event-section h2,
             .map-section h2,
             .slider-section h2 {
-                font-size: 30px;
+                font-size: 28px;
             }
 
             .about-item .content h3,
             .event .content h3 {
-                font-size: 22px;
+                font-size: 18px;
             }
 
             .about-item .content p,
             .event .content p {
-                font-size: 14px;
+                font-size: 12px;
             }
 
             .map-section iframe {
                 height: 350px;
+            }
+
+            footer .footer-section h3 {
+                font-size: 18px;
+            }
+
+            footer .footer-section p,
+            footer .footer-section ul li a {
+                font-size: 12px;
             }
         }
     </style>
@@ -1322,10 +1146,10 @@
         <div class="footer-section">
             <h3>Liên kết nhanh</h3>
             <ul>
-                <li><a href="#home">Trang chủ <i class="fas fa-home"></i></a></li>
-                <li><a href="#products">Sản phẩm <i class="fas fa-box"></i></a></li>
-                <li><a href="#events">Sự kiện <i class="fas fa-calendar-alt"></i></a></li>
-                <li><a href="https://m.me/pham.huuly.1" target="_blank">Liên hệ <i class="fas fa-envelope"></i></a></li>
+                <li><a href="#home">Trang chủ</a></li>
+                <li><a href="#products">Sản phẩm</a></li>
+                <li><a href="#events">Sự kiện</a></li>
+                <li><a href="https://m.me/pham.huuly.1" target="_blank">Liên hệ</a></li>
             </ul>
         </div>
         <div class="footer-section contact-section">
@@ -1380,40 +1204,29 @@
         const leftArrow = document.querySelector('.left-arrow');
         const rightArrow = document.querySelector('.right-arrow');
         let sliderProducts = document.querySelectorAll('.slider-product');
-        const totalOriginalProducts = sliderProducts.length; // 7 sản phẩm gốc
+        const totalOriginalProducts = sliderProducts.length;
 
-        // Hàm lấy số sản phẩm hiển thị dựa trên kích thước màn hình
         function getVisibleProducts() {
-            if (window.innerWidth <= 768) {
-                return 1; // Mobile: 1 sản phẩm
-            } else if (window.innerWidth <= 1024) {
-                return 2; // Tablet: 2 sản phẩm
-            } else {
-                return 3; // Desktop: 3 sản phẩm
-            }
+            if (window.innerWidth <= 768) return 1;
+            else if (window.innerWidth <= 1024) return 2;
+            else return 3;
         }
 
-        // Hàm lấy chiều rộng thực tế của sản phẩm
         function getProductWidth() {
             return sliderProducts[0].getBoundingClientRect().width;
         }
 
-        // Nhân bản sản phẩm để tạo hiệu ứng vòng tròn vô hạn
         function cloneProducts() {
-            // Thêm 2 sản phẩm cuối vào đầu
             for (let i = totalOriginalProducts - 2; i < totalOriginalProducts; i++) {
                 sliderWrapper.insertBefore(sliderProducts[i].cloneNode(true), sliderProducts[0]);
             }
-            // Thêm 2 sản phẩm đầu vào cuối
             for (let i = 0; i < 2; i++) {
                 sliderWrapper.appendChild(sliderProducts[i].cloneNode(true));
             }
-            // Cập nhật danh sách sản phẩm sau khi nhân bản
             sliderProducts = document.querySelectorAll('.slider-product');
         }
 
-        // Khởi tạo slider
-        let currentIndex = 2; // Bắt đầu từ sản phẩm đầu tiên trong danh sách gốc
+        let currentIndex = 2;
         let isTransitioning = false;
 
         function updateSliderPosition(animate = true) {
@@ -1429,54 +1242,45 @@
         }
 
         function slide(direction) {
-            if (isTransitioning) return; // Ngăn click liên tục khi đang chuyển động
-            const totalClonedProducts = sliderProducts.length; // Tổng số sản phẩm sau nhân bản
-            const visibleProducts = getVisibleProducts();
+            if (isTransitioning) return;
+            const totalClonedProducts = sliderProducts.length;
 
             if (direction === 'right') {
                 currentIndex++;
                 if (currentIndex >= totalOriginalProducts + 2) {
-                    // Khi vượt quá sản phẩm cuối, nhảy về sản phẩm đầu trong danh sách gốc
                     currentIndex = 2;
-                    updateSliderPosition(false); // Dịch không animation
-                    setTimeout(() => updateSliderPosition(true), 0); // Khôi phục animation ngay sau đó
+                    updateSliderPosition(false);
+                    setTimeout(() => updateSliderPosition(true), 0);
                     return;
                 }
             } else {
                 currentIndex--;
                 if (currentIndex < 2) {
-                    // Khi vượt quá sản phẩm đầu, nhảy về sản phẩm cuối trong danh sách gốc
                     currentIndex = totalOriginalProducts + 1;
-                    updateSliderPosition(false); // Dịch không animation
-                    setTimeout(() => updateSliderPosition(true), 0); // Khôi phục animation ngay sau đó
+                    updateSliderPosition(false);
+                    setTimeout(() => updateSliderPosition(true), 0);
                     return;
                 }
             }
             updateSliderPosition(true);
         }
 
-        // Khởi tạo slider với sản phẩm nhân bản
         cloneProducts();
-        updateSliderPosition(false); // Đặt vị trí ban đầu không animation
+        updateSliderPosition(false);
 
-        // Xử lý sự kiện click
         leftArrow.addEventListener('click', () => slide('left'));
         rightArrow.addEventListener('click', () => slide('right'));
 
-        // Ngăn lỗi khi transition kết thúc
         sliderWrapper.addEventListener('transitionend', () => {
             isTransitioning = false;
         });
 
-        // Xử lý resize màn hình
         let resizeTimer;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
-                currentIndex = 2; // Reset về sản phẩm đầu tiên
-                updateSliderPosition(false); // Cập nhật vị trí không animation
+                currentIndex = 2;
+                updateSliderPosition(false);
             }, 250);
         });
     </script>
-</body>
-</html>

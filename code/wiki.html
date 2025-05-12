@@ -6,7 +6,8 @@
     <meta name="description" content="Wiki của Oasis VR Zone - Tìm hiểu về các sản phẩm VR, công nghệ thực tế ảo, và các bài viết hữu ích về trải nghiệm VR.">
     <meta name="keywords" content="VR, kính thực tế ảo, Meta Quest, công nghệ, VR Shop, oasis, oasisvrzone">
     <title>Wiki - Oasis VR Zone</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="ai.png" type="image/x-icon">
     <style>
         /* Reset mặc định */
@@ -16,16 +17,29 @@
             box-sizing: border-box;
         }
 
-        /* Font và background */
+        /* Font và background cơ bản */
         body {
-            background: linear-gradient(180deg, #0a0a0a, #1c2526);
-            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #0a0a0a, #1c2526, #0a0a0a);
+            background-size: 200% 200%;
+            font-family: 'Roboto', sans-serif;
             color: #fff;
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Hiệu ứng fade-in khi cuộn */
+        /* Hiệu ứng spiralOrbit */
+        @keyframes spiralOrbit {
+            0% { transform: rotate(0deg) scale(1); background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.3) 0%, rgba(255, 102, 0, 0.1) 70%, transparent 100%); }
+            25% { transform: rotate(90deg) scale(1.1); background: radial-gradient(circle at 70% 30%, rgba(0, 255, 204, 0.25) 0%, rgba(255, 102, 0, 0.15) 70%, transparent 100%); }
+            50% { transform: rotate(180deg) scale(1); background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.2) 0%, rgba(255, 102, 0, 0.1) 70%, transparent 100%); }
+            75% { transform: rotate(270deg) scale(1.1); background: radial-gradient(circle at 30% 70%, rgba(0, 255, 204, 0.25) 0%, rgba(255, 102, 0, 0.15) 70%, transparent 100%); }
+            100% { transform: rotate(360deg) scale(1); background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.3) 0%, rgba(255, 102, 0, 0.1) 70%, transparent 100%); }
+        }
+
+        /* Hiệu ứng fade-in và scale-in khi cuộn */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -48,7 +62,7 @@
             transform: scale(1);
         }
 
-        /* Header (giữ tông màu từ index.html) */
+        /* Header với màu sắc gốc */
         header {
             background: linear-gradient(90deg, #1a1a1a, #2c2c2c);
             padding: 15px 30px;
@@ -84,7 +98,7 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 25px;
             align-items: center;
         }
 
@@ -93,13 +107,15 @@
         }
 
         nav ul li a {
-            color: #fff;
+            color: #e0f7fa;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-size: 16px;
             font-weight: 500;
             letter-spacing: 1px;
-            transition: color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         nav ul li a:hover {
@@ -107,13 +123,28 @@
             transform: translateY(-3px);
         }
 
-        /* Secondary Menu (Menu cấp 2) */
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #00ffcc;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown */
         .dropdown {
             margin-left: auto;
         }
 
         .dropdown-toggle {
-            color: #fff;
+            color: #e0f7fa;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-size: 16px;
@@ -172,7 +203,7 @@
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 400;
             display: block;
             padding: 8px 15px;
             border-radius: 10px;
@@ -191,6 +222,10 @@
             padding: 100px 20px 80px;
             max-width: 1200px;
             margin: 0 auto;
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* Hero Section */
@@ -207,6 +242,21 @@
             gap: 30px;
             align-items: center;
             justify-content: center;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.3) 0%, rgba(255, 102, 0, 0.1) 70%, transparent 100%);
+            animation: spiralOrbit 12s linear infinite;
+            z-index: 0;
         }
 
         .hero-section img {
@@ -218,6 +268,8 @@
             background: linear-gradient(45deg, #00ffcc, #ff6600);
             padding: 3px;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-section img:hover {
@@ -229,11 +281,13 @@
             flex: 1;
             min-width: 300px;
             text-align: left;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 36px;
+            font-size: 40px;
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 20px;
@@ -242,14 +296,15 @@
         }
 
         .hero-content p {
-            font-size: 16px;
-            color: #d1d1d1;
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            color: #d1e8ec;
             margin-bottom: 20px;
         }
 
         .hero-content a {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 25px;
             background: linear-gradient(45deg, #00ffcc, #ff6600);
             color: #fff;
             text-decoration: none;
@@ -273,22 +328,41 @@
             margin-bottom: 40px;
             text-align: center;
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .products-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.3) 0%, rgba(255, 102, 0, 0.1) 70%, transparent 100%);
+            animation: spiralOrbit 12s linear infinite;
+            z-index: 0;
         }
 
         .products-section h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 40px;
             color: #00ffcc;
             text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+            position: relative;
+            z-index: 1;
         }
 
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
+            position: relative;
+            z-index: 1;
         }
 
         .product-item {
@@ -296,6 +370,9 @@
             border-radius: 15px;
             padding: 20px;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .product-item:hover {
@@ -321,45 +398,61 @@
         }
 
         .product-item h3 {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 500;
             margin-bottom: 10px;
+            color: #00ffcc;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .product-item:hover h3 {
+            color: #ff6600;
+            transform: translateY(-3px);
         }
 
         .product-item p {
-            font-size: 14px;
-            color: #d1d1d1;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            color: #d1e8ec;
+            text-align: center;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        /* Bài viết (cải tiến phá cách) */
+        .product-item:hover p {
+            color: #b3d9e0;
+            transform: translateY(-2px);
+        }
+
+        /* Bài viết (cải tiến) */
         .articles-section {
-            background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(255, 102, 0, 0.1));
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 50px;
             margin-bottom: 40px;
             text-align: center;
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
-            overflow: hidden;
+            width: 100%;
             position: relative;
+            overflow: hidden;
         }
 
         .articles-section::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 204, 0.2) 0%, rgba(255, 102, 0, 0.2) 100%);
-            animation: rotateGradient 15s linear infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.3) 0%, rgba(255, 102, 0, 0.1) 70%, transparent 100%);
+            animation: spiralOrbit 12s linear infinite;
             z-index: 0;
         }
 
         .articles-section h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
             letter-spacing: 2px;
             margin-bottom: 40px;
@@ -416,25 +509,29 @@
             text-align: center;
             position: relative;
             z-index: 1;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
         }
 
         .article-content h3 {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 22px;
-            font-weight: 600;
+            font-weight: 500;
             margin-bottom: 10px;
             color: #00ffcc;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
-            transition: color 0.3s;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         .article-item:hover .article-content h3 {
             color: #ff6600;
+            transform: translateY(-3px);
         }
 
         .article-content p {
-            font-size: 14px;
-            color: #d1d1d1;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            color: #d1e8ec;
             line-height: 1.5;
             max-height: 100px;
             overflow: hidden;
@@ -442,24 +539,35 @@
             display: -webkit-box;
             -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        /* Animation gradient */
-        @keyframes rotateGradient {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .article-item:hover .article-content p {
+            color: #b3d9e0;
+            transform: translateY(-2px);
         }
 
-        /* Footer (giữ tông màu từ index.html) */
+        /* Footer nằm ở cuối trang */
         footer {
             background: linear-gradient(90deg, #1a1a1a, #2c2c2c);
-            padding: 60px 20px;
+            padding: 40px 20px;
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 40px;
-            color: #d1d1d1;
+            justify-content: center;
+            gap: 50px;
+            color: #d1e8ec;
             box-shadow: 0 -4px 10px rgba(0, 255, 204, 0.2);
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+            width: 100%;
+        }
+
+        footer .footer-section {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+            z-index: 1;
         }
 
         footer .footer-section h3 {
@@ -471,55 +579,167 @@
             text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
         }
 
-        footer .footer-section p {
-            font-size: 16px;
-            color: #d1d1d1;
-            line-height: 1.8;
+        footer .footer-section ul {
+            list-style: none;
+        }
+
+        footer .footer-section ul li {
+            margin: 10px 0;
         }
 
         footer .footer-section ul li a {
+            font-family: 'Roboto', sans-serif;
             font-size: 16px;
             color: #00ffcc;
             text-decoration: none;
-            line-height: 1.8;
-            transition: color 0.3s;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         footer .footer-section ul li a:hover {
-            color: #00ffcc;
+            color: #ff6600;
+            transform: translateY(-2px);
+        }
+
+        footer .footer-section ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ff6600;
+            transition: width 0.3s ease;
+        }
+
+        footer .footer-section ul li a:hover::after {
+            width: 100%;
         }
 
         .footer-section.contact-section p {
-            margin-bottom: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            margin: 10px 0;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
+        }
+
+        .footer-section.contact-section p i {
+            color: #00ffcc;
         }
 
         .footer-section.contact-section a {
             color: #00ffcc;
             text-decoration: none;
-            transition: color 0.3s, transform 0.3s;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         .footer-section.contact-section a:hover {
-            color: #00ffcc;
+            color: #ff6600;
             transform: translateX(5px);
         }
 
-        /* Responsive */
+        /* Tablet (768px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            header {
+                padding: 10px 20px;
+            }
+
+            .logo img {
+                height: 50px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            nav ul li a {
+                font-size: 14px;
+            }
+
+            .dropdown-toggle {
+                font-size: 14px;
+                padding: 8px 20px;
+            }
+
+            .dropdown-menu {
+                min-width: 160px;
+            }
+
+            .dropdown-menu li a {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .hero-section {
+                padding: 40px;
+                flex-direction: column;
+            }
+
+            .hero-section img {
+                max-width: 400px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .products-section,
+            .articles-section {
+                padding: 40px;
+            }
+
+            .products-grid,
+            .articles-grid {
+                grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            }
+
+            .product-item img,
+            .article-item img {
+                height: 180px;
+            }
+
+            .product-item h3,
+            .article-content h3 {
+                font-size: 18px;
+            }
+
+            .product-item p,
+            .article-content p {
+                font-size: 14px;
+            }
+
+            footer {
+                padding: 30px 20px;
+                gap: 30px;
+            }
+
+            footer .footer-section h3 {
+                font-size: 20px;
+            }
+
+            footer .footer-section ul li a,
+            .footer-section.contact-section p {
+                font-size: 14px;
+            }
+        }
+
+        /* Mobile (max-width: 768px) */
         @media (max-width: 768px) {
             header {
                 padding: 8px 10px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
                 flex-direction: row;
+                justify-content: space-between;
             }
 
             .logo {
                 margin-right: 5px;
-                flex-shrink: 0;
             }
 
             .logo img {
@@ -534,25 +754,20 @@
 
             nav ul {
                 gap: 5px;
-                flex-direction: row;
-                align-items: center;
                 margin-right: 5px;
             }
 
             nav ul li {
-                display: inline-block;
-                flex-shrink: 0;
                 white-space: nowrap;
             }
 
             nav ul li a {
                 font-size: 12px;
-                padding: 5px 8px;
+                padding: 5px 6px;
             }
 
             .dropdown {
                 margin-left: 0;
-                flex-shrink: 0;
             }
 
             .dropdown-toggle {
@@ -561,36 +776,28 @@
             }
 
             .dropdown-menu {
-                min-width: 150px;
-                padding: 8px;
+                min-width: 140px;
                 top: calc(100% + 5px);
                 right: 0;
-                z-index: 1001;
                 display: none;
             }
 
             .dropdown.active .dropdown-menu {
                 display: flex;
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
             }
 
             .dropdown:hover .dropdown-menu,
             .dropdown:focus-within .dropdown-menu {
                 display: flex;
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
             }
 
             .dropdown-menu li a {
-                font-size: 12px;
-                padding: 6px 12px;
+                font-size: 10px;
+                padding: 5px 10px;
             }
 
             .hero-section {
-                padding: 30px;
+                padding: 20px;
                 flex-direction: column;
             }
 
@@ -602,71 +809,32 @@
                 text-align: center;
             }
 
-            .products-section,
-            .articles-section {
-                padding: 30px;
-            }
-
-            .article-item {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .article-item img {
-                width: 100%;
-                height: 180px;
-            }
-
-            footer {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-section.contact-section p {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header {
-                padding: 6px 8px;
-            }
-
-            .logo img {
-                height: 35px;
-            }
-
-            nav ul li a {
-                font-size: 10px;
-                padding: 4px 6px;
-            }
-
-            .dropdown-toggle {
-                font-size: 10px;
-                padding: 5px 10px;
-            }
-
-            .dropdown-menu {
-                min-width: 140px;
-            }
-
-            .dropdown-menu li a {
-                font-size: 10px;
-                padding: 5px 10px;
-            }
-
             .hero-content h1 {
                 font-size: 28px;
             }
 
-            .products-section h2,
-            .articles-section h2 {
-                font-size: 26px;
+            .hero-content p {
+                font-size: 14px;
+            }
+
+            .products-section,
+            .articles-section {
+                padding: 20px;
+            }
+
+            .products-grid,
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-item img,
+            .article-item img {
+                height: 150px;
             }
 
             .product-item h3,
             .article-content h3 {
-                font-size: 18px;
+                font-size: 16px;
             }
 
             .product-item p,
@@ -674,8 +842,51 @@
                 font-size: 12px;
             }
 
+            footer {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            footer .footer-section {
+                text-align: center;
+            }
+
+            footer .footer-section h3 {
+                font-size: 18px;
+            }
+
+            footer .footer-section ul li a,
+            .footer-section.contact-section p {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 24px;
+            }
+
+            .hero-content p {
+                font-size: 12px;
+            }
+
+            .products-section h2,
+            .articles-section h2 {
+                font-size: 24px;
+            }
+
+            .product-item h3,
+            .article-content h3 {
+                font-size: 14px;
+            }
+
+            .product-item p,
+            .article-content p {
+                font-size: 10px;
+            }
+
             .article-item img {
-                height: 150px;
+                height: 120px;
             }
         }
     </style>
@@ -778,6 +989,7 @@
                     <div class="article-content">
                         <h3>Hệ thống Mô phỏng cho Đào tạo, Dạy Nghề, Huấn luyện VR</h3>
                         <p>Ứng dụng mô phỏng VR trong quân sự, đào tạo lái xe, y tế, giúp thực hành an toàn và hiệu quả, thay thế học lý thuyết truyền thống.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -787,19 +999,19 @@
         <div class="footer-section">
             <h3>Liên kết nhanh</h3>
             <ul>
-                <li><a href="index.html#home">Trang chủ</a></li>
-                <li><a href="index.html#products">Sản phẩm</a></li>
-                <li><a href="index.html#events">Sự kiện</a></li>
-                <li><a href="https://m.me/pham.huuly.1" target="_blank">Liên hệ</a></li>
+                <li><a href="index.html#home">Trang chủ <i class="fas fa-home"></i></a></li>
+                <li><a href="index.html#products">Sản phẩm <i class="fas fa-box"></i></a></li>
+                <li><a href="index.html#events">Sự kiện <i class="fas fa-calendar-alt"></i></a></li>
+                <li><a href="https://m.me/pham.huuly.1" target="_blank">Liên hệ <i class="fas fa-envelope"></i></a></li>
             </ul>
         </div>
         <div class="footer-section contact-section">
             <h3>Liên hệ</h3>
-            <p>Email: <a href="mailto:oasisvrzone@gmail.com">oasisvrzone@gmail.com</a></p>
-            <p>Số điện thoại 1: <a href="tel:+84847465539">0847465539</a></p>
-            <p>Số điện thoại 2: <a href="tel:+0888312727">0888312727</a></p>
-            <p>Địa chỉ: <span>Flora Panorama 2 FP2, Mizuki Park, Bình Hưng, Bình Chánh, TP. HCM</span></p>
-            <p><a href="https://www.facebook.com/profile.php?id=61553293358830" target="_blank">Facebook Shop</a></p>
+            <p><i class="fas fa-envelope"></i> Email: <a href="mailto:oasisvrzone@gmail.com">oasisvrzone@gmail.com</a></p>
+            <p><i class="fas fa-phone"></i> Số điện thoại 1: <a href="tel:+84847465539">0847465539</a></p>
+            <p><i class="fas fa-phone"></i> Số điện thoại 2: <a href="tel:+0888312727">0888312727</a></p>
+            <p><i class="fas fa-map-marker-alt"></i> Địa chỉ: Flora Panorama 2 FP2, Mizuki Park, Bình Hưng, Bình Chánh, TP. HCM</p>
+            <p><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/profile.php?id=61553293358830" target="_blank">Facebook Shop</a></p>
         </div>
     </footer>
 
@@ -846,7 +1058,7 @@
         let delay = 0;
         articles.forEach(article => {
             observer.observe(article);
-            delay += 200; // Tăng độ trễ 200ms cho mỗi bài viết
+            delay += 200;
             article.style.transitionDelay = `${delay}ms`;
         });
     </script>

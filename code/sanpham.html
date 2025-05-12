@@ -7,6 +7,7 @@
     <meta name="keywords" content="VR, kính thực tế ảo, Meta Quest, phụ kiện VR, Oasis VR Zone">
     <title>Sản phẩm - Oasis VR Zone</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="ai.png" type="image/x-icon">
     <style>
         /* Reset mặc định */
@@ -84,7 +85,7 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 25px;
             align-items: center;
         }
 
@@ -93,13 +94,15 @@
         }
 
         nav ul li a {
-            color: #fff;
+            color: #e0f7fa;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-size: 16px;
             font-weight: 500;
             letter-spacing: 1px;
-            transition: color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         nav ul li a:hover {
@@ -107,12 +110,28 @@
             transform: translateY(-3px);
         }
 
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #00ffcc;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown */
         .dropdown {
             margin-left: auto;
         }
 
         .dropdown-toggle {
-            color: #fff;
+            color: #e0f7fa;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-size: 16px;
@@ -171,7 +190,7 @@
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 400;
             display: block;
             padding: 8px 15px;
             border-radius: 10px;
@@ -377,16 +396,27 @@
             100% { transform: scale(0.5); opacity: 0; }
         }
 
-        /* Footer */
+        /* Footer nằm ở cuối trang */
         footer {
             background: linear-gradient(90deg, #1a1a1a, #2c2c2c);
-            padding: 60px 20px;
+            padding: 40px 20px;
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 40px;
-            color: #d1d1d1;
+            justify-content: center;
+            gap: 50px;
+            color: #d1e8ec;
             box-shadow: 0 -4px 10px rgba(0, 255, 204, 0.2);
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+            width: 100%;
+        }
+
+        footer .footer-section {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+            z-index: 1;
         }
 
         footer .footer-section h3 {
@@ -398,39 +428,65 @@
             text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
         }
 
-        footer .footer-section p {
-            font-size: 16px;
-            color: #d1d1d1;
-            line-height: 1.8;
+        footer .footer-section ul {
+            list-style: none;
+        }
+
+        footer .footer-section ul li {
+            margin: 10px 0;
         }
 
         footer .footer-section ul li a {
+            font-family: 'Roboto', sans-serif;
             font-size: 16px;
             color: #00ffcc;
             text-decoration: none;
-            line-height: 1.8;
-            transition: color 0.3s;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         footer .footer-section ul li a:hover {
-            color: #00ffcc;
+            color: #ff6600;
+            transform: translateY(-2px);
+        }
+
+        footer .footer-section ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ff6600;
+            transition: width 0.3s ease;
+        }
+
+        footer .footer-section ul li a:hover::after {
+            width: 100%;
         }
 
         .footer-section.contact-section p {
-            margin-bottom: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            margin: 10px 0;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
+        }
+
+        .footer-section.contact-section p i {
+            color: #00ffcc;
         }
 
         .footer-section.contact-section a {
             color: #00ffcc;
             text-decoration: none;
-            transition: color 0.3s, transform 0.3s;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         .footer-section.contact-section a:hover {
-            color: #00ffcc;
+            color: #ff6600;
             transform: translateX(5px);
         }
 
@@ -725,19 +781,19 @@
         <div class="footer-section">
             <h3>Liên kết nhanh</h3>
             <ul>
-                <li><a href="index.html#home">Trang chủ</a></li>
-                <li><a href="sanpham.html">Sản phẩm</a></li>
-                <li><a href="index.html#events">Sự kiện</a></li>
-                <li><a href="https://m.me/pham.huuly.1" target="_blank">Liên hệ</a></li>
+                <li><a href="index.html#home">Trang chủ <i class="fas fa-home"></i></a></li>
+                <li><a href="index.html#products">Sản phẩm <i class="fas fa-box"></i></a></li>
+                <li><a href="index.html#events">Sự kiện <i class="fas fa-calendar-alt"></i></a></li>
+                <li><a href="https://m.me/pham.huuly.1" target="_blank">Liên hệ <i class="fas fa-envelope"></i></a></li>
             </ul>
         </div>
         <div class="footer-section contact-section">
             <h3>Liên hệ</h3>
-            <p>Email: <a href="mailto:oasisvrzone@gmail.com">oasisvrzone@gmail.com</a></p>
-            <p>Số điện thoại 1: <a href="tel:+84847465539">0847465539</a></p>
-            <p>Số điện thoại 2: <a href="tel:+0888312727">0888312727</a></p>
-            <p>Địa chỉ: <span>Flora Panorama 2 FP2, Mizuki Park, Bình Hưng, Bình Chánh, TP. HCM</span></p>
-            <p><a href="https://www.facebook.com/profile.php?id=61553293358830" target="_blank">Facebook Shop</a></p>
+            <p><i class="fas fa-envelope"></i> Email: <a href="mailto:oasisvrzone@gmail.com">oasisvrzone@gmail.com</a></p>
+            <p><i class="fas fa-phone"></i> Số điện thoại 1: <a href="tel:+84847465539">0847465539</a></p>
+            <p><i class="fas fa-phone"></i> Số điện thoại 2: <a href="tel:+0888312727">0888312727</a></p>
+            <p><i class="fas fa-map-marker-alt"></i> Địa chỉ: Flora Panorama 2 FP2, Mizuki Park, Bình Hưng, Bình Chánh, TP. HCM</p>
+            <p><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/profile.php?id=61553293358830" target="_blank">Facebook Shop</a></p>
         </div>
     </footer>
 
