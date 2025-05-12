@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Cửa hàng chuyên cung cấp các loại kính VR chính hãng, chất lượng cao và giá cả hợp lý, cùng với các dịch vụ hỗ trợ và tư vấn chuyên nghiệp cho người dùng VR.">
     <meta name="keywords" content="VR, kính thực tế ảo, Meta Quest, công nghệ, VR Shop, oasis, oasisvrzone">
-    <title>Oasis Vr Zone-Vũ Trụ Trong Tầm Mắt</title>
+    <title>Oasis Vr Zone - Vũ Trụ Trong Tầm Mắt</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap">
     <link rel="icon" href="ai.png" type="image/x-icon">
     <style>
@@ -182,6 +182,141 @@
             margin: 0 auto;
         }
 
+        /* Slider Section */
+        .slider-section {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 80px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+        }
+
+        .slider-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+        }
+
+        .product-slider {
+            position: relative;
+            max-width: 1200px; /* Tăng chiều rộng để chứa slider lớn hơn */
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .slider-container {
+            display: flex;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-product {
+            min-width: 380px; /* Tăng chiều rộng khung */
+            max-width: 380px;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slider-product img {
+            width: 100%;
+            height: 300px; /* Tăng chiều cao ảnh */
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            padding: 3px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .slider-product:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
+        }
+
+        .slider-product h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            height: 30px; /* Cố định chiều cao tiêu đề */
+            line-height: 30px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .slider-product p {
+            font-size: 14px;
+            color: #d1d1d1;
+            text-align: center;
+            height: 40px; /* Cố định chiều cao mô tả */
+            line-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .view-more-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+
+        .view-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.8);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 10;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(0, 255, 204, 0.3);
+        }
+
+        .left-arrow {
+            left: 10px;
+        }
+
+        .right-arrow {
+            right: 10px;
+        }
+
         /* Mặt hàng hot */
         .hot-section {
             background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
@@ -218,6 +353,10 @@
             text-align: center;
             transition: transform 0.4s ease, box-shadow 0.4s ease, border-radius 0.4s ease;
             z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .hot-product:hover {
@@ -254,6 +393,7 @@
         .hot-product p {
             font-size: 16px;
             color: #d1d1d1;
+            text-align: center;
         }
 
         /* Dịch vụ tiêu biểu */
@@ -292,6 +432,10 @@
             text-align: center;
             transition: transform 0.4s ease, box-shadow 0.4s ease, border-radius 0.4s ease;
             z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .service:hover {
@@ -328,6 +472,7 @@
         .service p {
             font-size: 16px;
             color: #d1d1d1;
+            text-align: center;
         }
 
         /* Giới thiệu */
@@ -554,7 +699,8 @@
         /* Responsive */
         @media (max-width: 1024px) {
             .hot-products,
-            .services {
+            .services,
+            .slider-container {
                 flex-wrap: wrap;
                 justify-content: center;
             }
@@ -562,6 +708,11 @@
             .hot-product,
             .service {
                 max-width: 300px;
+            }
+
+            .slider-product {
+                min-width: 340px;
+                max-width: 340px;
             }
         }
 
@@ -572,7 +723,7 @@
                 justify-content: space-between;
                 align-items: center;
                 flex-direction: row;
-                background: linear-gradient(90deg, #1a1a1a, #2c2c2c); /* Preserve original color */
+                background: linear-gradient(90deg, #1a1a1a, #2c2c2c);
                 box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
             }
 
@@ -592,20 +743,20 @@
             }
 
             nav ul {
-                gap: 5px; /* Reduced gap to fit all items */
+                gap: 5px;
                 flex-direction: row;
                 align-items: center;
                 margin-right: 5px;
             }
 
             nav ul li {
-                display: inline-block; /* Show all menu items */
+                display: inline-block;
                 flex-shrink: 0;
                 white-space: nowrap;
             }
 
             nav ul li a {
-                font-size: 12px; /* Reduced font size to fit */
+                font-size: 12px;
                 padding: 5px 8px;
             }
 
@@ -615,22 +766,22 @@
             }
 
             .dropdown-toggle {
-                font-size: 12px; /* Reduced font size */
+                font-size: 12px;
                 padding: 6px 12px;
-                background: linear-gradient(45deg, #00ffcc, #ff6600); /* Preserve original gradient */
+                background: linear-gradient(45deg, #00ffcc, #ff6600);
             }
 
             .dropdown-menu {
-                min-width: 150px; /* Slightly smaller for mobile */
+                min-width: 150px;
                 padding: 8px;
                 top: calc(100% + 5px);
                 right: 0;
                 z-index: 1001;
-                background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(255, 102, 0, 0.2)); /* Preserve original gradient */
+                background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(255, 102, 0, 0.2));
                 backdrop-filter: blur(10px);
                 border-radius: 10px;
                 box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
-                display: none; /* Controlled by JS */
+                display: none;
             }
 
             .dropdown.active .dropdown-menu {
@@ -642,14 +793,14 @@
 
             .dropdown:hover .dropdown-menu,
             .dropdown:focus-within .dropdown-menu {
-                display: flex; /* Ensure hover/focus works, fallback to JS on mobile */
+                display: flex;
                 opacity: 1;
                 visibility: visible;
                 transform: translateY(0);
             }
 
             .dropdown-menu li a {
-                font-size: 12px; /* Reduced font size */
+                font-size: 12px;
                 padding: 6px 12px;
             }
 
@@ -657,13 +808,18 @@
             .service-section,
             .about-section,
             .event-section,
-            .map-section {
+            .map-section,
+            .slider-section {
                 padding: 30px;
             }
 
             .hot-product img,
             .service img {
                 height: 200px;
+            }
+
+            .slider-product img {
+                height: 260px; /* Giảm kích thước ảnh trong slider */
             }
 
             .about-item,
@@ -726,9 +882,24 @@
                 height: 180px;
             }
 
+            .slider-product {
+                min-width: 300px;
+                max-width: 300px;
+            }
+
+            .slider-product img {
+                height: 220px; /* Giảm thêm kích thước ảnh trong slider */
+            }
+
             .hot-product h3,
             .service h3 {
                 font-size: 22px;
+            }
+
+            .slider-product h3 {
+                font-size: 18px;
+                height: 25px;
+                line-height: 25px;
             }
 
             .hot-product p,
@@ -736,9 +907,16 @@
                 font-size: 14px;
             }
 
+            .slider-product p {
+                font-size: 12px;
+                height: 35px;
+                line-height: 17px;
+            }
+
             .about-section h2,
             .event-section h2,
-            .map-section h2 {
+            .map-section h2,
+            .slider-section h2 {
                 font-size: 30px;
             }
 
@@ -766,8 +944,9 @@
         <nav>
             <ul>
                 <li class="home-link"><a href="#home">Trang chủ</a></li>
-                <li><a href="#products">Sản phẩm</a></li>
+                <li><a href="sanpham.html">Sản phẩm</a></li>
                 <li><a href="#events">Sự kiện</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
             </ul>
             <div class="dropdown">
                 <a href="#" class="dropdown-toggle">Liên hệ</a>
@@ -780,6 +959,54 @@
         </nav>
     </header>
     <main>
+        <section class="slider-section fade-in">
+            <h2>Dịch vụ nổi bật</h2>
+            <div class="product-slider">
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <div class="slider-product">
+                            <img src="a3.jpg" alt="Meta Quest">
+                            <h3>Meta Quest</h3>
+                            <p>Meta Quest 3, Meta Quest 3S, Meta Ray-Ban</p>
+                        </div>
+                        <div class="slider-product">
+                            <img src="a4.jpg" alt="Thiết bị thực tế ảo">
+                            <h3>Thiết bị thực tế ảo</h3>
+                            <p>Pico 4, Apple Vision Pro, HTC VR</p>
+                        </div>
+                        <div class="slider-product">
+                            <img src="a1.jpg" alt="Phụ kiện">
+                            <h3>Phụ kiện</h3>
+                            <p>Strap BoboVR, Sạc BoboVR, Facecover BoboVR</p>
+                        </div>
+                        <div class="slider-product">
+                            <img src="a5.jpg" alt="Tổ chức sự kiện">
+                            <h3>Tổ chức sự kiện</h3>
+                            <p>Dịch vụ tổ chức sự kiện VR chuyên nghiệp</p>
+                        </div>
+                        <div class="slider-product">
+                            <img src="a6.jpg" alt="Lịch sử">
+                            <h3>Lịch sử</h3>
+                            <p>Khám phá hành trình của Oasis VR</p>
+                        </div>
+                        <div class="slider-product">
+                            <img src="a7.jpg" alt="Sứ mệnh">
+                            <h3>Sứ mệnh</h3>
+                            <p>Sứ mệnh tiên phong thực tế ảo</p>
+                        </div>
+                        <div class="slider-product">
+                            <img src="a8.jpg" alt="Đội ngũ">
+                            <h3>Đội ngũ</h3>
+                            <p>Đội ngũ chuyên gia tận tâm</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-arrow left-arrow">←</button>
+                <button class="slider-arrow right-arrow">→</button>
+            </div>
+            <a href="wiki.html" class="view-more-btn">Xem thêm</a>
+        </section>
+
         <section class="hot-section fade-in">
             <h2>Mặt hàng nổi bật</h2>
             <div class="hot-products">
@@ -807,18 +1034,18 @@
                     <img src="7.png" alt="Kinh doanh VR">
                     <h3>Kinh doanh VR</h3>
                     <p>🔥 OASIS VR ZONE – Không chỉ là cửa hàng, mà còn là hệ sinh thái thực tế ảo hàng đầu, nơi bạn có thể tìm thấy các thiết bị VR chính hãng, công nghệ tiên tiến nhất với mức giá hợp lý.<br>
-🎮 Chúng tôi cung cấp:<br>
-✅ Kính VR chất lượng cao – Từ Meta Quest, Apple Vision Pro đến HTC Vive và nhiều thương hiệu khác.<br>
-✅ Hỗ trợ tư vấn chuyên sâu – Giúp bạn lựa chọn thiết bị VR phù hợp với nhu cầu chơi game, làm việc, giải trí hay sáng tạo nội dung.<br>
-✅ Dịch vụ cài đặt & bảo trì – Đảm bảo trải nghiệm VR của bạn mượt mà, tối ưu nhất.</p>
+                    🎮 Chúng tôi cung cấp:<br>
+                    ✅ Kính VR chất lượng cao – Từ Meta Quest, Apple Vision Pro đến HTC Vive và nhiều thương hiệu khác.<br>
+                    ✅ Hỗ trợ tư vấn chuyên sâu – Giúp bạn lựa chọn thiết bị VR phù hợp với nhu cầu chơi game, làm việc, giải trí hay sáng tạo nội dung.<br>
+                    ✅ Dịch vụ cài đặt & bảo trì – Đảm bảo trải nghiệm VR của bạn mượt mà, tối ưu nhất.</p>
                 </div>
                 <div class="service">
                     <img src="a5.jpg" alt="Tổ chức sự kiện">
                     <h3>Tổ chức sự kiện</h3>
                     <p>✨Tổ chức sự kiện giải trí VR: Thiết kế chương trình teambuilding, sự kiện doanh nghiệp, hội chợ công nghệ... với các trò chơi VR hấp dẫn, tương tác cao.<br>
-✨ Ứng dụng VR trong giáo dục: Cung cấp giải pháp đưa thực tế ảo vào trường học – hỗ trợ giảng dạy lịch sử, sinh học, địa lý... giúp học sinh học qua trải nghiệm thực tế sống động.<br>
-✨ Hỗ trợ nghiên cứu & phát triển: Cung cấp thiết bị, nền tảng VR/MR phục vụ nghiên cứu khoa học, đào tạo mô phỏng y khoa, kiến trúc, kỹ thuật.<br>
-✨ Tùy chỉnh giải pháp theo yêu cầu: Hỗ trợ cá nhân hóa dịch vụ VR cho doanh nghiệp, viện nghiên cứu, trường học hoặc dự án sáng tạo riêng biệt.</p>
+                    ✨ Ứng dụng VR trong giáo dục: Cung cấp giải pháp đưa thực tế ảo vào trường học – hỗ trợ giảng dạy lịch sử, sinh học, địa lý... giúp học sinh học qua trải nghiệm thực tế sống động.<br>
+                    ✨ Hỗ trợ nghiên cứu & phát triển: Cung cấp thiết bị, nền tảng VR/MR phục vụ nghiên cứu khoa học, đào tạo mô phỏng y khoa, kiến trúc, kỹ thuật.<br>
+                    ✨ Tùy chỉnh giải pháp theo yêu cầu: Hỗ trợ cá nhân hóa dịch vụ VR cho doanh nghiệp, viện nghiên cứu, trường học hoặc dự án sáng tạo riêng biệt.</p>
                 </div>
             </div>
         </section>
@@ -829,22 +1056,22 @@
                 <div class="content">
                     <h3>🌟 OASIS VR ZONE – Khởi Nguồn Đam Mê Khám Phá Thực Tế Ảo 🌟</h3>
                     <p>Từ những ngày đầu chỉ là một niềm đam mê công nghệ đơn thuần, OASIS VR ZONE đã hình thành với mong muốn mang thế giới thực tế ảo (VR) và thực tế hỗn hợp (MR) đến gần hơn với mọi người.<br>
-Chúng tôi tin rằng công nghệ không chỉ để giải trí, mà còn là cánh cửa mở ra tri thức, sáng tạo và kết nối.<br>
-OASIS ra đời như một "ốc đảo" – nơi ai cũng có thể chạm tay vào tương lai, trải nghiệm thế giới mới lạ và tìm thấy nguồn cảm hứng bất tận qua từng thiết bị, từng trò chơi và từng khoảnh khắc nhập vai.<br>
-Đam mê dẫn lối, công nghệ thắp sáng — OASIS VR ZONE cam kết đồng hành cùng cộng đồng trên hành trình khám phá, học hỏi và vươn xa hơn mỗi ngày! 🚀</p>
+                    Chúng tôi tin rằng công nghệ không chỉ để giải trí, mà còn là cánh cửa mở ra tri thức, sáng tạo và kết nối.<br>
+                    OASIS ra đời như một "ốc đảo" – nơi ai cũng có thể chạm tay vào tương lai, trải nghiệm thế giới mới lạ và tìm thấy nguồn cảm hứng bất tận qua từng thiết bị, từng trò chơi và từng khoảnh khắc nhập vai.<br>
+                    Đam mê dẫn lối, công nghệ thắp sáng — OASIS VR ZONE cam kết đồng hành cùng cộng đồng trên hành trình khám phá, học hỏi và vươn xa hơn mỗi ngày! 🚀</p>
                 </div>
             </div>
             <div class="about-item">
                 <img src="a7.jpg" alt="Sứ mệnh">
                 <div class="content">
-                    <h3>🌟 OASIS VR ZONE – SỨ MỆNH TIÊN PHONG MỞ RA KỶ NGUYÊN THỰC TẾ ẢO 🌟</h3>
+                    <h3>🌟 OASIS VR ZONE – SỨ MỆNH TIÊN PHONG MỞ RA KỸ NGUYÊN THỰC TẾ ẢO 🌟</h3>
                     <p>Tại OASIS VR ZONE, chúng tôi không chỉ đơn thuần kinh doanh thiết bị công nghệ – chúng tôi mang trong mình sứ mệnh tiên phong:<br>
-Đưa thực tế ảo (VR) và thực tế hỗn hợp (MR) trở thành một phần thiết thực trong cuộc sống hàng ngày.<br>
-🎯 Sứ mệnh của chúng tôi:<br>
-Tiên phong phổ cập VR/MR đến với mọi tầng lớp, từ giải trí, giáo dục, đến nghiên cứu và sáng tạo.<br>
-Xây dựng cộng đồng yêu công nghệ, kết nối đam mê và truyền cảm hứng cho thế hệ trẻ.<br>
-Mang trải nghiệm nhập vai chất lượng cao đến tận tay người dùng với dịch vụ tận tâm và chuyên nghiệp nhất.<br>
-Bằng sự đổi mới không ngừng và tinh thần dám nghĩ dám làm, OASIS VR ZONE cam kết trở thành ngọn cờ đầu trong hành trình đưa thực tế ảo từ giấc mơ đến đời sống thực tiễn.</p>
+                    Đưa thực tế ảo (VR) và thực tế hỗn hợp (MR) trở thành một phần thiết thực trong cuộc sống hàng ngày.<br>
+                    🎯 Sứ mệnh của chúng tôi:<br>
+                    Tiên phong phổ cập VR/MR đến với mọi tầng lớp, từ giải trí, giáo dục, đến nghiên cứu và sáng tạo.<br>
+                    Xây dựng cộng đồng yêu công nghệ, kết nối đam mê và truyền cảm hứng cho thế hệ trẻ.<br>
+                    Mang trải nghiệm nhập vai chất lượng cao đến tận tay người dùng với dịch vụ tận tâm và chuyên nghiệp nhất.<br>
+                    Bằng sự đổi mới không ngừng và tinh thần dám nghĩ dám làm, OASIS VR ZONE cam kết trở thành ngọn cờ đầu trong hành trình đưa thực tế ảo từ giấc mơ đến đời sống thực tiễn.</p>
                 </div>
             </div>
             <div class="about-item">
@@ -852,11 +1079,11 @@ Bằng sự đổi mới không ngừng và tinh thần dám nghĩ dám làm, OA
                 <div class="content">
                     <h3>👨‍💻 ĐỘI NGŨ CHUYÊN GIA TẠI OASIS VR ZONE – KIẾN THỨC VỮNG VÀNG, HÀNH ĐỘNG CHUYÊN NGHIỆP 👩‍💻</h3>
                     <p>Tại OASIS VR ZONE, chúng tôi tự hào sở hữu đội ngũ chuyên gia giàu kinh nghiệm trong lĩnh vực thực tế ảo (VR), thực tế hỗn hợp (MR) và công nghệ XR.<br>
-🔹 Am hiểu sâu về thiết bị: Tư vấn đúng nhu cầu, tối ưu hiệu suất.<br>
-🔹 Kỹ thuật setup và hỗ trợ bài bản: Cài đặt full game, app PCVR, MR, hỗ trợ trải nghiệm mượt mà.<br>
-🔹 Đồng hành cùng khách hàng: Hướng dẫn chi tiết, sẵn sàng hỗ trợ từ A-Z sau bán hàng.<br>
-🔹 Luôn cập nhật công nghệ mới nhất: Theo kịp xu hướng XR toàn cầu để mang đến dịch vụ tốt nhất.<br>
-Tập trung – Chuyên sâu – Tận tâm là phương châm của đội ngũ OASIS VR ZONE trên mỗi chặng đường đồng hành cùng khách hàng.</p>
+                    🔹 Am hiểu sâu về thiết bị: Tư vấn đúng nhu cầu, tối ưu hiệu suất.<br>
+                    🔹 Kỹ thuật setup và hỗ trợ bài bản: Cài đặt full game, app PCVR, MR, hỗ trợ trải nghiệm mượt mà.<br>
+                    🔹 Đồng hành cùng khách hàng: Hướng dẫn chi tiết, sẵn sàng hỗ trợ từ A-Z sau bán hàng.<br>
+                    🔹 Luôn cập nhật công nghệ mới nhất: Theo kịp xu hướng XR toàn cầu để mang đến dịch vụ tốt nhất.<br>
+                    Tập trung – Chuyên sâu – Tận tâm là phương châm của đội ngũ OASIS VR ZONE trên mỗi chặng đường đồng hành cùng khách hàng.</p>
                 </div>
             </div>
         </section>
@@ -880,7 +1107,7 @@ Tập trung – Chuyên sâu – Tận tâm là phương châm của đội ngũ
                 <img src="a2.jpg" alt="Sự kiện 3">
                 <div class="content">
                     <h3>Sự Kiện Ưu Đãi</h3>
-                    <p>OASIS VR ZONE – LUÔN CÓ ƯU ĐÃI HẤP DẪN DÀNH RIÊNG CHO BẠN </p>
+                    <p>OASIS VR ZONE – LUÔN CÓ ƯU ĐÃI HẤP DẪN DÀNH RIÊNG CHO BẠN</p>
                 </div>
             </div>
         </section>
@@ -945,6 +1172,34 @@ Tập trung – Chuyên sâu – Tận tâm là phương châm của đội ngũ
                 dropdown.classList.remove('active');
             }
         });
+
+        // Slider functionality
+        const sliderWrapper = document.querySelector('.slider-wrapper');
+        const leftArrow = document.querySelector('.left-arrow');
+        const rightArrow = document.querySelector('.right-arrow');
+        const productWidth = 380; // Cập nhật độ rộng mới của mỗi sản phẩm
+        const visibleProducts = 3; // Số sản phẩm hiển thị cùng lúc
+        const totalProducts = 7; // Tổng số sản phẩm
+        const maxOffset = (totalProducts - visibleProducts) * productWidth; // Độ dịch tối đa
+        let currentOffset = 0;
+
+        function slide(direction) {
+            if (direction === 'right') {
+                currentOffset += productWidth;
+                if (currentOffset > maxOffset) {
+                    currentOffset = 0; // Vòng lại từ đầu khi đến cuối
+                }
+            } else {
+                currentOffset -= productWidth;
+                if (currentOffset < 0) {
+                    currentOffset = maxOffset; // Vòng lại từ cuối khi đến đầu
+                }
+            }
+            sliderWrapper.style.transform = `translateX(-${currentOffset}px)`;
+        }
+
+        leftArrow.addEventListener('click', () => slide('left'));
+        rightArrow.addEventListener('click', () => slide('right'));
     </script>
 </body>
 </html>

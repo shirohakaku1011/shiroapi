@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wiki của Oasis VR Zone - Tìm hiểu về các sản phẩm VR, công nghệ thực tế ảo, và các bài viết hữu ích về trải nghiệm VR.">
+    <meta name="keywords" content="VR, kính thực tế ảo, Meta Quest, công nghệ, VR Shop, oasis, oasisvrzone">
+    <title>Wiki - Oasis VR Zone</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap">
+    <link rel="icon" href="ai.png" type="image/x-icon">
+    <style>
+        /* Reset mặc định */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Font và background */
+        body {
+            background: linear-gradient(180deg, #0a0a0a, #1c2526);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng fade-in khi cuộn */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Header (giữ tông màu từ index.html) */
+        header {
+            background: linear-gradient(90deg, #1a1a1a, #2c2c2c);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
+        }
+
+        .logo {
+            margin-right: 10px;
+        }
+
+        .logo img {
+            height: 60px;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        .logo img:hover {
+            transform: rotate(10deg) scale(1.15);
+            filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.7));
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #00ffcc;
+            transform: translateY(-3px);
+        }
+
+        /* Secondary Menu (Menu cấp 2) */
+        .dropdown {
+            margin-left: auto;
+        }
+
+        .dropdown-toggle {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            padding: 10px 25px;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
+            display: inline-block;
+            touch-action: manipulation;
+        }
+
+        .dropdown-toggle:hover,
+        .dropdown-toggle:focus,
+        .dropdown-toggle:active {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.8);
+            background: linear-gradient(45deg, #ff6600, #00ffcc);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(255, 102, 0, 0.2));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 10px;
+            min-width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dropdown.active .dropdown-menu,
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+            margin: 5px 0;
+        }
+
+        .dropdown-menu li a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            display: block;
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .dropdown-menu li a:hover,
+        .dropdown-menu li a:focus {
+            background: rgba(0, 255, 204, 0.3);
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+        }
+
+        /* Phần thân */
+        main {
+            padding: 100px 20px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-section img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 15px;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            padding: 3px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .hero-section img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            color: #d1d1d1;
+            margin-bottom: 20px;
+        }
+
+        .hero-content a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero-content a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.8);
+        }
+
+        /* Sản phẩm nổi bật */
+        .products-section {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), rgba(255, 102, 0, 0.15));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+        }
+
+        .products-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-item {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .product-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 255, 204, 0.5);
+        }
+
+        .product-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            padding: 3px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .product-item:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
+        }
+
+        .product-item h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .product-item p {
+            font-size: 14px;
+            color: #d1d1d1;
+        }
+
+        /* Bài viết (cải tiến phá cách) */
+        .articles-section {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(255, 102, 0, 0.1));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .articles-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 204, 0.2) 0%, rgba(255, 102, 0, 0.2) 100%);
+            animation: rotateGradient 15s linear infinite;
+            z-index: 0;
+        }
+
+        .articles-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            color: #00ffcc;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+            position: relative;
+            z-index: 1;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .article-item {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+            border-radius: 15px;
+            padding: 20px;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.5s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .article-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 255, 204, 0.5);
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(255, 102, 0, 0.1));
+        }
+
+        .article-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #00ffcc, #ff6600);
+            padding: 3px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .article-item:hover img {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.7);
+        }
+
+        .article-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .article-content h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #00ffcc;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+            transition: color 0.3s;
+        }
+
+        .article-item:hover .article-content h3 {
+            color: #ff6600;
+        }
+
+        .article-content p {
+            font-size: 14px;
+            color: #d1d1d1;
+            line-height: 1.5;
+            max-height: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+
+        /* Animation gradient */
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer (giữ tông màu từ index.html) */
+        footer {
+            background: linear-gradient(90deg, #1a1a1a, #2c2c2c);
+            padding: 60px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            color: #d1d1d1;
+            box-shadow: 0 -4px 10px rgba(0, 255, 204, 0.2);
+        }
+
+        footer .footer-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #00ffcc;
+            text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
+        }
+
+        footer .footer-section p {
+            font-size: 16px;
+            color: #d1d1d1;
+            line-height: 1.8;
+        }
+
+        footer .footer-section ul li a {
+            font-size: 16px;
+            color: #00ffcc;
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+
+        footer .footer-section ul li a:hover {
+            color: #00ffcc;
+        }
+
+        .footer-section.contact-section p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section.contact-section a {
+            color: #00ffcc;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .footer-section.contact-section a:hover {
+            color: #00ffcc;
+            transform: translateX(5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 8px 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: row;
+            }
+
+            .logo {
+                margin-right: 5px;
+                flex-shrink: 0;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            nav {
+                flex-direction: row;
+                align-items: center;
+                flex-grow: 0;
+            }
+
+            nav ul {
+                gap: 5px;
+                flex-direction: row;
+                align-items: center;
+                margin-right: 5px;
+            }
+
+            nav ul li {
+                display: inline-block;
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+
+            nav ul li a {
+                font-size: 12px;
+                padding: 5px 8px;
+            }
+
+            .dropdown {
+                margin-left: 0;
+                flex-shrink: 0;
+            }
+
+            .dropdown-toggle {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .dropdown-menu {
+                min-width: 150px;
+                padding: 8px;
+                top: calc(100% + 5px);
+                right: 0;
+                z-index: 1001;
+                display: none;
+            }
+
+            .dropdown.active .dropdown-menu {
+                display: flex;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .dropdown:hover .dropdown-menu,
+            .dropdown:focus-within .dropdown-menu {
+                display: flex;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .dropdown-menu li a {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .hero-section {
+                padding: 30px;
+                flex-direction: column;
+            }
+
+            .hero-section img {
+                max-width: 100%;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .products-section,
+            .articles-section {
+                padding: 30px;
+            }
+
+            .article-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .article-item img {
+                width: 100%;
+                height: 180px;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-section.contact-section p {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 6px 8px;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            nav ul li a {
+                font-size: 10px;
+                padding: 4px 6px;
+            }
+
+            .dropdown-toggle {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .dropdown-menu {
+                min-width: 140px;
+            }
+
+            .dropdown-menu li a {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
+            }
+
+            .products-section h2,
+            .articles-section h2 {
+                font-size: 26px;
+            }
+
+            .product-item h3,
+            .article-content h3 {
+                font-size: 18px;
+            }
+
+            .product-item p,
+            .article-content p {
+                font-size: 12px;
+            }
+
+            .article-item img {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="VR Shop Logo">
+        </div>
+        <nav>
+            <ul>
+                <li class="home-link"><a href="index.html#home">Trang chủ</a></li>
+                <li><a href="index.html#products">Sản phẩm</a></li>
+                <li><a href="index.html#events">Sự kiện</a></li>
+                <li><a href="wiki.html">Wiki</a></li>
+            </ul>
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Liên hệ</a>
+                <ul class="dropdown-menu">
+                    <li><a href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank">Facebook</a></li>
+                    <li><a href="tel:+84847465539">Số điện thoại: 0847465539</a></li>
+                    <li><a href="https://zalo.me/0888312727" target="_blank">Zalo</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section fade-in">
+            <img src="a3.jpg" alt="Giới thiệu VR">
+            <div class="hero-content">
+                <h1>Khám phá Thế Giới Thực Tế Ảo với Oasis VR Zone</h1>
+                <p>Oasis VR Zone không chỉ là một cửa hàng, mà là một hệ sinh thái thực tế ảo hàng đầu. Chúng tôi mang đến các thiết bị VR chính hãng, công nghệ tiên tiến, cùng các bài viết hữu ích để bạn khám phá thế giới VR một cách trọn vẹn nhất.</p>
+                <a href="sanpham.html">Xem sản phẩm ngay</a>
+            </div>
+        </section>
+
+        <!-- Sản phẩm nổi bật -->
+        <section class="products-section fade-in">
+            <h2>Sản phẩm nổi bật</h2>
+            <div class="products-grid">
+                <div class="product-item">
+                    <img src="a3.jpg" alt="Meta Quest">
+                    <h3>Meta Quest</h3>
+                    <p>Meta Quest 3, Meta Quest 3S, Meta Ray-Ban</p>
+                </div>
+                <div class="product-item">
+                    <img src="a4.jpg" alt="Thiết bị thực tế ảo">
+                    <h3>Thiết bị thực tế ảo</h3>
+                    <p>Pico 4, Apple Vision Pro, HTC VR</p>
+                </div>
+                <div class="product-item">
+                    <img src="a1.jpg" alt="Phụ kiện">
+                    <h3>Phụ kiện</h3>
+                    <p>Strap BoboVR, Sạc BoboVR, Facecover BoboVR</p>
+                </div>
+                <div class="product-item">
+                    <img src="a5.jpg" alt="Tổ chức sự kiện">
+                    <h3>Tổ chức sự kiện</h3>
+                    <p>Dịch vụ tổ chức sự kiện VR chuyên nghiệp</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bài viết (cải tiến) -->
+        <section class="articles-section fade-in">
+            <h2>Bài viết hữu ích</h2>
+            <div class="articles-grid">
+                <div class="article-item scale-in">
+                    <img src="a10.jpg" alt="Phát triển Game VR">
+                    <div class="article-content">
+                        <h3>Phát triển Game Thực tế ảo Cho Giải trí và Truyền Thông</h3>
+                        <p>Game thực tế ảo với trào lưu công nghệ thực tế ảo mới để đáp ứng nhu cầu thưởng thức, trải nghiệm của người chơi với kính VR hoặc triển khai trên các nền tảng di động với AR. Đây là hướng đi mới được nhiều nhà phát hành game, công ty Marketing ứng dụng trong các sự kiện truyền thông, mang lại nội dung nổi bật và thu hút hơn.</p>
+                    </div>
+                </div>
+                <div class="article-item scale-in">
+                    <img src="a11.jpg" alt="Trải nghiệm Bất động sản">
+                    <div class="article-content">
+                        <h3>Trải nghiệm Bất động sản Căn Hộ Mẫu với VR/AR</h3>
+                        <p>Khách hàng mục sở thị không gian sống 3D, tương tác trực tiếp với nội thất, tiết kiệm chi phí cho nhà đầu tư và mang lại sự linh hoạt, nhanh chóng. Đây là giải pháp chiến lược cho bất động sản trong thời kỳ mới.</p>
+                    </div>
+                </div>
+                <div class="article-item scale-in">
+                    <img src="a2.jpg" alt="Số hóa Cổ vật">
+                    <div class="article-content">
+                        <h3>Số hóa Cổ vật, Di tích, Bảo tàng Thời Đại 4.0</h3>
+                        <p>Số hóa giúp lưu trữ và tái bản nhanh chóng, trưng bày hấp dẫn hơn với công nghệ VR/AR. Tạo ra các bảo tàng ảo 3D, thu hút khách tham quan mọi lúc, mọi nơi.</p>
+                    </div>
+                </div>
+                <div class="article-item scale-in">
+                    <img src="a6.jpg" alt="Giải pháp XR Giáo dục">
+                    <div class="article-content">
+                        <h3>Giải pháp XR cho Giáo dục và Đào tạo Nghề</h3>
+                        <p>Chuyển đổi số trong giáo dục với VR/AR/MR, mang lại trải nghiệm thực tế cho các môn học như vật lý, hóa học. Xây dựng nền tảng và phần mềm quản lý học tập hiện đại.</p>
+                    </div>
+                </div>
+                <div class="article-item scale-in">
+                    <img src="a7.jpg" alt="Mô phỏng Đào tạo">
+                    <div class="article-content">
+                        <h3>Hệ thống Mô phỏng cho Đào tạo, Dạy Nghề, Huấn luyện VR</h3>
+                        <p>Ứng dụng mô phỏng VR trong quân sự, đào tạo lái xe, y tế, giúp thực hành an toàn và hiệu quả, thay thế học lý thuyết truyền thống.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-section">
+            <h3>Liên kết nhanh</h3>
+            <ul>
+                <li><a href="index.html#home">Trang chủ</a></li>
+                <li><a href="index.html#products">Sản phẩm</a></li>
+                <li><a href="index.html#events">Sự kiện</a></li>
+                <li><a href="https://m.me/pham.huuly.1" target="_blank">Liên hệ</a></li>
+            </ul>
+        </div>
+        <div class="footer-section contact-section">
+            <h3>Liên hệ</h3>
+            <p>Email: <a href="mailto:oasisvrzone@gmail.com">oasisvrzone@gmail.com</a></p>
+            <p>Số điện thoại 1: <a href="tel:+84847465539">0847465539</a></p>
+            <p>Số điện thoại 2: <a href="tel:+0888312727">0888312727</a></p>
+            <p>Địa chỉ: <span>Flora Panorama 2 FP2, Mizuki Park, Bình Hưng, Bình Chánh, TP. HCM</span></p>
+            <p><a href="https://www.facebook.com/profile.php?id=61553293358830" target="_blank">Facebook Shop</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Hiệu ứng fade-in khi cuộn
+        const fadeIns = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeIns.forEach(element => observer.observe(element));
+
+        // Toggle dropdown menu on mobile
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdown = document.querySelector('.dropdown');
+
+        function toggleDropdown(e) {
+            e.preventDefault();
+            dropdown.classList.toggle('active');
+        }
+
+        dropdownToggle.addEventListener('click', toggleDropdown);
+        dropdownToggle.addEventListener('touchstart', toggleDropdown);
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Thêm animation scale-in cho bài viết
+        const articles = document.querySelectorAll('.article-item');
+        let delay = 0;
+        articles.forEach(article => {
+            observer.observe(article);
+            delay += 200; // Tăng độ trễ 200ms cho mỗi bài viết
+            article.style.transitionDelay = `${delay}ms`;
+        });
+    </script>
+</body>
+</html>
