@@ -4,16 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OASIS VR ZONE — Cửa hàng VR Night City</title>
-  <meta name="description" content="OASIS VR ZONE: cửa hàng VR phong cách Night City. Hero video toàn màn, slider sự kiện 3 mục, review ticker, đội ngũ tối giản, bản đồ — thiết kế 2025." />
+  <meta name="description" content="OASIS VR ZONE: cửa hàng VR phong cách Night City. Hero video toàn màn, slider sự kiện 3 mục, review ticker, team tối giản, bản đồ — thiết kế 2025." />
   <meta name="theme-color" content="#0ff" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%2300e6ff'/%3E%3Cstop offset='1' stop-color='%23ff25ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' fill='%230b0f14'/%3E%3Cpath d='M15 55 L35 25 L55 55 L75 25 L85 55 L75 75 L55 45 L35 75 Z' fill='url(%23g)'/%3E%3C/svg%3E" />
-
-  <!-- Open Graph -->
   <meta property="og:title" content="OASIS VR ZONE — Cửa hàng VR Night City" />
   <meta property="og:description" content="Hero video full size, sản phẩm, sự kiện (slider 3), review ticker, team tối giản, map — chuẩn 2025." />
   <meta property="og:type" content="website" />
-
-  <!-- CSS -->
   <link rel="preload" href="11.css" as="style" />
   <link rel="stylesheet" href="11.css" />
 </head>
@@ -26,13 +22,21 @@
           <span class="logo-badge" aria-hidden="true"></span>
           <span>OASIS VR ZONE</span>
         </a>
+
+        <!-- Desktop menu -->
         <div class="menu" role="menubar">
           <a role="menuitem" href="#home">Trang chủ</a>
           <a role="menuitem" href="#products">Sản phẩm</a>
-          <a role="menuitem" href="#events">Sự kiện</a>
+          <!-- BỎ mục Sự kiện trên menu theo yêu cầu -->
           <a role="menuitem" href="#services">Dịch vụ</a>
           <a role="menuitem" href="#wiki">Wiki</a>
         </div>
+
+        <!-- Mobile hamburger -->
+        <button class="hamburger" id="hamburger" aria-label="Mở menu" aria-controls="mobileMenu" aria-expanded="false">
+          <i></i>
+        </button>
+
         <div class="cta dropdown">
           <button class="btn primary" id="contactBtn" aria-haspopup="true" aria-expanded="false">Liên hệ</button>
           <div class="dropdown-menu" role="menu" aria-labelledby="contactBtn">
@@ -43,11 +47,20 @@
           </div>
         </div>
       </div>
+
+      <!-- Mobile drawer -->
+      <div class="mobile-menu" id="mobileMenu" role="menu">
+        <a role="menuitem" href="#home">Trang chủ</a>
+        <a role="menuitem" href="#products">Sản phẩm</a>
+        <a role="menuitem" href="#services">Dịch vụ</a>
+        <a role="menuitem" href="#wiki">Wiki</a>
+        <a role="menuitem" href="#contact">Liên hệ</a>
+      </div>
     </nav>
   </header>
 
   <!-- ==================== HERO ==================== -->
-  <section id="home" class="hero fx-section" data-fx="section-fade" aria-label="Hero video">
+  <section id="home" class="hero fx-section" aria-label="Hero video">
     <div class="video-bg" aria-hidden="true">
       <iframe src="https://www.youtube.com/embed/JWCJL07QlUM?autoplay=1&mute=1&loop=1&controls=0&playlist=JWCJL07QlUM&modestbranding=1&playsinline=1"
               allow="autoplay; fullscreen; picture-in-picture" title="OASIS VR ZONE Hero" frameborder="0"></iframe>
@@ -64,7 +77,7 @@
   </section>
 
   <!-- ==================== PRODUCTS ==================== -->
-  <section id="products" class="section fx-section" data-fx="section-fade" aria-label="Sản phẩm">
+  <section id="products" class="section fx-section" aria-label="Sản phẩm">
     <div class="container stack">
       <div class="center stack-sm">
         <span class="eyebrow">Sản phẩm</span>
@@ -73,7 +86,7 @@
       </div>
       <div class="products-grid" role="list">
         <article class="card" role="listitem">
-          <div class="media" aria-hidden="true"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="NEON XR Pro"/></div>
+          <div class="media" aria-hidden="true"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="XR Pro"/></div>
           <div class="body">
             <div class="row"><span class="chip">Headsets</span><span class="price">từ 15.990.000₫</span></div>
             <h3>XR Pro</h3>
@@ -82,7 +95,7 @@
           </div>
         </article>
         <article class="card" role="listitem">
-          <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="NEON Sense"/></div>
+          <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Sense"/></div>
           <div class="body">
             <div class="row"><span class="chip">Controllers</span><span class="price">từ 3.490.000₫</span></div>
             <h3>Sense</h3>
@@ -91,7 +104,7 @@
           </div>
         </article>
         <article class="card" role="listitem">
-          <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="NEON Pulse Vest"/></div>
+          <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Pulse Vest"/></div>
           <div class="body">
             <div class="row"><span class="chip">Haptics</span><span class="price">từ 6.990.000₫</span></div>
             <h3>Pulse Vest</h3>
@@ -113,7 +126,7 @@
   </section>
 
   <!-- ==================== ABOUT ==================== -->
-  <section id="about" class="section fx-section" data-fx="section-fade" aria-label="Về shop">
+  <section id="about" class="section fx-section" aria-label="Về shop">
     <div class="container about-grid stack">
       <div class="about-media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Showroom OASIS VR ZONE"/></div>
       <div class="about-copy stack-sm">
@@ -135,12 +148,12 @@
   </section>
 
   <!-- ==================== EVENTS (Slider 3) ==================== -->
-  <section id="events" class="section fx-section" data-fx="section-fade" aria-label="Sự kiện">
+  <section id="events" class="section fx-section" aria-label="Sự kiện">
     <div class="container stack">
       <div class="center stack-sm">
         <span class="eyebrow">Sự kiện & hoạt động</span>
         <h2 class="title">Trải nghiệm nổi bật <span class="accent">tuần này</span></h2>
-        <p class="subtitle">Hiển thị 3 thẻ (tablet: 2, mobile: 1). Neon sang trọng, đủ chức năng: kéo, tự chạy, mũi tên & dots.</p>
+        <p class="subtitle">Hiển thị 3 thẻ (tablet: 2, mobile: 1). Neon sang trọng, kéo, tự chạy, mũi tên & dots.</p>
       </div>
       <div class="slider3" id="events3">
         <button class="navbtn prev" aria-label="Trước"></button>
@@ -190,12 +203,12 @@
   </section>
 
   <!-- ==================== REVIEWS ==================== -->
-  <section id="reviews" class="section fx-section" data-fx="section-fade" aria-label="Đánh giá khách hàng">
+  <section id="reviews" class="section fx-section" aria-label="Đánh giá khách hàng">
     <div class="container stack">
       <div class="center stack-sm">
         <span class="eyebrow">Khách hàng nói gì?</span>
-        <h2 class="title">Đánh giá của khách — <span class="accent-2">live ticker</span></h2>
-        <p class="subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque magnam, quas, esse molestiae nostrum earum ad</p>
+        <h2 class="title">Đánh giá chạy quanh — <span class="accent-2">live ticker</span></h2>
+        <p class="subtitle">Pill review chạy ngang như bảng điện, dữ liệu mẫu có thể thay bằng API thật.</p>
       </div>
       <div class="ticker" aria-live="polite">
         <div class="row" id="rowA"></div>
@@ -204,62 +217,62 @@
     </div>
   </section>
 
-  <!-- ==================== TEAM (simplified) ==================== -->
-  <section id="team" class="section fx-section" data-fx="section-fade" aria-label="Đội ngũ">
+  <!-- ==================== TEAM ==================== -->
+  <section id="team" class="section fx-section" aria-label="Đội ngũ">
     <div class="container stack">
       <div class="center stack-sm">
         <span class="eyebrow">Team</span>
         <h2 class="title">Con người phía sau <span class="accent-1">OASIS</span></h2>
-        <p class="subtitle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis aperiam quis nesciunt nostrum nam et illo autem assumenda?.</p>
+        <p class="subtitle">Tối giản: chỉ hiện icon mạng xã hội khi hover. Click để mở trang cá nhân.</p>
       </div>
       <div class="team-grid simple" role="list">
         <article class="member" role="listitem">
           <div class="photo"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Alex Nguyen" loading="lazy"></div>
-          <div class="meta"><h4>Alex Nguyen</h4><p>XR Lead</p></div>
           <div class="socials" aria-hidden="true">
             <a class="icon" href="https://twitter.com" target="_blank" aria-label="Twitter" rel="noopener">🔗</a>
             <a class="icon" href="https://www.instagram.com" target="_blank" aria-label="Instagram" rel="noopener">🔗</a>
             <a class="icon" href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn" rel="noopener">🔗</a>
           </div>
+          <div class="meta"><h4>Alex Nguyen</h4><p>XR Lead</p></div>
         </article>
         <article class="member" role="listitem">
           <div class="photo"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Minh Tran" loading="lazy"></div>
-          <div class="meta"><h4>Minh Tran</h4><p>Store Manager</p></div>
           <div class="socials" aria-hidden="true">
             <a class="icon" href="https://twitter.com" target="_blank" aria-label="Twitter" rel="noopener">🔗</a>
             <a class="icon" href="https://www.instagram.com" target="_blank" aria-label="Instagram" rel="noopener">🔗</a>
             <a class="icon" href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn" rel="noopener">🔗</a>
           </div>
+          <div class="meta"><h4>Minh Tran</h4><p>Store Manager</p></div>
         </article>
         <article class="member" role="listitem">
           <div class="photo"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Linh Pham" loading="lazy"></div>
-          <div class="meta"><h4>Linh Pham</h4><p>Customer Success</p></div>
           <div class="socials" aria-hidden="true">
             <a class="icon" href="https://twitter.com" target="_blank" aria-label="Twitter" rel="noopener">🔗</a>
             <a class="icon" href="https://www.instagram.com" target="_blank" aria-label="Instagram" rel="noopener">🔗</a>
             <a class="icon" href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn" rel="noopener">🔗</a>
           </div>
+          <div class="meta"><h4>Linh Pham</h4><p>Customer Success</p></div>
         </article>
         <article class="member" role="listitem">
           <div class="photo"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Quang Le" loading="lazy"></div>
-          <div class="meta"><h4>Quang Le</h4><p>Tech Specialist</p></div>
           <div class="socials" aria-hidden="true">
             <a class="icon" href="https://twitter.com" target="_blank" aria-label="Twitter" rel="noopener">🔗</a>
             <a class="icon" href="https://www.instagram.com" target="_blank" aria-label="Instagram" rel="noopener">🔗</a>
             <a class="icon" href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn" rel="noopener">🔗</a>
           </div>
+          <div class="meta"><h4>Quang Le</h4><p>Tech Specialist</p></div>
         </article>
       </div>
     </div>
   </section>
 
   <!-- ==================== GALLERY ==================== -->
-  <section id="gallery" class="section fx-section" data-fx="section-fade" aria-label="Thư viện">
+  <section id="gallery" class="section fx-section" aria-label="Thư viện">
     <div class="container stack">
       <div class="center stack-sm">
         <span class="eyebrow">Thư viện</span>
-        <h2 class="title">Khoảnh khắc <span class="accent-2">Tại Shop</span></h2>
-        <p class="subtitle">Ảnh & video gameplay</p>
+        <h2 class="title">Khoảnh khắc <span class="accent-2">Night City</span></h2>
+        <p class="subtitle">Ảnh & video được chọn, cân đối tỉ lệ đồng nhất.</p>
       </div>
       <div class="products-grid gallery-grid">
         <figure class="card" style="grid-column:span 4"><div class="media"><img alt="Wall Neon" src="https://wallpaperaccess.com/full/2399993.jpg" loading="lazy"/></div><figcaption class="body">Backdrop Night City</figcaption></figure>
@@ -269,33 +282,10 @@
     </div>
   </section>
 
-  <!-- ==================== SPECS ==================== -->
-  <section id="specs" class="section fx-section" data-fx="section-fade" aria-label="Thông số">
-    <div class="container stack">
-      <div class="center stack-sm">
-        <span class="eyebrow">Thông số</span>
-        <h2 class="title">So sánh <span class="accent">cấu hình</span></h2>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th>Model</th>
-            <th>Độ phân giải</th>
-            <th>FOV</th>
-            <th>Tracking</th>
-            <th>Trọng lượng</th>
-          </tr></thead>
-          <tbody>
-            <tr><td>XR Pro</td><td>2160×2160/eye</td><td>110°</td><td>Inside-out</td><td>520g</td></tr>
-            <tr><td>Sense</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+  <!-- *** BỎ NGUYÊN MỤC SPECS THEO YÊU CẦU *** -->
 
   <!-- ==================== SERVICES ==================== -->
-  <section id="services" class="section fx-section" data-fx="section-fade" aria-label="Dịch vụ">
+  <section id="services" class="section fx-section" aria-label="Dịch vụ">
     <div class="container stack">
       <div class="center stack-sm">
         <span class="eyebrow">Dịch vụ</span>
@@ -303,33 +293,51 @@
         <p class="subtitle">Tư vấn, lắp đặt, đào tạo — thiết kế theo nhu cầu doanh nghiệp & cá nhân.</p>
       </div>
       <div class="products-grid services-grid">
-        <article class="card holo" style="grid-column:span 4"><div class="body"><h3>Thiết kế showroom VR</h3><p>Concept ánh sáng neon, flow trải nghiệm, demo kịch bản.</p><div class="actions"><a class="btn" href="#">Xem chi tiết</a><a class="btn primary" href="#contact">Liên hệ</a></div></div></article>
-        <article class="card holo" style="grid-column:span 4"><div class="body"><h3>Lắp đặt & tối ưu</h3><p>Setup tracking, tối ưu hiệu năng, an toàn không gian.</p><div class="actions"><a class="btn" href="#">Xem chi tiết</a><a class="btn primary" href="#contact">Liên hệ</a></div></div></article>
-        <article class="card holo" style="grid-column:span 4"><div class="body"><h3>Đào tạo & bảo trì</h3><p>Onboarding nội dung, checklist vận hành, bảo trì định kỳ.</p><div class="actions"><a class="btn" href="#">Xem chi tiết</a><a class="btn primary" href="#contact">Liên hệ</a></div></div></article>
+        <article class="card holo" style="grid-column:span 4">
+          <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Thiết kế showroom VR"></div>
+          <div class="body"><h3>Thiết kế showroom VR</h3><p>Concept ánh sáng neon, flow trải nghiệm, demo kịch bản.</p><div class="actions"><a class="btn" href="#">Xem chi tiết</a><a class="btn primary" href="#contact">Liên hệ</a></div></div>
+        </article>
+        <article class="card holo" style="grid-column:span 4">
+          <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Lắp đặt & tối ưu"></div>
+          <div class="body"><h3>Lắp đặt & tối ưu</h3><p>Setup tracking, tối ưu hiệu năng, an toàn không gian.</p><div class="actions"><a class="btn" href="#">Xem chi tiết</a><a class="btn primary" href="#contact">Liên hệ</a></div></div>
+        </article>
+        <article class="card holo" style="grid-column:span 4">
+          <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Đào tạo & bảo trì"></div>
+          <div class="body"><h3>Đào tạo & bảo trì</h3><p>Onboarding nội dung, checklist vận hành, bảo trì định kỳ.</p><div class="actions"><a class="btn" href="#">Xem chi tiết</a><a class="btn primary" href="#contact">Liên hệ</a></div></div>
+        </article>
       </div>
       <div class="center mt-6"><a class="btn" href="#services">Đi tới trang Dịch vụ</a></div>
     </div>
   </section>
 
   <!-- ==================== WIKI ==================== -->
-  <section id="wiki" class="section fx-section" data-fx="section-fade" aria-label="Wiki">
+  <section id="wiki" class="section fx-section" aria-label="Wiki">
     <div class="container stack">
       <div class="center stack-sm">
         <span class="eyebrow">Wiki</span>
         <h2 class="title">Kiến thức <span class="accent-2">XR</span></h2>
-        <p class="subtitle">Tổng hợp hướng dẫn sử dụng, tối ưu thiết bị, fix lỗi thường gặp.</p>
+        <p class="subtitle">Hướng dẫn sử dụng, tối ưu thiết bị, fix lỗi thường gặp.</p>
       </div>
       <div class="products-grid wiki-grid">
-        <article class="card" style="grid-column:span 4"><div class="body"><h3>Setup phòng VR chuẩn</h3><p>Khoảng cách, ánh sáng, an toàn.</p><div class="actions"><a class="btn" href="#wiki">Xem bài</a></div></div></article>
-        <article class="card" style="grid-column:span 4"><div class="body"><h3>Tối ưu FPS/INP</h3><p>Render scale, reprojection, driver.</p><div class="actions"><a class="btn" href="#wiki">Xem bài</a></div></div></article>
-        <article class="card" style="grid-column:span 4"><div class="body"><h3>Vệ sinh & bảo quản</h3><p>Vật liệu đệm, chống mồ hôi, lưu trữ.</p><div class="actions"><a class="btn" href="#wiki">Xem bài</a></div></div></article>
+        <article class="card" style="grid-column:span 4">
+          <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Setup phòng VR chuẩn"></div>
+          <div class="body"><h3>Setup phòng VR chuẩn</h3><p>Khoảng cách, ánh sáng, an toàn.</p><div class="actions"><a class="btn" href="#wiki">Xem bài</a></div></div>
+        </article>
+        <article class="card" style="grid-column:span 4">
+          <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Tối ưu FPS/INP"></div>
+          <div class="body"><h3>Tối ưu FPS/INP</h3><p>Render scale, reprojection, driver.</p><div class="actions"><a class="btn" href="#wiki">Xem bài</a></div></div>
+        </article>
+        <article class="card" style="grid-column:span 4">
+          <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Vệ sinh & bảo quản"></div>
+          <div class="body"><h3>Vệ sinh & bảo quản</h3><p>Vật liệu đệm, chống mồ hôi, lưu trữ.</p><div class="actions"><a class="btn" href="#wiki">Xem bài</a></div></div>
+        </article>
       </div>
       <div class="center mt-6"><a class="btn primary" href="#wiki">Mở Wiki</a></div>
     </div>
   </section>
 
   <!-- ==================== MAP ==================== -->
-  <section id="map" class="section fx-section" data-fx="section-fade" aria-label="Bản đồ">
+  <section id="map" class="section fx-section" aria-label="Bản đồ">
     <div class="container stack">
       <div class="center stack-sm">
         <span class="eyebrow">Ghé thăm</span>

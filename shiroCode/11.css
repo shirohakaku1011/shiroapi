@@ -58,6 +58,53 @@ body{min-height:100svh;background:var(--bg);color:#cfe9ff;font-family:Inter,ui-s
 .btn:hover{box-shadow:var(--shadow),0 0 0 2px rgba(0,230,255,.25)}
 .btn.primary{background:linear-gradient(135deg,#00e6ff 0%,#2be7ff 30%,#ff25ff 100%);color:#05121a;text-shadow:0 1px 0 rgba(255,255,255,.35);font-weight:800}
 
+
+
+/* ========== MOBILE NAV ========== */
+/* Ẩn hamburger ở desktop, chỉ hiện ở mobile */
+.hamburger{display:none; width:42px;height:42px;border-radius:12px;border:1px solid #1f2a3a;background:#0f1520;place-items:center;cursor:pointer}
+.hamburger i,
+.hamburger::before,
+.hamburger::after{
+  content:""; display:block; width:20px; height:2px; background:#cfe9ff; border-radius:2px;
+}
+.hamburger i{box-shadow:0 -6px 0 #cfe9ff, 0 6px 0 #cfe9ff}
+.hamburger[aria-expanded="true"] i{box-shadow:none}
+.hamburger[aria-expanded="true"]::before{transform:translateY(0) rotate(45deg)}
+.hamburger[aria-expanded="true"]::after{transform:translateY(-2px) rotate(-45deg)}
+.hamburger::before,.hamburger::after{transition:.2s ease;}
+
+/* Drawer mobile mặc định ẩn */
+.mobile-menu{
+  position:absolute; left:12px; right:12px; top:calc(100% + 8px);
+  padding:8px; border:1px solid var(--border); border-radius:12px;
+  background:linear-gradient(180deg,rgba(15,21,32,.95),rgba(15,21,32,.85));
+  box-shadow:var(--shadow); display:block; /* để transition mượt, dùng visibility/opacity để ẩn */
+  opacity:0; visibility:hidden; transform:translateY(8px);
+  transition:opacity .2s ease, transform .2s ease, visibility .2s ease; z-index:55;
+}
+.mobile-menu a{display:block; padding:10px 12px; border-radius:10px}
+.mobile-menu a:hover{background:#0f1520}
+.mobile-menu.open{opacity:1; visibility:visible; transform:translateY(0)}
+
+/* Bắt buộc ẩn hoàn toàn ở desktop để không “đúp menu” */
+@media (min-width: 641px){
+  #mobileMenu{display:none !important;}
+}
+
+/* Ở mobile: hiện nút hamburger, ẩn menu desktop */
+@media (max-width: 640px){
+  .menu{display:none}
+  .hamburger{display:grid}
+  .nav{position:relative} /* để drawer bám theo thanh nav */
+}
+
+/* Khi mở drawer: chặn scroll nền (tuỳ chọn) */
+.no-scroll{overflow:hidden}
+
+
+
+
 /* Dropdown contact */
 .dropdown{position:relative}
 .dropdown .dropdown-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(180deg,rgba(15,21,32,.95),rgba(15,21,32,.85));box-shadow:var(--shadow);padding:8px;display:grid;gap:6px;opacity:0;visibility:hidden;transform:translateY(6px);transition:.2s ease;z-index:50}
@@ -73,7 +120,7 @@ body{min-height:100svh;background:var(--bg);color:#cfe9ff;font-family:Inter,ui-s
 .hero-content{position:relative;z-index:1;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
 .hero-title{font-size:clamp(44px,9vw,120px);line-height:1.02;font-weight:900;letter-spacing:-.02em;text-shadow:0 2px 32px rgba(0,230,255,.25),0 2px 48px rgba(255,37,255,.25)}
 .hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.scroll-ind{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);opacity:.8;animation:bob 1.6s ease-in-out infinite alternate}
+/* .scroll-ind{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);opacity:.8;animation:bob 1.6s ease-in-out infinite alternate} */
 @keyframes bob{from{transform:translate(-50%,2px)}to{transform:translate(-50%,-6px)}}
 
 /* ===================== PRODUCTS ===================== */
@@ -116,11 +163,48 @@ body{min-height:100svh;background:var(--bg);color:#cfe9ff;font-family:Inter,ui-s
 /* ===================== REVIEWS (Ticker) ===================== */
 .reviews{overflow:hidden}
 .ticker{mask:linear-gradient(90deg,transparent,black 10%,black 90%,transparent);display:grid;gap:12px}
-.row{display:flex;gap:12px;white-space:nowrap;animation:scrollX 30s linear infinite}
+/* .row{display:flex;gap:12px;white-space:nowrap;animation:scrollX 30s linear infinite} */
 .row:nth-child(2){animation-duration:42s}
 .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid #213044;border-radius:999px;background:linear-gradient(180deg,rgba(15,21,32,.8),rgba(18,26,38,.8));box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 8px 18px rgba(0,0,0,.25)}
 .pill .star{width:16px;height:16px;filter:drop-shadow(0 0 8px rgba(255,215,0,.35))}
 @keyframes scrollX{to{transform:translateX(-50%)}}
+
+
+/* ===================== REVIEWS (Ticker) — scoped chỉ trong #reviews ===================== */
+#reviews .ticker{
+  display:grid;
+  gap:12px;
+  overflow:hidden;
+  /* mask cho viền mờ 2 bên (hỗ trợ webkit) */
+  -webkit-mask: linear-gradient(90deg,transparent,black 10%,black 90%,transparent);
+  mask: linear-gradient(90deg,transparent,black 10%,black 90%,transparent);
+}
+
+#reviews .row{
+  display:flex;
+  gap:12px;
+  white-space:nowrap;
+  animation:tickerX 30s linear infinite;
+}
+#reviews .row:nth-child(2){ animation-duration:42s; }
+
+/* Ngăn phần tử con co giãn làm xuống dòng */
+#reviews .row > *{ flex:0 0 auto; }
+
+#reviews .pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border:1px solid #213044;
+  border-radius:999px;
+  background:linear-gradient(180deg,rgba(15,21,32,.8),rgba(18,26,38,.8));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03),0 8px 18px rgba(0,0,0,.25);
+}
+#reviews .pill .star{ width:16px; height:16px; filter:drop-shadow(0 0 8px rgba(255,215,0,.35)); }
+
+@keyframes tickerX { to { transform: translateX(-50%); } }
+
 
 /* ===================== TEAM (simplified hover socials) ===================== */
 .team-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,1.4vw,20px)}
@@ -153,8 +237,13 @@ footer{padding:48px 0;border-top:1px solid var(--border);color:#9fb7cf}
 footer .grid-12 .f-col{grid-column:span 4}
 
 /* ===================== SECTION FADE EFFECT (no movement) ===================== */
-.fx-section{opacity:0}
-.fx-section.in{opacity:1;transition:opacity .7s ease}
+/* .fx-section{opacity:0}
+.fx-section.in{opacity:1;transition:opacity .7s ease} */
+
+/* (disabled) Section fade effect */
+.fx-section{opacity:1 !important}
+.fx-section.in{opacity:1 !important; transition:none !important}
+
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 1024px){
@@ -221,3 +310,36 @@ footer .grid-12 .f-col{grid-column:span 4}
 
 .reviews .row:nth-child(2) { animation-duration: 42s; }
  #products .row, #about .row { animation: none !important; white-space: normal; }
+
+
+ /* ===== FIX: container không nở quá rộng ===== */
+:root {
+  /* chọn 1180–1280 tùy gu; 1200 là an toàn trên FHD/2K */
+  --container: 1200px;
+}
+.container{
+  max-width: var(--container);
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: clamp(12px,1.6vw,24px);
+}
+
+/* ===== FIX: grid không bị ép nở bởi nội dung ===== */
+.products-grid { grid-template-columns: repeat(12, minmax(0,1fr)); }
+.products-grid > * { min-width: 0; }   /* rất quan trọng trên CSS Grid */
+.card { min-width: 0; }                /* phòng khi body trong thẻ card dài */
+
+/* ===== FIX: tránh overflow ngang lặt vặt ===== */
+html, body { overflow-x: hidden; }     /* chặn thanh scroll ngang ngoài ý muốn */
+.slider3 .prev { left: 6px; }          /* bỏ giá trị âm để không “đội” container */
+.slider3 .next { right: 6px; }
+.video-bg iframe { width:100%; height:100%; display:block; }
+
+/* (tuỳ chọn) co chữ tiêu đề lại chút cho cân tổng thể */
+.title { letter-spacing:-.02em; }
+
+
+@media (max-width: 1440px){ :root{ --container: 1100px; } }
+@media (max-width: 1280px){ :root{ --container: 1040px; } }
+
+
