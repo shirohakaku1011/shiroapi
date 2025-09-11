@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="pop-future-v1">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OASIS VR ZONE — Pop Future UI</title>
+  <meta name="description" content="Skin mới hoàn toàn: Pop Future / Anime trẻ trung. Hiệu ứng mượt, hero hoành tráng, giữ nguyên nội dung." />
+  <meta name="theme-color" content="#ff8bd6" />
+  <link rel="preconnect" href="https://lookaside.fbsbx.com" crossorigin>
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop stop-color='%23ff8bd6'/%3E%3Cstop offset='1' stop-color='%238af7ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect rx='16' width='96' height='96' fill='%230c0a16'/%3E%3Cpath d='M18 60 L34 26 L50 60 L66 26 L82 60 L66 76 L50 46 L34 76 Z' fill='url(%23g)'/%3E%3C/svg%3E">
+  <!-- CSS (sẽ gửi ở bước sau) -->
+  <link rel="stylesheet" href="4.css" />
+</head>
+<body class="pop-body">
+  <a class="skip-link" href="#hero">Bỏ qua menu</a>
+
+  <!-- ======= GLOBAL DECOS ======= -->
+  <div class="fx-bg fx-grid" aria-hidden="true"></div>
+  <div class="fx-bg fx-orbs" aria-hidden="true">
+    <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+  </div>
+
+  <!-- ======= APP BAR ======= -->
+  <header class="appbar" id="top">
+    <div class="appbar__inner">
+      <a class="brand" href="#hero" aria-label="OASIS VR ZONE">
+        <span class="brand__badge" aria-hidden="true"></span>
+        <strong class="brand__name">OASIS VR ZONE</strong>
+        <small class="brand__kana" aria-hidden="true">オアシス</small>
+      </a>
+
+      <nav class="primary-nav" aria-label="Điều hướng chính">
+        <ul class="navlist">
+          <li><a href="#products">Sản phẩm</a></li>
+          <li><a href="#events">Sự kiện</a></li>
+          <li><a href="#services">Dịch vụ</a></li>
+          <li><a href="#wiki">Wiki</a></li>
+          <li><a href="#map">Bản đồ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-cta">
+        <button id="contactBtn" class="btn btn--primary" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="contactMenu">Liên hệ</button>
+        <div id="contactMenu" class="dropdown" role="dialog" hidden>
+          <ul class="dropdown__list">
+            <li><a href="tel:0123456789">0123 456 789</a></li>
+            <li><a href="mailto:contact@oasisvr.example">contact@oasisvr.example</a></li>
+            <li><a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+        <button class="btn btn--ghost" data-scroll="#products" type="button">Khám phá</button>
+      </div>
+
+      <!-- Mobile menu button (sheet sẽ build bằng JS) -->
+      <button class="m-menu-btn" id="mMenuBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mSheet">
+        <i aria-hidden="true"></i><span class="sr-only">Mở menu</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ======= SIDE RAIL ======= -->
+  <aside class="rail" aria-label="Điều hướng nhanh">
+    <a class="rail__link" href="#hero" data-tip="Trang chủ">⌂</a>
+    <a class="rail__link" href="#products" data-tip="Sản phẩm">◎</a>
+    <a class="rail__link" href="#events" data-tip="Sự kiện">◆</a>
+    <a class="rail__link" href="#team" data-tip="Team">人</a>
+    <a class="rail__link" href="#gallery" data-tip="Thư viện">▦</a>
+    <a class="rail__link" href="#map" data-tip="Bản đồ">⤿</a>
+  </aside>
+
+  <main id="content">
+    <!-- =========================================================
+         HERO — POP FUTURE (trẻ, vui, nhiều hiệu ứng nhưng gọn)
+         ========================================================= -->
+    <section id="hero" class="section hero" aria-label="Hero Pop Future">
+      <div class="container hero__wrap">
+        <!-- Copy -->
+        <div class="hero__copy" data-fx="stagger">
+          <div class="hero__badges">
+            <span class="b b--sakura">New vibe</span>
+            <span class="b b--aqua">Anime Pop</span>
+            <span class="b b--star">2025</span>
+          </div>
+
+          <h1 class="title hero__title">
+            Đeo vào — <span class="t-outline">bước qua</span> ranh giới thực tại.
+          </h1>
+
+          <p class="subtitle">
+            Cửa hàng VR phong cách trẻ trung hiện đại. Trải nghiệm, tư vấn &amp; lắp đặt trọn gói cho game thủ, nhà sáng tạo và doanh nghiệp.
+          </p>
+
+          <div class="hero__stats">
+            <span class="chip">6DoF</span>
+            <span class="chip">Passthrough màu</span>
+            <span class="chip">Haptics cao cấp</span>
+          </div>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#events">Sự kiện tuần này</a>
+            <a class="btn btn--ghost" href="#products">Xem sản phẩm</a>
+          </div>
+
+          <ul class="hero__bullets">
+            <li>• Bảo hành 12–24 tháng • Đổi mới 7 ngày</li>
+            <li>• Demo 1:1 tại shop &amp; lắp đặt tận nơi</li>
+          </ul>
+        </div>
+
+        <!-- Stage (khối trình diễn) -->
+        <figure class="hero__stage" aria-label="Sân khấu trình diễn" data-particles data-sparkles>
+          <!-- Rays / rings / glow (CSS + JS sẽ animate) -->
+          <div class="stage fx-rings" aria-hidden="true">
+            <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
+            <span class="ray y1"></span><span class="ray y2"></span>
+          </div>
+
+          <!-- Thiết bị / video demo -->
+          <div class="device" data-tilt data-tilt-max="8">
+            <div class="device__bezel">
+              <video
+                class="device__media"
+                src="https://lookaside.fbsbx.com/elementpath/media/?media_id=725033653295985&version=725033339962683&vq=HD"
+                autoplay muted loop playsinline preload="metadata"
+                poster="https://lookaside.fbsbx.com/elementpath/media/?media_id=1049176177329123&version=1756482260&transcode_extension=webp"></video>
+            </div>
+            <span class="glare" aria-hidden="true"></span>
+          </div>
+
+          <!-- Sticker / float chips -->
+          <figcaption class="float float--1">
+            <img src="https://wallpaperaccess.com/full/2399993.jpg" alt="" loading="lazy" aria-hidden="true"/>
+            <span>Neon City</span>
+          </figcaption>
+          <figcaption class="float float--2"><span>★ Unity XR</span></figcaption>
+          <figcaption class="float float--3"><span>Beat Saber</span></figcaption>
+        </figure>
+      </div>
+
+      <button class="scroll-ind" data-scroll="#products" aria-label="Cuộn xuống">▼</button>
+    </section>
+
+    <!-- ================= PRODUCTS ================= -->
+    <section id="products" class="section" aria-label="Sản phẩm">
+      <div class="container flow">
+        <header class="section__head">
+          <span class="eyebrow">製品 • Products</span>
+          <h2 class="title">Phần cứng gọn nhẹ — hiệu năng cao</h2>
+          <p class="subtitle">Deck mosaic 12 cột — làm nổi bật sản phẩm chủ lực.</p>
+        </header>
+
+        <div class="deck deck--mosaic" role="list">
+          <!-- XR Pro -->
+          <article class="card card--xl" role="listitem">
+            <div class="card__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="XR Pro" loading="lazy" decoding="async"></div>
+            <div class="card__body">
+              <div class="card__meta"><span class="chip">Headsets</span><span class="price">từ 15.990.000₫</span></div>
+              <h3 class="card__title">XR Pro</h3>
+              <p>Độ phân giải siêu mịn, pancake optics, tracking 6DoF, passthrough màu.</p>
+              <div class="card__actions"><a class="btn btn--ghost" href="#">Xem chi tiết</a><a class="btn btn--primary" href="#contact">Liên hệ</a></div>
+            </div>
+          </article>
+
+          <!-- Sense -->
+          <article class="card" role="listitem">
+            <div class="card__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Sense" loading="lazy" decoding="async"></div>
+            <div class="card__body">
+              <div class="card__meta"><span class="chip">Controllers</span><span class="price">từ 3.490.000₫</span></div>
+              <h3 class="card__title">Sense</h3>
+              <p>IMU + optical fusion, trigger biến thiên, phản hồi rung đa kênh.</p>
+              <div class="card__actions"><a class="btn btn--ghost" href="#">Xem chi tiết</a><a class="btn btn--primary" href="#contact">Liên hệ</a></div>
+            </div>
+          </article>
+
+          <!-- Pulse Vest -->
+          <article class="card" role="listitem">
+            <div class="card__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Pulse Vest" loading="lazy" decoding="async"></div>
+            <div class="card__body">
+              <div class="card__meta"><span class="chip">Haptics</span><span class="price">từ 6.990.000₫</span></div>
+              <h3 class="card__title">Pulse Vest</h3>
+              <p>32 điểm rung, phản hồi theo phổ tần, đồng bộ âm thanh–thị giác.</p>
+              <div class="card__actions"><a class="btn btn--ghost" href="#">Xem chi tiết</a><a class="btn btn--primary" href="#contact">Liên hệ</a></div>
+            </div>
+          </article>
+
+          <!-- Mod Kit -->
+          <article class="card" role="listitem">
+            <div class="card__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Mod Kit" loading="lazy" decoding="async"></div>
+            <div class="card__body">
+              <div class="card__meta"><span class="chip">Accessories</span><span class="price">từ 290.000₫</span></div>
+              <h3 class="card__title">Mod Kit</h3>
+              <p>Đệm mặt, strap cân bằng, dock sạc nhanh, ống kính bảo vệ.</p>
+              <div class="card__actions"><a class="btn btn--ghost" href="#">Xem chi tiết</a><a class="btn btn--primary" href="#contact">Liên hệ</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about" class="section" aria-label="Giới thiệu">
+      <div class="container split">
+        <div class="panel panel--media">
+          <img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Showroom OASIS VR ZONE" loading="lazy" decoding="async">
+        </div>
+        <div class="panel panel--copy">
+          <span class="eyebrow">概要 • About</span>
+          <h2 class="title">Không gian XR cho mọi người</h2>
+          <p class="subtitle">Trải nghiệm, tư vấn và lắp đặt chuyên nghiệp cho game thủ, nhà sáng tạo và doanh nghiệp.</p>
+          <ul class="bullets">
+            <li>• Demo 1:1 &amp; lắp đặt tận nơi</li>
+            <li>• Bảo hành 12–24 tháng</li>
+            <li>• Hỗ trợ SDK &amp; nội dung</li>
+            <li>• Chính sách đổi mới 7 ngày</li>
+          </ul>
+          <div class="panel__actions">
+            <a class="btn btn--ghost" href="#map">Tìm đường đến shop</a>
+            <a class="btn btn--primary" href="#events">Đặt lịch trải nghiệm</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EVENTS (Carousel) ================= -->
+    <section id="events" class="section" aria-label="Sự kiện">
+      <div class="container flow">
+        <header class="section__head">
+          <span class="eyebrow">イベント • Events</span>
+          <h2 class="title">Trải nghiệm nổi bật <span class="accent">tuần này</span></h2>
+          <p class="subtitle">Kéo ngang · Tự chạy · Mũi tên · Dots.</p>
+        </header>
+
+        <div class="carousel" aria-roledescription="carousel">
+          <div class="carousel__viewport" id="eventsViewport">
+            <div class="carousel__track" id="eventsTrack">
+              <article class="slide" role="group" aria-label="1 / 5">
+                <div class="badge">Workshop · Video</div>
+                <div class="media">
+                  <iframe src="https://www.youtube-nocookie.com/embed/JWCJL07QlUM?autoplay=0&mute=1&controls=1&modestbranding=1"
+                          title="Workshop" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+                <h3>Unity XR: Interaction Fundamentals</h3>
+                <p>Thực hành 180 phút — rig input, grab/teleport, tối ưu render.</p>
+                <small>Thứ Bảy · 14:00</small>
+              </article>
+
+              <article class="slide" role="group" aria-label="2 / 5">
+                <div class="badge">Giải đấu · Ảnh</div>
+                <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Beat Saber Neon Cup"></div>
+                <h3>Beat Saber Neon Cup</h3>
+                <p>Bảng xếp hạng trực tiếp, phần thưởng OASIS Kit.</p>
+                <small>Chủ Nhật · 19:00</small>
+              </article>
+
+              <article class="slide" role="group" aria-label="3 / 5">
+                <div class="badge">Demo · Video</div>
+                <div class="media">
+                  <iframe src="https://www.youtube-nocookie.com/embed/JWCJL07QlUM?autoplay=0&mute=1&controls=1&modestbranding=1"
+                          title="Haptics" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+                <h3>Haptics Day</h3>
+                <p>Áo rung Pulse — đồng bộ âm thanh và xung lực.</p>
+                <small>Thứ Sáu · 17:30</small>
+              </article>
+
+              <article class="slide" role="group" aria-label="4 / 5">
+                <div class="badge">Meetup · Ảnh</div>
+                <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="XR for Business"></div>
+                <h3>XR for Business</h3>
+                <p>Ứng dụng VR trong huấn luyện &amp; showroom ảo.</p>
+                <small>Thứ Năm · 18:00</small>
+              </article>
+
+              <article class="slide" role="group" aria-label="5 / 5">
+                <div class="badge">Showcase · Ảnh</div>
+                <div class="media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Creators Showcase"></div>
+                <h3>Creators Showcase</h3>
+                <p>Trưng bày nội dung VR/AR của cộng đồng.</p>
+                <small>Thứ Tư · 19:30</small>
+              </article>
+            </div>
+          </div>
+          <div class="carousel__controls">
+            <button class="ctrl prev" aria-label="Trước" type="button">←</button>
+            <div class="dots" aria-hidden="false"></div>
+            <button class="ctrl next" aria-label="Tiếp" type="button">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= REVIEWS ================= -->
+    <section id="reviews" class="section" aria-label="Đánh giá khách hàng">
+      <div class="container flow">
+        <header class="section__head">
+          <span class="eyebrow">レビュー • Reviews</span>
+          <h2 class="title">Khách hàng nói gì?</h2>
+          <p class="subtitle">Ticker chạy ngang (dữ liệu demo, có thể thay bằng API).</p>
+        </header>
+        <div class="ticker">
+          <div class="ticker__row" id="rowA"></div>
+          <div class="ticker__row" id="rowB"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TEAM ================= -->
+    <section id="team" class="section" aria-label="Đội ngũ">
+      <div class="container flow">
+        <header class="section__head">
+          <span class="eyebrow">チーム • Team</span>
+          <h2 class="title">Con người phía sau <span class="accent-1">OASIS</span></h2>
+          <p class="subtitle">Tối giản: chỉ hiện icon mạng xã hội khi hover.</p>
+        </header>
+        <div class="team deck" role="list">
+          <article class="member" role="listitem">
+            <div class="avatar"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Alex Nguyen"></div>
+            <h3>Alex Nguyen</h3><p>XR Lead</p>
+            <div class="social">
+              <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter">🔗</a>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram">🔗</a>
+              <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">🔗</a>
+            </div>
+          </article>
+          <article class="member" role="listitem">
+            <div class="avatar"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Minh Tran"></div>
+            <h3>Minh Tran</h3><p>Store Manager</p>
+            <div class="social">
+              <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter">🔗</a>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram">🔗</a>
+              <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">🔗</a>
+            </div>
+          </article>
+          <article class="member" role="listitem">
+            <div class="avatar"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Linh Pham"></div>
+            <h3>Linh Pham</h3><p>Customer Success</p>
+            <div class="social">
+              <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter">🔗</a>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram">🔗</a>
+              <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">🔗</a>
+            </div>
+          </article>
+          <article class="member" role="listitem">
+            <div class="avatar"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Quang Le"></div>
+            <h3>Quang Le</h3><p>Tech Specialist</p>
+            <div class="social">
+              <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter">🔗</a>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram">🔗</a>
+              <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">🔗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GALLERY ================= -->
+    <section id="gallery" class="section" aria-label="Thư viện">
+      <div class="container flow">
+        <header class="section__head">
+          <span class="eyebrow">ギャラリー • Gallery</span>
+          <h2 class="title">Khoảnh khắc <span class="accent-2">Pop Future</span></h2>
+          <p class="subtitle">Ảnh &amp; video được chọn, tỉ lệ đồng nhất.</p>
+        </header>
+        <div class="masonry" role="list">
+          <figure class="tile" role="listitem">
+            <div class="tile__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Backdrop Night City" loading="lazy"></div>
+            <figcaption class="tile__cap">Backdrop Night City</figcaption>
+          </figure>
+          <figure class="tile tile--video" role="listitem">
+            <div class="tile__media">
+              <iframe src="https://www.youtube-nocookie.com/embed/JWCJL07QlUM?autoplay=0&mute=1&controls=1&modestbranding=1"
+                      title="Gameplay" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+            <figcaption class="tile__cap">Gameplay demo</figcaption>
+          </figure>
+          <figure class="tile" role="listitem">
+            <div class="tile__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Showroom ánh sáng" loading="lazy"></div>
+            <figcaption class="tile__cap">Showroom ánh sáng</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section id="services" class="section" aria-label="Dịch vụ">
+      <div class="container flow">
+        <header class="section__head">
+          <span class="eyebrow">サービス • Services</span>
+          <h2 class="title">Giải pháp <span class="accent">XR trọn gói</span></h2>
+          <p class="subtitle">Tư vấn, lắp đặt, đào tạo — theo nhu cầu doanh nghiệp &amp; cá nhân.</p>
+        </header>
+        <div class="deck deck--tiles" role="list">
+          <article class="card" role="listitem">
+            <div class="card__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Thiết kế showroom VR"></div>
+            <div class="card__body">
+              <h3>Thiết kế showroom VR</h3>
+              <p>Concept ánh sáng neon, flow trải nghiệm, demo kịch bản.</p>
+              <div class="card__actions"><a class="btn btn--ghost" href="#">Xem chi tiết</a><a class="btn btn--primary" href="#contact">Liên hệ</a></div>
+            </div>
+          </article>
+          <article class="card" role="listitem">
+            <div class="card__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Lắp đặt &amp; tối ưu"></div>
+            <div class="card__body">
+              <h3>Lắp đặt &amp; tối ưu</h3>
+              <p>Setup tracking, tối ưu hiệu năng, an toàn không gian.</p>
+              <div class="card__actions"><a class="btn btn--ghost" href="#">Xem chi tiết</a><a class="btn btn--primary" href="#contact">Liên hệ</a></div>
+            </div>
+          </article>
+          <article class="card" role="listitem">
+            <div class="card__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Đào tạo &amp; bảo trì"></div>
+            <div class="card__body">
+              <h3>Đào tạo &amp; bảo trì</h3>
+              <p>Giáo trình XR, checklist bảo trì thiết bị định kỳ.</p>
+              <div class="card__actions"><a class="btn btn--ghost" href="#">Xem chi tiết</a><a class="btn btn--primary" href="#contact">Liên hệ</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WIKI ================= -->
+    <section id="wiki" class="section" aria-label="Wiki">
+      <div class="container flow">
+        <header class="section__head">
+          <span class="eyebrow">知識庫 • Wiki</span>
+          <h2 class="title">Kiến thức <span class="accent-2">XR</span></h2>
+        </header>
+        <p class="subtitle">Hướng dẫn sử dụng, tối ưu thiết bị, fix lỗi thường gặp.</p>
+        <div class="deck deck--wiki" role="list">
+          <article class="card" role="listitem">
+            <div class="card__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Setup phòng VR chuẩn"></div>
+            <div class="card__body">
+              <h3>Setup phòng VR chuẩn</h3>
+              <p>Khoảng cách, ánh sáng, an toàn.</p>
+              <div class="card__actions"><a class="btn btn--primary" href="#wiki">Xem bài</a></div>
+            </div>
+          </article>
+          <article class="card" role="listitem">
+            <div class="card__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Tối ưu FPS/INP"></div>
+            <div class="card__body">
+              <h3>Tối ưu FPS/INP</h3>
+              <p>Render scale, reprojection, driver.</p>
+              <div class="card__actions"><a class="btn btn--primary" href="#wiki">Xem bài</a></div>
+            </div>
+          </article>
+          <article class="card" role="listitem">
+            <div class="card__media"><img src="https://wallpaperaccess.com/full/2399993.jpg" alt="Vệ sinh &amp; bảo quản"></div>
+            <div class="card__body">
+              <h3>Vệ sinh &amp; bảo quản</h3>
+              <p>Vật liệu đệm, chống mồ hôi, lưu trữ.</p>
+              <div class="card__actions"><a class="btn btn--primary" href="#wiki">Xem bài</a></div>
+            </div>
+          </article>
+        </div>
+        <div class="center">
+          <a class="btn btn--primary" href="#wiki">Mở Wiki</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MAP ================= -->
+    <section id="map" class="section" aria-label="Bản đồ">
+      <div class="container flow">
+        <header class="section__head">
+          <span class="eyebrow">地図 • Map</span>
+          <h2 class="title">Tìm đến <span class="accent-2">OASIS</span></h2>
+          <p class="subtitle">Đường đi thuận tiện, chỗ gửi xe ngay trước cửa.</p>
+        </header>
+        <div class="map">
+          <iframe
+            title="Google Map — OASIS VR ZONE"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.0!2d106.7!3d10.77!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zT0FTSVMgVlIgWk9ORQ!5e0!3m2!1svi!2sVN!4v1700000000000"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="contact" class="footer" aria-label="Chân trang">
+    <div class="container">
+      <div class="footer__grid">
+        <section class="fcol">
+          <h4>OASIS VR ZONE</h4>
+          <p>Trải nghiệm XR – thiết kế &amp; lắp đặt trọn gói.</p>
+        </section>
+        <section class="fcol">
+          <h4>Liên hệ</h4>
+          <p>📞 0123 456 789<br/>✉️ contact@oasisvr.example</p>
+        </section>
+        <section class="fcol">
+          <h4>Mạng xã hội</h4>
+          <p><a class="text-link" href="#" target="_blank" rel="noopener">Facebook</a> · <a class="text-link" href="#" target="_blank" rel="noopener">Instagram</a></p>
+        </section>
+      </div>
+      <p class="copy">© <span id="y"></span> OASIS VR ZONE. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JS (sẽ gửi ở bước sau) -->
+  <script src="4.js" defer></script>
+</body>
+</html>
