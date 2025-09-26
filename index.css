@@ -270,8 +270,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--primary);outline-of
   .card,.member{grid-column:span 6}
   .about-media,.about-copy{grid-column:span 12}
 }
-@media (max-width:640px){
-  .header{inset:8px}
+@media (max-width: 640px) {
+  .header {
+    
+    inset: 8px;
+    width: auto;  /* Đảm bảo phần tử không chiếm quá nhiều không gian */
+    max-width: 100%; /* Giới hạn chiều rộng của phần tử */
+    height: fit-content; /* Chiều cao tự động phù hợp với nội dung */
+  }
 
   /* Grid chính 1 cột trên mobile */
   .products-grid,.services-grid,.wiki-grid,.gallery-grid,.team-grid,.about-grid{
