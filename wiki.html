@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oasis VR — Wiki (Neo Minimal)</title>
+  <meta name="description" content="Wiki Oasis VR Zone — Neo Minimal: tông tím neon đồng bộ, container căn giữa tuyệt đối, full‑width responsive (mobile → 34”), không đè menu/footer." />
+
+
+  <link rel="stylesheet" href="index.css"/>
+  <style>
+    /* =========================
+       OASIS WIKI — NEO MINIMAL (ONE FILE)
+       SCOPED 100% TRONG #wiki — KHÔNG ĐỤNG MENU/FOOTER
+       ========================= */
+    #wiki{
+      --brand-primary: #7c3aed;   /* tím neon */
+      --brand-accent:  #00e6ff;   /* cyan nhấn */
+      --text:          #e6f0ff;   /* chữ chính */
+      --muted:         #97abc2;   /* chữ phụ */
+      --bg:            #0b0f14;   /* nền tối chuẩn site */
+      --surface:       #0f1520;   /* panel/card */
+      --border:        #1b2533;   /* viền */
+      --radius:        16px;      /* bo */
+      --radius-lg:     20px;
+      --shadow:        0 10px 28px rgba(0,0,0,.4);
+      --container:     1200px;    /* max width */
+      --gutter:        clamp(12px, 2vw, 22px);
+      --space:         clamp(12px, 2.4vw, 28px);
+      --sticky-top:    clamp(56px, var(--header-height, 72px), 96px);
+    }
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+
+    /* Reset nhỏ, chỉ trong wiki */
+    #wiki, #wiki *{ box-sizing:border-box }
+    #wiki{ color:var(--text); background: var(--bg); }
+    #wiki a{ color:var(--brand-accent); text-decoration:none }
+    #wiki img{ display:block; max-width:100%; height:auto }
+    #wiki .wk-sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+
+    /* Container & Sections */
+    #wiki .wk-container{ width:min(var(--container), 94vw); margin-inline:auto }
+    #wiki .wk-section{ padding-block: calc(var(--space) * 2) }
+
+    /* Topbar (sticky dưới header cố định nếu có) */
+    #wiki .wk-topbar{  top:var(--sticky-top); z-index:10; background: rgba(11,15,20,.92); border-bottom:1px solid var(--border); backdrop-filter:none }
+    #wiki .wk-topbar__inner{ display:grid; grid-template-columns: 1fr auto; gap: var(--gutter); align-items:center; padding: 10px 0 }
+
+    /* Search */
+    #wiki .wk-search{ position:relative }
+    #wiki .wk-search input{ width:100%; padding:12px 14px 12px 44px; border-radius:12px; border:1px solid var(--border); background:#0b1220; color:var(--text); outline:none }
+    #wiki .wk-search svg{ position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.7 }
+
+    /* Chips */
+    #wiki .wk-chips{ display:flex; gap:8px; overflow:auto; padding-bottom:6px }
+    #wiki .wk-chip{ white-space:nowrap; padding:8px 12px; border:1px solid var(--border); background:#0e1626; color:#cfe9ff; border-radius:999px; cursor:pointer; font-size:.92rem }
+    #wiki .wk-chip[aria-selected="true"]{ background:#171e2b; border-color:#5f2ad9; box-shadow: 0 0 0 1px rgba(124,58,237,.22) inset }
+
+    /* Hero */
+    #wiki .wk-hero{margin-top: 22px; text-align:center; padding-block: calc(var(--space) * 2) calc(var(--space) * 1.5) }
+    #wiki .wk-eyebrow{ color:var(--muted); font-size:.95rem }
+    #wiki .wk-hero h1{ margin:.35rem 0 .25rem; margin-top: 1.5rem;font-size: clamp(28px, 5vw, 46px) }
+    #wiki .wk-hero .lead{ color:#cfe5ff; max-width: 760px; margin-inline:auto; line-height:1.6 }
+
+    /* Mosaic Featured */
+    #wiki .wk-mosaic{ display:grid; gap: var(--gutter); grid-template-columns: repeat(12, 1fr) }
+    #wiki .wk-mosaic .tile{ position:relative; border:1px solid var(--border); border-radius: var(--radius-lg); overflow:hidden; background:#0e1626; aspect-ratio:16/9; transition:transform .25s ease, box-shadow .25s ease }
+    #wiki .wk-mosaic .tile:hover{ transform:translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,.5), 0 0 0 1px rgba(124,58,237,.12) inset }
+    #wiki .wk-mosaic .tile img{ width:100%; height:100%; object-fit:cover }
+    #wiki .wk-mosaic .tile .meta{ position:absolute; left:0; right:0; bottom:0; padding:12px 14px; background: linear-gradient(180deg, transparent 45%, rgba(11,15,20,.78)); text-align:center }
+    #wiki .wk-mosaic .tile h3{ margin:0 0 4px; font-size: clamp(16px, 1.6vw, 20px) }
+    #wiki .tile-lg{ grid-column: span 7 }
+    #wiki .tile-col{ grid-column: span 5; display:grid; gap: var(--gutter) }
+
+    /* Feed Grid */
+    #wiki .wk-feed{ margin-top: calc(var(--space) * 1.5) }
+    #wiki .wk-grid{ display:grid; gap: var(--gutter); grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) }
+    #wiki .wk-card{ display:flex; flex-direction:column; border:1px solid var(--border); background:var(--surface); border-radius: var(--radius); overflow:hidden; box-shadow: var(--shadow); transition: transform .2s ease, box-shadow .2s ease; min-height:280px; content-visibility:auto; contain-intrinsic-size: 320px 300px; animation:wk-fadeup .5s both }
+    #wiki .wk-card:nth-child(2n){ animation-delay:.06s }
+    #wiki .wk-card:nth-child(3n){ animation-delay:.12s }
+    @keyframes wk-fadeup{ from{ opacity:0; transform:translateY(8px) scale(.985) } to{ opacity:1; transform:none } }
+    #wiki .wk-card:hover{ transform: translateY(-2px) }
+    #wiki .wk-card .media{ aspect-ratio: 16/9; overflow:hidden }
+    #wiki .wk-card img{ width:100%; height:100%; object-fit:cover; transition: transform .35s ease }
+    #wiki .wk-card:hover img{ transform: scale(1.04) }
+    #wiki .wk-card .body{ padding:12px 14px; text-align:center }
+    #wiki .wk-card h3{ margin:0 0 6px; font-size:1.06rem }
+    #wiki .wk-card .meta{ display:flex; gap:8px; align-items:center; justify-content:center; flex-wrap:wrap; color:var(--muted); font-size:.9rem }
+    #wiki .wk-tag{ padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:#0b1220; color:#cfe9ff; font-size:.8rem }
+    #wiki .wk-card h3{ margin:0 0 6px; font-size:1.06rem }
+    #wiki .wk-card .meta{ display:flex; gap:8px; align-items:center; justify-content:center; flex-wrap:wrap; color:var(--muted); font-size:.9rem }
+    #wiki .wk-tag{ padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:#0b1220; color:#cfe9ff; font-size:.8rem }
+    #wiki .wk-actions{ padding:10px 14px 14px; display:flex; gap:10px; justify-content:center; align-items:center }
+    #wiki .wk-btn{ padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:#0b1220; color:var(--text); cursor:pointer }
+    #wiki .wk-btn.primary{ background: linear-gradient(180deg, rgba(124,58,237,.22), rgba(0,230,255,.12)); border-color:#5f2ad9 }
+
+    /* ===== Modal ===== */
+    #wiki .wk-modal{ position:fixed; inset:0; display:none; z-index:9998 }
+    #wiki .wk-modal.open{ display:block }
+    #wiki .wk-backdrop{ position:absolute; inset:0; background: rgba(2,6,12,.7) }
+    #wiki .wk-dialog{ position:absolute; inset: 6% 50% auto; transform: translateX(-50%); width:min(900px, 94vw); max-height:86vh; background:#0f1520f2; border:1px solid var(--border); border-radius:18px; box-shadow: var(--shadow); display:grid; grid-template-rows:auto 1fr auto; overflow:hidden }
+    #wiki .wk-head{ display:flex; align-items:center; justify-content:center; padding:12px 14px; border-bottom:1px solid var(--border) }
+    #wiki .wk-title{ margin:0; font-size:1.14rem }
+    #wiki .wk-close{ width:36px; height:36px; border:1px solid var(--border); border-radius:10px; background:#0b1220; cursor:pointer }
+    #wiki .wk-body{ padding:12px 14px; overflow:auto }
+    #wiki .wk-foot{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 14px; border-top:1px solid var(--border) }
+
+    /* ===== Accessibility & responsive ===== */
+    #wiki .wk-chip:focus-visible, #wiki .wk-btn:focus-visible, #wiki .wk-close:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px }
+    @media (max-width: 920px){
+      #wiki .wk-topbar__inner{ grid-template-columns: 1fr }
+      #wiki .tile-lg{ grid-column: span 12 }
+      #wiki .tile-col{ grid-column: span 12; grid-template-columns: 1fr; grid-auto-rows: auto }
+    }
+    @media (min-width: 1600px){
+      #wiki .wk-container{ width:min(var(--container), 90vw) }
+      #wiki .wk-grid{ grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) }
+    }
+    @media (prefers-reduced-motion: reduce){
+      #wiki .wk-card img, #wiki .wk-card:hover img{ transition:none; transform:none }
+    }
+    /* Modal hero image */
+    #wiki .wk-modal-hero{ aspect-ratio:16/9; border-bottom:1px solid var(--border); overflow:hidden }
+    #wiki .wk-modal-hero img{ width:100%; height:100%; object-fit:cover; display:block }
+
+    /* Read Now button — redesign */
+    #wiki .wk-btn.primary{ position:relative; background:linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-accent) 100%); border:0; color:#0b0f14; font-weight:600; box-shadow:0 8px 24px rgba(124,58,237,.25) }
+    #wiki .wk-btn.primary::after{ content:""; position:absolute; inset:0; border-radius:12px; box-shadow:0 0 0 0 rgba(124,58,237,.0); transition: box-shadow .25s ease }
+    #wiki .wk-btn.primary:hover::after{ box-shadow:0 0 24px 6px rgba(124,58,237,.35) }
+    #wiki .wk-btn.primary:active{ transform:translateY(0) }
+
+    /* Modal progress + pop animation */
+    #wiki .wk-progress{ position:absolute; left:0; top:0; height:3px; width:0; background:linear-gradient(90deg, var(--brand-primary), var(--brand-accent)) }
+    #wiki .wk-dialog{ animation:wk-pop .22s ease-out }
+    @keyframes wk-pop{ from{ transform: translateX(-50%) scale(.985); opacity:.0 } to{ transform: translateX(-50%) scale(1); opacity:1 } }
+    /* Center + Uppercase in modal */
+    #wiki .wk-title{ text-transform:uppercase; text-align:center; letter-spacing:.02em }
+    #wiki .wk-body{ text-align:center }
+    #wiki .wk-body .lead, #wiki .wk-body li, #wiki .wk-body p, #wiki .wk-body h1, #wiki .wk-body h2, #wiki .wk-body h3{ text-transform:uppercase; letter-spacing:.02em }
+    #wiki .wk-gallery, #wiki .wk-main{ margin-inline:auto }
+    #wiki .wk-main{ width:min(900px,100%); aspect-ratio:16/9; border:1px solid var(--border); border-radius:14px; overflow:hidden; background:#0b1220 }
+    #wiki .wk-thumbs{ justify-content:center }
+    /* Modal content centering & gallery improvements */
+    #wiki .wk-body article{ display:grid; gap:14px; justify-items:center; text-align:center }
+    #wiki .wk-main img{ width:100%; height:100%; object-fit:cover; display:block }
+    #wiki .wk-thumbs{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center }
+    #wiki .wk-thumb{ width:160px; max-width:28vw; aspect-ratio:16/9; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:#0b1220 center/cover no-repeat; opacity:.9; transition:opacity .2s, transform .2s }
+    #wiki .wk-thumb:hover{ opacity:1; transform:translateY(-2px) }
+    #wiki .wk-thumb[aria-pressed="true"]{ outline:2px solid var(--brand-accent); opacity:1 }
+    #wiki .wk-body ul{ list-style:none; padding:0; margin:8px 0 0; display:grid; gap:8px; max-width:900px }
+    #wiki .wk-body ul li{ border:1px solid var(--border); border-radius:12px; padding:10px 12px; background:#0b1220 }
+    #wiki .wk-body h3{ margin-top:10px; font-size:1rem; letter-spacing:.04em }
+    /* Featured tiles: ensure image fills frame & center caption */
+    #wiki .wk-mosaic .tile{ aspect-ratio:16/9 }
+    #wiki .wk-mosaic .tile img{ width:100%; height:100%; object-fit:cover; display:block }
+    #wiki .wk-mosaic .tile .meta{ text-align:center }
+    /* Dialog centering refinements */
+    #wiki .wk-foot{ justify-content:center }
+    #wiki .wk-btn.ghost{ background:transparent; border:1px solid var(--border); color:var(--text) }
+    #wiki .wk-body article{ display:grid; gap:14px; justify-items:center; text-align:center }
+    #wiki .wk-body h2, #wiki .wk-body h3{ text-transform:uppercase; letter-spacing:.04em }
+    /* Fancy modal scrollbar & global polish */
+    #wiki .wk-body{ scrollbar-width:thin; scrollbar-color: var(--brand-accent) #0b1220; overscroll-behavior: contain }
+    #wiki .wk-body::-webkit-scrollbar{ width:12px }
+    #wiki .wk-body::-webkit-scrollbar-track{ background:#0b1220; border-left:1px solid var(--border) }
+    #wiki .wk-body::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, var(--brand-primary), var(--brand-accent)); border-radius:12px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.06) }
+    #wiki .wk-body::-webkit-scrollbar-thumb:hover{ filter:brightness(1.08) }
+
+    /* Dialog glow */
+    #wiki .wk-dialog{ box-shadow: 0 18px 48px rgba(0,0,0,.55), 0 0 0 1px rgba(124,58,237,.18), 0 0 24px rgba(0,230,255,.12) }
+    #wiki .wk-backdrop{ background: radial-gradient(60% 60% at 50% 50%, rgba(17,24,39,.72), rgba(2,6,12,.8)) }
+
+    /* Hover polish */
+    #wiki .wk-mosaic .tile{ transition:transform .25s ease, box-shadow .25s ease }
+    #wiki .wk-mosaic .tile:hover{ transform:translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,.5), 0 0 0 1px rgba(124,58,237,.12) inset }
+    #wiki .wk-card{ animation:wk-fadeup .5s both; }
+    #wiki .wk-card:nth-child(2n){ animation-delay:.06s }
+    #wiki .wk-card:nth-child(3n){ animation-delay:.12s }
+    @keyframes wk-fadeup{ from{ opacity:0; transform:translateY(8px) scale(.985) } to{ opacity:1; transform:none } }
+
+
+    
+  </style>
+</head>
+<body>
+  <!-- Header chung của site (menu) nằm ngoài phạm vi wiki và KHÔNG bị style dưới đây ảnh hưởng -->
+  <div data-include="partials/header.html"></div>
+
+  <!-- ========================= WIKI (NEO MINIMAL) ========================= -->
+  <main id="wiki" data-page="wiki">
+    <div class="wk-container">
+      
+      <section class="wk-hero wk-section">
+        <!-- <div class="wk-eyebrow">Oasis Knowledge Base</div>
+        <h1>Wiki — Neo Minimal</h1>
+        <p class="lead">Thiết kế tươi mới, ít hiệu ứng, tập trung nội dung. Đồng bộ tông tím neon với Trang chủ & Sản phẩm. Container căn giữa, hiển thị đẹp từ mobile → 34”.</p> -->
+      </section>
+    </div>
+
+    <!-- TOPBAR: sticky search + chips -->
+    <div class="wk-topbar">
+      <div class="wk-container wk-topbar__inner" role="region" aria-label="Tìm & lọc bài viết">
+        <div class="wk-search" role="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#9fb7cf" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <label class="wk-sr-only" for="q">Tìm kiếm bài viết</label>
+          <input id="q" type="search" placeholder="Tìm: chống say, setup, hiệu năng…" autocomplete="off" />
+        </div>
+        <div class="wk-chips" role="tablist" aria-label="Chủ đề">
+          <button class="wk-chip" data-tag="all" role="tab" aria-selected="true">Tất cả</button>
+          <button class="wk-chip" data-tag="setup" role="tab" aria-selected="false">Setup</button>
+          <button class="wk-chip" data-tag="suckhoe" role="tab" aria-selected="false">Sức khỏe</button>
+          <button class="wk-chip" data-tag="hieunang" role="tab" aria-selected="false">Hiệu năng</button>
+          <button class="wk-chip" data-tag="baoduong" role="tab" aria-selected="false">Bảo dưỡng</button>
+          <button class="wk-chip" data-tag="phanmem" role="tab" aria-selected="false">Phần mềm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOSAIC FEATURED -->
+    <section class="wk-section">
+      <div class="wk-container">
+        <div class="wk-mosaic" id="featured">
+          <article class="tile tile-lg" data-id="setup-room">
+            <img loading="lazy" alt="Setup phòng VR" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg">
+            <div class="meta"><h3>Setup phòng VR gọn gàng, tracking chuẩn</h3></div>
+          </article>
+          <div class="tile-col">
+            <article class="tile" data-id="anti-motion">
+              <img loading="lazy" alt="Chống say VR" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg">
+              <div class="meta"><h3>Chống say VR: 9 mẹo áp dụng ngay</h3></div>
+            </article>
+            <article class="tile" data-id="fps-boost">
+              <img loading="lazy" alt="Tối ưu FPS" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg">
+              <div class="meta"><h3>Tối ưu hiệu năng: FPS cao, nhiệt thấp</h3></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEED GRID -->
+    <section class="wk-section">
+      <div class="wk-container">
+        <div class="wk-feed">
+          <div class="wk-grid" id="grid">
+            <article class="wk-card" data-id="setup-room" data-tags="setup">
+              <div class="media"><img loading="lazy" alt="Setup phòng VR" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Setup phòng VR gọn gàng, tracking chuẩn</h3>
+                <div class="meta"><span class="wk-tag">Setup</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="setup-room">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="anti-motion" data-tags="suckhoe">
+              <div class="media"><img loading="lazy" alt="Chống say VR" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Chống say VR: 9 mẹo áp dụng ngay</h3>
+                <div class="meta"><span class="wk-tag">Sức khỏe</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="anti-motion">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="fps-boost" data-tags="hieunang">
+              <div class="media"><img loading="lazy" alt="Tối ưu hiệu năng" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Tối ưu hiệu năng: FPS cao, nhiệt thấp</h3>
+                <div class="meta"><span class="wk-tag">Hiệu năng</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="fps-boost">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="care-clean" data-tags="baoduong">
+              <div class="media"><img loading="lazy" alt="Bảo dưỡng VR" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Vệ sinh & bảo dưỡng: bền bỉ như mới</h3>
+                <div class="meta"><span class="wk-tag">Bảo dưỡng</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="care-clean">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="software-tools" data-tags="phanmem">
+              <div class="media"><img loading="lazy" alt="Phần mềm VR" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Phần mềm nên có: tiện hơn, vui hơn</h3>
+                <div class="meta"><span class="wk-tag">Phần mềm</span><span>• 4 phút đọc</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="software-tools">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="ipd-pro" data-tags="suckhoe">
+              <div class="media"><img loading="lazy" alt="Chỉnh IPD & fit" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Chỉnh IPD & fit headset chuẩn</h3>
+                <div class="meta"><span class="wk-tag">Sức khỏe</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="ipd-pro">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="guardian-pro" data-tags="setup">
+              <div class="media"><img loading="lazy" alt="Guardian & boundary" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Guardian & boundary tối ưu</h3>
+                <div class="meta"><span class="wk-tag">Setup</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="guardian-pro">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="router-setup" data-tags="hieunang">
+              <div class="media"><img loading="lazy" alt="Router & Wi‑Fi" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Router & Wi‑Fi cho streaming</h3>
+                <div class="meta"><span class="wk-tag">Hiệu năng</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="router-setup">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="cable-management" data-tags="setup">
+              <div class="media"><img loading="lazy" alt="Quản lý cáp" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Quản lý cáp gọn gàng</h3>
+                <div class="meta"><span class="wk-tag">Setup</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="cable-management">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="family-mode" data-tags="suckhoe">
+              <div class="media"><img loading="lazy" alt="Chế độ gia đình" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Chế độ gia đình: an toàn cho trẻ</h3>
+                <div class="meta"><span class="wk-tag">Sức khỏe</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="family-mode">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="streaming-obs" data-tags="phanmem">
+              <div class="media"><img loading="lazy" alt="OBS streaming" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Streaming/Recording với OBS</h3>
+                <div class="meta"><span class="wk-tag">Phần mềm</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="streaming-obs">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="height-calibration" data-tags="setup">
+              <div class="media"><img loading="lazy" alt="Chuẩn chiều cao" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Chuẩn chiều cao & tầm với</h3>
+                <div class="meta"><span class="wk-tag">Setup</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="height-calibration">Đọc ngay</button></div>
+            </article>
+
+            <article class="wk-card" data-id="haptics-tuning" data-tags="hieunang">
+              <div class="media"><img loading="lazy" alt="Tinh chỉnh haptics" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+              <div class="body">
+                <h3>Tinh chỉnh haptics & tiết kiệm pin</h3>
+                <div class="meta"><span class="wk-tag">Hiệu năng</span></div>
+              </div>
+              <div class="wk-actions"><button type="button" class="wk-btn primary wk-read" data-id="haptics-tuning">Đọc ngay</button></div>
+            </article>   <p id="empty" class="wk-tag" style="display:none; margin-top:10px; background:#0b1220; border-style:dashed">Không thấy bài phù hợp. Thử từ khóa hoặc chủ đề khác nhé.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="index.js"></script>
+
+  <!-- Include partials BEFORE 3.js -->
+<script type="module">
+  const nodes = [...document.querySelectorAll('[data-include]')];
+  await Promise.all(nodes.map(async el => {
+    const url = el.getAttribute('data-include');
+    try {
+      const res = await fetch(url, { credentials: 'same-origin' });
+      el.outerHTML = res.ok ? await res.text()
+                            : `<!-- include failed: ${url} (${res.status}) -->`;
+    } catch (e) {
+      el.outerHTML = `<!-- include failed: ${url} (${e}) -->`;
+    }
+  }));
+  // Cho script khác biết partials đã sẵn sàng (nếu cần)
+  document.dispatchEvent(new CustomEvent('oasis:partials-ready'));
+</script>
+
+  <!-- Footer chung của site -->
+  <div data-include="partials/footer.html"></div>
+
+  <script>
+  (function(){
+    'use strict';
+    const $ = (s, c=document) => c.querySelector(s);
+    const $$ = (s, c=document) => [...c.querySelectorAll(s)];
+
+    // FILTER + SEARCH
+    (function initFilter(){
+      const grid = $('#grid'); if (!grid) return;
+      const cards = $$('.wk-card', grid);
+      const q = $('#q');
+      const chips = $$('.wk-chip[role="tab"]');
+      const empty = $('#empty');
+      const state = { tag:'all', q:'' };
+
+      function match(card){
+        const tags = (card.dataset.tags || '').split(',');
+        const tagOk = state.tag === 'all' || tags.includes(state.tag);
+        const text = (card.innerText || '').toLowerCase();
+        const qOk = !state.q || text.includes(state.q);
+        return tagOk && qOk;
+      }
+      function apply(){
+        let visible = 0;
+        cards.forEach(c => {
+          const ok = match(c);
+          c.style.display = ok ? '' : 'none';
+          if (ok) visible++;
+        });
+        empty.style.display = visible ? 'none' : '';
+      }
+      if (q) q.addEventListener('input', () => { state.q = q.value.trim().toLowerCase(); apply(); });
+      chips.forEach(ch => ch.addEventListener('click', () => {
+        chips.forEach(c => c.setAttribute('aria-selected', c===ch ? 'true':'false'));
+        state.tag = ch.dataset.tag || 'all';
+        apply();
+      }));
+      apply();
+    })();
+
+    // MODAL (focus trap + Esc)
+    ;(function initModal(){
+      if ($('#wkModal')) return;
+      const shell = document.createElement('div');
+      shell.innerHTML = `
+        <div class="wk-modal" id="wkModal" role="dialog" aria-modal="true" aria-labelledby="wkTitle" aria-describedby="wkDesc" hidden>
+          <div class="wk-backdrop" data-close="1" tabindex="-1"></div>
+          <div class="wk-dialog" role="document"><div class="wk-progress" id="wkProgress"></div>
+            <header class="wk-head">
+              <h2 class="wk-title" id="wkTitle" tabindex="-1">&nbsp;</h2>
+              <button class="wk-close" aria-label="Đóng (Esc)" data-close="1">✕</button>
+            </header>
+            <div class="wk-body" id="wkBody" tabindex="0"></div>
+            <footer class="wk-foot">
+              <button class="wk-btn ghost" id="wkPrev" aria-label="Bài trước">← Trước</button>
+              <span id="wkDesc" class="wk-tag">Esc để đóng · Tab để di chuyển</span>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <button class="wk-btn ghost" id="wkNext" aria-label="Bài sau">Tiếp →</button>
+                <button class="wk-btn" data-close="1">Đóng</button>
+              </div>
+            </footer>
+          </div>
+        </div>`;
+      (document.querySelector('#wiki')||document.body).appendChild(shell.firstElementChild);
+
+      const mdl = $('#wkModal');
+      const body = $('#wkBody');
+      const title = $('#wkTitle');
+      const prog = $('#wkProgress');
+      const prevBtn = $('#wkPrev');
+      const nextBtn = $('#wkNext');
+      let lastFocus = null;
+
+      function visibleList(){
+        return $$('.wk-card').filter(c => getComputedStyle(c).display !== 'none').map(c => c.getAttribute('data-id'));
+      }
+      function setNav(id){
+        const list = visibleList();
+        const idx = Math.max(0, list.indexOf(id));
+        if (prevBtn) prevBtn.dataset.id = list.length ? list[(idx-1+list.length)%list.length] : '';
+        if (nextBtn) nextBtn.dataset.id = list.length ? list[(idx+1)%list.length] : '';
+        if (list.length <= 1){ if(prevBtn) prevBtn.disabled = true; if(nextBtn) nextBtn.disabled = true; } else { if(prevBtn) prevBtn.disabled = false; if(nextBtn) nextBtn.disabled = false; }
+      }
+      function bindNav(){ if (prevBtn) prevBtn.onclick = () => open(prevBtn.dataset.id); if (nextBtn) nextBtn.onclick = () => open(nextBtn.dataset.id); }
+      function updateProgress(){ const el = body; const max = el.scrollHeight - el.clientHeight; const p = max>0 ? (el.scrollTop / max) : 0; if (prog) prog.style.width = (p*100)+'%'; }
+      body.addEventListener('scroll', updateProgress, {passive:true});
+      bindNav();
+
+      function focusables(){ return $$('a, button, input, [tabindex]:not([tabindex="-1"])', mdl).filter(el => !el.disabled); }
+      function trap(e){
+        if (e.key === 'Escape'){ close(); }
+        if (e.key !== 'Tab') return;
+        const f = focusables(); if (!f.length) return;
+        const first = f[0], last = f[f.length-1];
+        if (e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+        else if (!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+      }
+      function open(id){
+        const tpl  = document.getElementById('tpl-'+id);
+        const card = document.querySelector(`[data-id="${id}"] h3`);
+        const heroUrl = 'https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg';
+        if (!tpl) return;
+        lastFocus = document.activeElement;
+        title.textContent = card ? card.textContent : 'Bài viết';
+        // Hero banner trên đầu dialog
+        body.innerHTML = `<div class=\"wk-modal-hero\"><img loading=\"lazy\" alt=\"Banner\" src=\"${heroUrl}\"></div>`;
+        body.appendChild(tpl.content.cloneNode(true));
+        // Main image = thumb đầu tiên (nếu có) hoặc hero
+        const main = body.querySelector('.wk-main img');
+        const firstThumb = body.querySelector('.wk-thumb');
+        const initialSrc = firstThumb?.dataset.src || heroUrl;
+        if (main) main.src = initialSrc;
+        // Decorate thumbs + click to swap
+        $$('.wk-thumb', body).forEach((btn, i)=>{
+          const src = btn.dataset.src || heroUrl;
+          btn.style.backgroundImage = `url(${src})`;
+          btn.setAttribute('aria-pressed', i===0 ? 'true' : 'false');
+          btn.addEventListener('click', ()=>{
+            if (main) main.src = src;
+            $$('.wk-thumb', body).forEach(b=>b.setAttribute('aria-pressed','false'));
+            btn.setAttribute('aria-pressed','true');
+          });
+        });
+        // Nav + progress + scroll lock
+        setNav(id);
+        mdl.hidden = false; mdl.classList.add('open');
+        const sbw = window.innerWidth - document.documentElement.clientWidth; if (sbw>0) document.body.style.paddingRight = sbw + 'px';
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('keydown', trap);
+        body.scrollTop = 0; updateProgress();
+        (title || mdl).focus();
+      }
+      function close(){
+        mdl.classList.remove('open'); mdl.hidden = true;
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+        document.removeEventListener('keydown', trap);
+        if (prog) prog.style.width = '0%';
+        if (lastFocus && document.contains(lastFocus)) {
+          try { lastFocus.focus({ preventScroll: true }); } catch(e){}
+        }
+      }
+
+      document.addEventListener('click', (e)=>{
+        const btn  = e.target.closest('.wk-read');
+        const tile = e.target.closest('.tile');
+        if (btn){  e.preventDefault(); e.stopPropagation(); open(btn.dataset.id); }
+        else if (tile){ e.preventDefault(); e.stopPropagation(); open(tile.dataset.id); }
+        if (e.target.closest('[data-close]')) close();
+      });
+    })();
+    // TEST IMAGE OVERRIDE — đồng bộ ảnh test & nút button
+    (function(){
+      const TEST_URL='https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg';
+      document.querySelectorAll('#wiki img').forEach(img => { img.src = TEST_URL; });
+      document.querySelectorAll('#wiki [data-src]').forEach(el => el.setAttribute('data-src', TEST_URL));
+      document.querySelectorAll('.wk-read').forEach(b => { try{ b.type='button'; }catch{} });
+    })();
+  })();
+  </script>
+
+  <!-- ======= ARTICLE TEMPLATES ======= -->
+  <template id="tpl-setup-room">
+    <article>
+      <p class="lead">Bố trí phòng theo <strong>VÙNG CHƠI AN TOÀN</strong>, hạn chế vật cản & cáp vướng. Ánh sáng đều, không chói camera.</p>
+      <div class="wk-gallery">
+        <div class="wk-main"><img loading="lazy" alt="Phòng VR gọn gàng" src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></div>
+        <div class="wk-thumbs">
+          <button class="wk-thumb" data-src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></button>
+          <button class="wk-thumb" data-src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></button>
+          <button class="wk-thumb" data-src="https://4kwallpapers.com/images/wallpapers/anime-girl-1680x1050-10025.jpg"></button>
+        </div>
+      </div>
+
+      <h3>SƠ ĐỒ BỐ TRÍ</h3>
+      <ul>
+        <li>Vùng chơi tối thiểu <strong>2 × 2 m</strong>; thoáng, không gương/TV phản chiếu.</li>
+        <li>Base/camera chéo góc, cao <strong>2–2.5 m</strong>, nghiêng <strong>25–35°</strong>.</li>
+        <li>Dán tape phản quang theo mép thảm; bật passthrough khi cần.</li>
+      </ul>
+
+      <h3>KÍCH THƯỚC & KHOẢNG CÁCH</h3>
+      <ul>
+        <li>Khoảng trống trước TV/tường ≥ <strong>1 m</strong>; lùi xa đồ gỗ/kim loại sắc cạnh.</li>
+        <li>Khoảng cách router Wi‑Fi 6/6E → headset: <strong>&lt; 3 m</strong>, ít vật cản.</li>
+        <li>Cáp PCVR treo trần bằng pulley, có dây co giãn nhẹ.</li>
+      </ul>
+
+      <h3>DỤNG CỤ CẦN CÓ</h3>
+      <ul>
+        <li>Bộ pulley treo dây + kẹp cáp; băng dính phản quang.</li>
+        <li>Khăn microfiber + dung dịch lau lens chuyên dụng.</li>
+        <li>Ổ cắm có công tắc riêng cho base/router.</li>
+      </ul>
+
+      <h3>CHECKLIST TRƯỚC KHI CHƠI</h3>
+      <ul>
+        <li>Calibrate chiều cao. Kiểm tra Guardian/Chaperone hoạt động chuẩn.</li>
+        <li>Pin tay cầm & không gian trống OK; quạt nhẹ nếu dễ say.</li>
+        <li>FPS ổn (≥ 72/90Hz), nhiệt độ máy hợp lý.</li>
+      </ul>
+
+      <h3>SAI LẦM THƯỜNG GẶP</h3>
+      <ul>
+        <li>Để gương/TV chiếu thẳng base → <strong>tracking lỗi</strong>.</li>
+        <li>Ánh sáng nháy (đèn compact cũ) → <strong>giật, sai pose</strong>.</li>
+        <li>Cáp lòng thòng dưới sàn → <strong>vấp ngã</strong>.</li>
+      </ul>
+
+      <h3>SƠ ĐỒ ĐI DÂY & KẾT NỐI</h3>
+      <ul>
+        <li>PCVR: dây từ PC lên trần → pulley → từ trần xuống đầu → clip giữ nhẹ.</li>
+        <li>Điện: tách ổ cắm base/router; công tắc riêng để reset nhanh.</li>
+        <li>LAN cho PC; Wi‑Fi 5/6GHz riêng cho headset.</li>
+      </ul>
+
+      <h3>ÁNH SÁNG KHUYẾN NGHỊ</h3>
+      <ul>
+        <li>LED tán quang, CRI cao, ít flicker; tránh đèn chớp/nháy.</li>
+        <li>Không rọi thẳng vào camera/base; ưu tiên phản xạ trần/tường.</li>
+        <li>Tắt TV/gương hoặc che bớt khi tracking.</li>
+      </ul>
+
+      <h3>ÂM THANH & CÁCH ÂM</h3>
+      <ul>
+        <li>Thảm sàn, rèm dày, foam tiêu âm ở tường phản xạ mạnh.</li>
+        <li>Tai nghe mở (open‑back) cho single; closed‑back khi xung quanh ồn.</li>
+        <li>Tránh đặt subwoofer sát base/cam (rung ảnh hưởng tracking).</li>
+      </ul>
+
+      <h3>AN TOÀN ĐIỆN & NHIỆT</h3>
+      <ul>
+        <li>Dây điện gọn, tránh chéo lối đi; có kẹp chống tuột.</li>
+        <li>Quạt đối lưu nhẹ; kiểm soát nhiệt PC/router.</li>
+        <li>Không để kính dưới nắng (cháy panel). Bảo quản nơi khô thoáng.</li>
+      </ul>
+
+      <h3>SAU KHI CHƠI</h3>
+      <ul>
+        <li>Lau kính, treo/gấp dây gọn; kiểm tra mối nối.</li>
+        <li>Tắt base/router bằng công tắc riêng nếu không dùng.</li>
+        <li>Phơi khô foam trước khi cất.</li>
+      </ul>
+
+      <h3>FAQ NHANH</h3>
+      <ul>
+        <li><strong>Phòng nhỏ 1.5 × 1.5 m chơi được không?</strong> Ổn cho game đứng yên/teleport; hạn chế xoay nhanh.</li>
+        <li><strong>Dùng thảm dày?</strong> Được, nhưng chọn loại không trượt và không vấp mép.</li>
+        <li><strong>Đèn nào tốt?</strong> LED tán quang, CRI cao, ít flicker.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-anti-motion">
+    <article>
+      <p class="lead">VR-sickness giảm mạnh khi <strong>làm quen dần</strong> và hình ảnh/FPS ổn định.</p>
+      <ul>
+        <li>Bắt đầu 10–15 phút/buổi, tăng dần; nghỉ ngay khi choáng.</li>
+        <li>Dùng <strong>quạt nhẹ</strong> hướng vào mặt; ưu tiên teleport khi mới chơi.</li>
+        <li>Thiết lập <strong>FOV hẹp</strong> (vignetting) nếu game hỗ trợ.</li>
+        <li>Giữ FPS ≥ 72/90Hz; tránh drop frame, kiểm soát nhiệt.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-fps-boost">
+    <article>
+      <p class="lead">Mục tiêu: <strong>FPS cao & ổn định</strong>, nhiệt thấp, hình sắc nét.</p>
+      <ul>
+        <li>Chọn refresh 72/80/90/120Hz theo game & cấu hình.</li>
+        <li>Bật <strong>ASW/Spacewarp</strong> khi cần (mượt nhưng có artifact).</li>
+        <li>Tối ưu encode bitrate khi stream PCVR; kiểm soát Wi‑Fi/USB.</li>
+        <li>Giảm bóng/ambient occlusion trước khi giảm render resolution.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-care-clean">
+    <article>
+      <p class="lead">Vệ sinh đúng cách giúp kính <strong>bền & sạch</strong>, trải nghiệm rõ nét.</p>
+      <ul>
+        <li>Lau lens bằng microfiber, chuyển động tròn nhẹ; tránh dung dịch mạnh.</li>
+        <li>Tháo & giặt foam định kỳ; phơi khô hoàn toàn trước khi lắp.</li>
+        <li>Lưu kho nơi khô ráo, có túi hút ẩm; tránh nắng trực tiếp.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-software-tools">
+    <article>
+      <p class="lead">Những app nên có để <strong>tiện hơn</strong>: quản lý, stream, fitness, ghi chú.</p>
+      <ul>
+        <li>Quản lý library & cấu hình nhanh; backup setting giữa các máy.</li>
+        <li>Mirroring/Streaming cho trình diễn; tối ưu độ trễ/chất lượng.</li>
+        <li>Tracking sức khỏe: nhịp tim, calories, thời gian vận động VR.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-ipd-pro">
+    <article>
+      <p class="lead"><strong>IPD đúng + fit tốt</strong> = hình nét, đỡ mỏi mắt.</p>
+      <ul>
+        <li>Đo IPD bằng app/thước; chỉnh vòng/slider chính xác.</li>
+        <li>Đệm mặt khít; tìm điểm nét rồi siết strap.</li>
+        <li>Nếu cận/loạn: dùng lens insert phù hợp.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-guardian-pro">
+    <article>
+      <p class="lead">Guardian/boundary chuẩn giúp <strong>tránh va chạm</strong>.</p>
+      <ul>
+        <li>Quét phòng sáng đều; tránh gương/TV phản chiếu.</li>
+        <li>Đặt ranh giới rộng hơn vật cản 30–40 cm.</li>
+        <li>Bật passthrough nhanh khi nghe tiếng người/động vật.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-router-setup">
+    <article>
+      <p class="lead">Streaming mượt nhờ <strong>router đúng & cấu hình chuẩn</strong>.</p>
+      <ul>
+        <li>Wi‑Fi 6/6E, kênh 5/6GHz riêng cho headset.</li>
+        <li>PC nối LAN; tắt tải nền; QoS cho VR.</li>
+        <li>Khoảng cách &lt; 3 m, ít vật cản.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-cable-management">
+    <article>
+      <p class="lead">Cáp gọn = <strong>chơi sướng</strong> & an toàn.</p>
+      <ul>
+        <li>Pulley trần + dây co; kẹp đi dọc tường.</li>
+        <li>Không để cáp vắt ngang lối đi.</li>
+        <li>Kiểm tra mối nối mỗi tuần.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-family-mode">
+    <article>
+      <p class="lead"><strong>Gia đình</strong> chơi an toàn & vui vẻ.</p>
+      <ul>
+        <li>Chọn game phù hợp độ tuổi; luôn có người lớn giám sát.</li>
+        <li>Ranh giới riêng từng người; ám hiệu an toàn khi tới gần.</li>
+        <li>Dẹp vật cản & thú cưng khỏi vùng chơi; che góc bàn sắc cạnh.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-streaming-obs">
+    <article>
+      <p class="lead">Thiết lập <strong>OBS</strong> gọn, hình đẹp, tiếng rõ.</p>
+      <ul>
+        <li>Encoder: NVENC/AMF/QuickSync theo GPU; CQP 18–22 hoặc CBR 12–18Mbps cho 1080p60.</li>
+        <li>Âm thanh: noise gate + suppression; đặt mic tránh gió quạt.</li>
+        <li>Ghi hình: dùng <strong>MKV</strong> để chống mất file; auto-remux sang MP4 khi xong.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-height-calibration">
+    <article>
+      <p class="lead">Chiều cao chuẩn = <strong>hitbox đúng</strong>, tầm với tự nhiên.</p>
+      <ul>
+        <li>Calibrate mỗi khi đổi vị trí/thảm/giày.</li>
+        <li>Đảm bảo mặt phẳng sàn chuẩn; thảm quá dày có thể lệch 1–2cm.</li>
+        <li>Kiểm tra lại reach trong game bắn cung/đấm để tinh chỉnh.</li>
+      </ul>
+    </article>
+  </template>
+
+  <template id="tpl-haptics-tuning">
+    <article>
+      <p class="lead"><strong>Haptics</strong> hợp lý: phê vừa đủ, tiết kiệm pin.</p>
+      <ul>
+        <li>Dùng preset cộng đồng uy tín làm baseline; giảm cường độ 10–20%.</li>
+        <li>Tắt rung UI/nhỏ không cần thiết để đỡ mỏi tay.</li>
+        <li>Ưu tiên rung cho va chạm lớn (đạn, chém, va chạm mạnh).</li>
+      </ul>
+    </article>
+  </template>
+
+</body>
+</html>
+
+        

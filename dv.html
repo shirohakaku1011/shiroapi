@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<!--
+    Further improved version (v3) with enhanced colour palette and additional animations.
+    The dark base remains, but the colours are now softer and more cohesive, and several interactive animations have been added to make the user experience richer.
+-->
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dịch Vụ Đẳng Cấp – Thiết Kế Senior</title>
+    <!-- SEO meta: concise, keyword‑rich description and canonical URL -->
+    <meta name="description" content="Khám phá dịch vụ đẳng cấp – từ trải nghiệm VR, tổ chức sự kiện tới cho thuê thiết bị và bảo trì. Thiết kế giao diện senior hiện đại, sắc sảo, chuyên nghiệp và responsive." />
+    <meta name="keywords" content="dịch vụ chuyên nghiệp, trải nghiệm VR, tổ chức sự kiện, cho thuê thiết bị, bảo trì, thiết kế giao diện senior, shop, VR AR, sự kiện" />
+    <link rel="canonical" href="https://example.com/dich-vu-dang-cap" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Dịch Vụ Đẳng Cấp – Thiết Kế Senior" />
+    <meta property="og:description" content="Khám phá các dịch vụ đẳng cấp, từ trải nghiệm VR tới tổ chức sự kiện, cho thuê thiết bị và bảo trì – với giao diện hiện đại và chuyên nghiệp." />
+    <meta property="og:image" content="https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg" />
+    <meta property="og:type" content="website" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dịch Vụ Đẳng Cấp – Thiết Kế Senior" />
+    <meta name="twitter:description" content="Khám phá các dịch vụ đẳng cấp, từ trải nghiệm VR tới tổ chức sự kiện, cho thuê thiết bị và bảo trì – với giao diện hiện đại và chuyên nghiệp." />
+    <meta name="twitter:image" content="https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /* ===== Updated colour palette ===== */
+        :root {
+            --bg: #0e1323;            /* Dark base with subtle navy tint */
+            --surface: #171e35;       /* Slightly lighter card backgrounds */
+            --surface-alt: #1f2a48;   /* Alternate card backgrounds */
+            --primary: #8f7eff;       /* Soft pastel purple accent */
+            --secondary: #5ad1e8;     /* Light turquoise accent */
+            --text: #e9eff9;          /* Almost white text colour */
+            --muted: #a4b4d2;         /* Soft muted text colour */
+            --radius: 16px;
+            --radius-sm: 12px;
+            --max-width: 1200px;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4 {
+            margin: 0;
+            font-weight: 700;
+        }
+        h1 { font-size: 2.6rem; }
+        h2 { font-size: 2.2rem; }
+        h3 { font-size: 1.6rem; }
+        h4 { font-size: 1.2rem; }
+        p { margin-bottom: 1rem; }
+        a { color: inherit; text-decoration: none; }
+        .container {
+            width: min(var(--max-width), 92vw);
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        /* ===== Hero ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), #00c4ff);
+            background-size: 200% 200%;
+            animation: gradientMove 15s ease infinite;
+            color: var(--bg);
+            padding: 6rem 0 5rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 500;
+        }
+        .hero .cta {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: var(--bg);
+            color: var(--primary);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+        .hero .cta:hover {
+            background: var(--surface);
+            color: var(--secondary);
+            transform: translateY(-4px);
+        }
+        /* ===== Services ===== */
+        .services {
+            padding: 4rem 0;
+        }
+        .service-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            transition: background-color 0.3s ease;
+        }
+        .service-row.reverse {
+            flex-direction: row-reverse;
+        }
+        .service-img {
+            flex: 1 1 300px;
+            min-height: 340px;
+            position: relative;
+            background-image: url('https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: transform 0.6s ease;
+        }
+        .service-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(14,19,35,0) 0%, rgba(14,19,35,0.9) 80%);
+        }
+        .service-row:hover .service-img {
+            transform: scale(1.05);
+        }
+        .service-text {
+            flex: 1 1 300px;
+            min-height: 340px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease;
+        }
+        .service-row:hover .service-text {
+            background: var(--surface-alt);
+        }
+        .service-text h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+        .service-text ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .service-text li {
+            position: relative;
+            margin-bottom: 0.6rem;
+            padding-left: 1.4rem;
+        }
+        .service-text li::before {
+            content: '';
+            width: 0.6rem;
+            height: 0.6rem;
+            background: var(--primary);
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0.4rem;
+        }
+        .service-text .cta {
+            align-self: flex-start;
+            margin-top: auto;
+            padding: 0.7rem 1.6rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .service-text .cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+        }
+        .service-photo {
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-sm);
+            margin-top: 1.2rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+        }
+        /* ===== Why Choose Us ===== */
+        .why {
+            padding: 4rem 0;
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            margin-bottom: 4rem;
+        }
+        .why h2 {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .why-item {
+            background: var(--surface-alt);
+            padding: 1.6rem;
+            border-radius: var(--radius-sm);
+            position: relative;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+        }
+        .why-item::before {
+            content: "\2714";
+            font-size: 1.4rem;
+            color: var(--primary);
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+        }
+        .why-item p {
+            margin-left: 2.4rem;
+            color: var(--muted);
+        }
+        .why-item:hover {
+            transform: translateY(-6px);
+            background: var(--surface);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+        /* ===== Events Section ===== */
+        .events {
+            padding: 4rem 0;
+        }
+        .events h2 {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+        .event-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+        .event-card {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        .event-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+        .event-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        .event-card h4 {
+            margin: 1rem;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        .event-card p {
+            margin: 0 1rem 1.5rem;
+            color: var(--muted);
+        }
+        /* ===== Mission Section ===== */
+        .mission {
+            padding: 4rem 0;
+            background: var(--surface-alt);
+            border-radius: var(--radius);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            margin-bottom: 4rem;
+        }
+        .mission h2 {
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .mission p {
+            max-width: 800px;
+            margin: 0 auto 1rem;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+        /* ===== FAQ Section ===== */
+        .faq {
+            padding: 4rem 0;
+        }
+        .faq h2 {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+        .faq-item {
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid var(--surface-alt);
+            padding-bottom: 1rem;
+        }
+        .faq-item h4 {
+            color: var(--primary);
+            cursor: pointer;
+        }
+        .faq-item p {
+            margin-top: 0.5rem;
+            color: var(--muted);
+        }
+        /* ===== Contact ===== */
+        .contact {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            text-align: center;
+            border-radius: var(--radius);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            margin-bottom: 4rem;
+            color: var(--bg);
+        }
+        .contact h2 {
+            margin-bottom: 0.8rem;
+        }
+        .contact p {
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            color: rgba(14,19,35,0.9);
+        }
+        .contact .cta {
+            background: var(--bg);
+            color: var(--primary);
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            transition: background 0.3s, color 0.3s, transform 0.3s;
+        }
+        .contact .cta:hover {
+            background: var(--surface-alt);
+            color: var(--secondary);
+            transform: translateY(-4px);
+        }
+        /* ===== Fancy Animations ===== */
+        @keyframes buttonPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(143, 126, 255, 0.6); }
+            70%  { box-shadow: 0 0 0 12px rgba(143, 126, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(143, 126, 255, 0); }
+        }
+        .cta {
+            position: relative;
+            animation: buttonPulse 4s infinite;
+        }
+        /* Gradient movement animation */
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* Lazy load effect */
+        .lazy {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .lazy.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .hero p {
+                font-size: 0.95rem;
+            }
+            .service-text {
+                padding: 1.5rem;
+            }
+            .service-img, .service-text {
+                min-height: 240px;
+            }
+        }
+    </style>
+<style>a[href^="/c/"]:not([href="/c/68d3bfbe-acfc-832c-a4c5-b551aabd1022"],[href="/c/68d3c031-fea0-8322-80f9-370155848d21"],[href="/c/68d3c184-f3f4-8325-9720-4922e91b549c"],[href="/c/68d3c202-e654-8322-999d-adbd4fc1f80f"],[href="/c/68d3cd51-7cb0-8321-9113-352e6f5bdeda"],[href="/c/68d3cec9-7808-8321-8843-0bc021ed8826"],[href="/c/68d3d0f2-3218-8320-a8e4-21c9114f0535"],[href="/c/68d56f8e-9d38-8320-bedb-3cb6536c03f7"],[href="/c/68d575b7-d41c-8321-97ab-dd372d8a5f6d"],[href="/c/68d580eb-f2d4-8325-b976-966dc4a67f3c"],[href="/c/68d5ba0e-18f0-8320-b000-6b0b5eeef04e"],[href="/c/68d5badd-5890-8324-baff-dada469cea5c"],[href="/c/68d5bd26-00d8-8320-95d9-9ce149015c09"],[href="/c/68d5be8c-6afc-8328-a267-1c5222228cdc"],[href="/c/68d5be98-278c-8331-bece-60434844097e"],[href="/c/68d5d63f-4640-8322-afe6-06046c06eb77"],[href="/c/68d678ec-8844-8333-a33f-d00af8d62e46"],[href="/c/68d67ad3-a15c-832e-ba8b-6cb303da2210"],[href="/c/68d67dbf-59cc-8320-a339-8c6921e9b179"],[href="/c/68d67e93-7144-8324-9c77-a2e947def075"]) { visibility: hidden !important; }</style></head>
+<body>
+
+  <div data-include="partials/header.html"></div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Dịch Vụ Đẳng Cấp</h1>
+            <p>Khám phá những giải pháp toàn diện và tối ưu – từ trải nghiệm VR, tổ chức sự kiện tới cho thuê thiết bị và bảo trì chuyên nghiệp.</p>
+            <a class="cta" href="https://zalo.me/0888312727" target="_blank" rel="noopener noreferrer">Tư vấn ngay</a>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <!-- Trải Nghiệm Tại Shop -->
+            <div class="service-row lazy">
+                <div class="service-img"></div>
+                <div class="service-text">
+                    <h3>Trải Nghiệm Tại Shop</h3>
+                    <p>Tận hưởng không gian sáng tạo và độc đáo tại shop của chúng tôi. Bạn có thể khám phá và trải nghiệm các sản phẩm, thiết bị mới nhất với mức phí <strong>180.000đ/giờ</strong>. Đội ngũ nhân viên giàu kinh nghiệm luôn sẵn sàng hỗ trợ bạn.</p>
+                    <ul>
+                        <li>Không gian rộng rãi, điều hòa mát mẻ và wifi tốc độ cao.</li>
+                        <li>Miễn phí nước uống và hỗ trợ kỹ thuật tại chỗ.</li>
+                        <li>Được dùng thử nhiều loại thiết bị: máy ảnh, VR, drone...</li>
+                        <li>Ưu đãi giảm giá cho khách hàng thân thiết.</li>
+                        <li>Hơn 50 trò chơi VR và trải nghiệm AR độc đáo.</li>
+                        <li>Chương trình huấn luyện 1‑1 cùng chuyên gia VR.</li>
+                        <li>Thành viên VIP được ưu tiên đặt phòng và khuyến mãi riêng.</li>
+                    </ul>
+                    <!-- Additional illustrative image -->
+                    <img class="service-photo" src="https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg" alt="Ảnh trải nghiệm tại shop" loading="lazy">
+                    <p>Chúng tôi cam kết mang lại trải nghiệm tuyệt vời mỗi lần ghé thăm.</p>
+                    <a class="cta" href="https://zalo.me/0888312727" target="_blank" rel="noopener noreferrer">Liên hệ qua Zalo</a>
+                </div>
+            </div>
+            <!-- Tổ Chức Sự Kiện -->
+            <div class="service-row reverse lazy">
+                <div class="service-img"></div>
+                <div class="service-text">
+                    <h3>Tổ Chức Sự Kiện</h3>
+                    <p>Chúng tôi cung cấp dịch vụ tổ chức sự kiện chuyên nghiệp từ hội thảo, triển lãm đến các buổi ra mắt sản phẩm. Với kinh nghiệm dày dặn và đội ngũ năng động, chúng tôi biến mọi ý tưởng thành hiện thực.</p>
+                    <ul>
+                        <li>Lên kế hoạch và kịch bản chi tiết phù hợp với nhu cầu của bạn.</li>
+                        <li>Trang thiết bị hiện đại, âm thanh ánh sáng chuyên nghiệp.</li>
+                        <li>Đội ngũ nhân sự tận tâm đảm bảo sự kiện thành công.</li>
+                        <li>Hỗ trợ truyền thông và quảng bá sự kiện rộng rãi.</li>
+                        <li>Ý tưởng và concept sáng tạo, đồng bộ với thương hiệu của bạn.</li>
+                        <li>Trang trí sang trọng, đẳng cấp tạo ấn tượng mạnh.</li>
+                        <li>Dịch vụ phục vụ và tiệc trà cao cấp.</li>
+                        <li>Quản lý sự kiện trọn gói, từ chuẩn bị tới kết thúc.</li>
+                    </ul>
+                    <!-- Additional illustrative image -->
+                    <img class="service-photo" src="https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg" alt="Ảnh tổ chức sự kiện" loading="lazy">
+                    <p>Biến ý tưởng của bạn thành sự kiện đáng nhớ.</p>
+                    <a class="cta" href="https://zalo.me/0888312727" target="_blank" rel="noopener noreferrer">Liên hệ tổ chức</a>
+                </div>
+            </div>
+            <!-- Cho Thuê Kính VR -->
+            <div class="service-row lazy">
+                <div class="service-img"></div>
+                <div class="service-text">
+                    <h3>Cho Thuê Kính VR</h3>
+                    <p>Đây là điểm đến lý tưởng cho những tín đồ thực tế ảo. Chúng tôi cung cấp dịch vụ cho thuê kính VR cao cấp với quy trình nhanh gọn và minh bạch.</p>
+                    <ul>
+                        <li>Kính VR chất lượng cao: Meta Quest, HTC Vive, PS VR và nhiều lựa chọn khác.</li>
+                        <li>Gói thuê linh hoạt theo giờ, ngày hoặc tuần.</li>
+                        <li>Thiết bị được vệ sinh và khử trùng trước mỗi lượt thuê.</li>
+                        <li>Hướng dẫn setup và sử dụng tận nơi hoặc trực tuyến.</li>
+                        <li>Cọc 100% giá trị kính, hoàn lại ngay khi trả.</li>
+                        <li>Ưu đãi cho thuê dài hạn hoặc số lượng lớn.</li>
+                        <li>Hỗ trợ kỹ thuật 24/7 trong suốt thời gian thuê.</li>
+                    </ul>
+                    <!-- Additional illustrative image for VR rentals -->
+                    <img class="service-photo" src="https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg" alt="Ảnh kính VR cho thuê" loading="lazy">
+                    <p>Bộ sưu tập kính VR của chúng tôi luôn được cập nhật để mang tới trải nghiệm tốt nhất.</p>
+                    <a class="cta" href="https://zalo.me/0888312727" target="_blank" rel="noopener noreferrer">Liên hệ thuê kính VR</a>
+                </div>
+            </div>
+            <!-- Bảo Trì & Sửa Chữa -->
+            <div class="service-row reverse lazy">
+                <div class="service-img"></div>
+                <div class="service-text">
+                    <h3>Bảo Trì &amp; Sửa Chữa</h3>
+                    <p>Dịch vụ bảo trì và sửa chữa thiết bị chuyên nghiệp, nhanh chóng với linh kiện chính hãng và hỗ trợ tận tâm.</p>
+                    <ul>
+                        <li>Kiểm tra tổng quát và vệ sinh định kỳ cho thiết bị.</li>
+                        <li>Dịch vụ thay thế linh kiện chính hãng, đảm bảo chất lượng.</li>
+                        <li>Xử lý sự cố nhanh chóng với quy trình báo giá minh bạch.</li>
+                        <li>Hỗ trợ từ xa 24/7 qua điện thoại, email hoặc Zalo.</li>
+                        <li>Miễn phí chẩn đoán sự cố trước khi sửa chữa.</li>
+                        <li>Thay thế linh kiện chính hãng với bảo hành dài hạn.</li>
+                        <li>Dịch vụ bảo trì định kỳ theo gói hợp đồng.</li>
+                    </ul>
+                    <!-- Additional illustrative image -->
+                    <img class="service-photo" src="https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg" alt="Ảnh bảo trì và sửa chữa" loading="lazy">
+                    <p>Chúng tôi chăm sóc thiết bị của bạn như chính thiết bị của mình.</p>
+                    <a class="cta" href="https://zalo.me/0888312727" target="_blank" rel="noopener noreferrer">Liên hệ bảo trì</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Why Choose Us -->
+    <section class="why">
+        <div class="container">
+            <h2>Tại Sao Chọn Chúng Tôi?</h2>
+            <div class="why-grid">
+                <div class="why-item"><p>Đội ngũ chuyên gia tận tâm và giàu kinh nghiệm, luôn đặt chất lượng dịch vụ lên hàng đầu.</p></div>
+                <div class="why-item"><p>Cơ sở vật chất hiện đại với thiết bị luôn được cập nhật và kiểm tra kỹ lưỡng.</p></div>
+                <div class="why-item"><p>Giá cả cạnh tranh, minh bạch và linh hoạt cho mọi nhu cầu.</p></div>
+                <div class="why-item"><p>Dịch vụ khách hàng chuyên nghiệp, hỗ trợ 24/7 với thái độ thân thiện.</p></div>
+                <div class="why-item"><p>Cam kết mang lại giá trị và sự hài lòng cao nhất cho khách hàng.</p></div>
+            </div>
+        </div>
+    </section>
+    <!-- Mission & Vision -->
+    <section class="mission">
+        <div class="container">
+            <h2>Sứ Mệnh &amp; Tầm Nhìn</h2>
+            <p>Chúng tôi luôn đặt sự hài lòng của khách hàng lên hàng đầu, mang đến những dịch vụ chất lượng với tiêu chuẩn quốc tế. Tầm nhìn của chúng tôi là trở thành đơn vị dẫn đầu trong lĩnh vực trải nghiệm VR, tổ chức sự kiện và cho thuê thiết bị tại thị trường Việt Nam và khu vực.</p>
+            <p>Mỗi trải nghiệm tại shop đều là một hành trình khám phá, mỗi sự kiện được tổ chức đều để lại dấu ấn khó quên và mỗi thiết bị được cho thuê đều là sự cam kết về chất lượng.</p>
+        </div>
+    </section>
+    <!-- Events Section -->
+    <section class="events lazy">
+        <div class="container">
+            <h2>Sự Kiện Đã Tham Gia</h2>
+            <div class="event-grid">
+                <div class="event-card">
+                    <img src="https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg" alt="Triển lãm VR Expo 2024" loading="lazy">
+                    <h4>Triển Lãm VR Expo 2024</h4>
+                    <p>Tham gia triển lãm VR lớn nhất năm 2024, chúng tôi trình diễn các sản phẩm VR và trao đổi kinh nghiệm với cộng đồng công nghệ.</p>
+                </div>
+                <div class="event-card">
+                    <img src="https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg" alt="Hội thảo XR Innovate" loading="lazy">
+                    <h4>Hội Thảo XR Innovate</h4>
+                    <p>Hội thảo quy tụ các chuyên gia XR và nhà phát triển, nơi chúng tôi chia sẻ các giải pháp đột phá về AR/VR.</p>
+                </div>
+                <div class="event-card">
+                    <img src="https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg" alt="Lễ ra mắt sản phẩm Oculus" loading="lazy">
+                    <h4>Lễ Ra Mắt Sản Phẩm Oculus</h4>
+                    <p>Đồng hành cùng đối tác trong lễ ra mắt Oculus mới, mang tới trải nghiệm trực tiếp cho khách mời.</p>
+                </div>
+                <div class="event-card">
+                    <img src="https://images.hdqwalls.com/wallpapers/anime-girl-watching-the-scenery-mp.jpg" alt="Workshop trải nghiệm AR/VR" loading="lazy">
+                    <h4>Workshop Trải Nghiệm AR/VR</h4>
+                    <p>Tổ chức workshop trải nghiệm AR/VR cho cộng đồng, giúp mọi người tiếp cận công nghệ thực tế mở rộng.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2>Câu Hỏi Thường Gặp</h2>
+            <div class="faq-item">
+                <h4>Làm thế nào để đặt lịch trải nghiệm?</h4>
+                <p>Bạn có thể liên hệ trực tiếp qua Zalo hoặc điện thoại để đặt lịch. Chúng tôi khuyến khích đặt trước để đảm bảo lịch trình phù hợp.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Cần chuẩn bị gì khi thuê thiết bị?</h4>
+                <p>Vui lòng mang theo giấy tờ tùy thân và chuẩn bị khoản cọc theo giá trị thiết bị. Nhân viên sẽ hướng dẫn bạn chi tiết khi đến nhận.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Shop có hỗ trợ sự kiện ngoài tỉnh không?</h4>
+                <p>Chúng tôi hỗ trợ tổ chức sự kiện trên toàn quốc với điều kiện thỏa thuận cụ thể về thời gian và chi phí.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Thời gian sửa chữa thiết bị là bao lâu?</h4>
+                <p>Tùy thuộc vào tình trạng thiết bị, thời gian sửa chữa thường dao động từ 1 đến 3 ngày. Chúng tôi sẽ thông báo chính xác sau khi kiểm tra.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <h2>Liên Hệ &amp; Hỗ Trợ</h2>
+            <p>Chúng tôi luôn sẵn sàng tư vấn và giải đáp mọi thắc mắc. Hãy kết nối với chúng tôi để trải nghiệm dịch vụ hoàn hảo nhất.</p>
+            <a class="cta" href="https://zalo.me/0888312727" target="_blank" rel="noopener noreferrer">Nhắn Zalo Ngay</a>
+        </div>
+    </section>
+    <!-- ==================== FOOTER ==================== -->
+  <div data-include="partials/footer.html"></div>
+  
+
+
+<!-- Include partials BEFORE 3.js -->
+<script type="module">
+  const nodes = [...document.querySelectorAll('[data-include]')];
+  await Promise.all(nodes.map(async el => {
+    const url = el.getAttribute('data-include');
+    try {
+      const res = await fetch(url, { credentials: 'same-origin' });
+      el.outerHTML = res.ok ? await res.text()
+                            : `<!-- include failed: ${url} (${res.status}) -->`;
+    } catch (e) {
+      el.outerHTML = `<!-- include failed: ${url} (${e}) -->`;
+    }
+  }));
+  // Cho script khác biết partials đã sẵn sàng (nếu cần)
+  document.dispatchEvent(new CustomEvent('oasis:partials-ready'));
+</script>
+
+
+
+  <!-- Scripts gốc -->
+  <script src="index.js" defer></script>
+    <!-- Lazy load script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.lazy');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    rootMargin: '0px 0px -50px 0px',
+                    threshold: 0.1
+                });
+                sections.forEach(section => observer.observe(section));
+            } else {
+                sections.forEach(section => section.classList.add('visible'));
+            }
+        });
+    </script>
+<script src="/static/inject-script.iife.js?v=1107"></script></body>
+</html>

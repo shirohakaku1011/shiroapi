@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sản phẩm — OASIS VR ZONE</title>
+  <meta name="description" content="Danh sách sản phẩm OASIS VR ZONE: vr, trap, phụ kiện. Lọc nhanh, tìm kiếm, sắp xếp. Thuê & mua nhanh gọn." />
+  <meta name="theme-color" content="#0ff" />
+  <link rel="stylesheet" href="index.css" />
+
+  <!-- ===== Styles chỉ cho trang Sản phẩm (scoped #shop) + Dialog ===== -->
+  <style>
+    /* ===== SHOP PAGE ===== */
+    #shop .toolbar{
+      position:sticky; top:calc(12px + 60px); z-index:10;
+      display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center;
+      padding:10px; border:1px solid var(--border); border-radius:16px;
+      background:linear-gradient(180deg,rgba(18,26,38,.95),rgba(18,26,38,.85)); box-shadow:var(--shadow);
+    }
+    #shop .search{
+      position:relative; display:flex; align-items:center;
+      background:#0f1520; border:1px solid #213044; border-radius:12px; padding:8px 12px; gap:8px;
+    }
+    #shop .search input{
+      width:100%; background:transparent; border:0; outline:none; color:#e8f3ff; font:inherit;
+    }
+    #shop .chips{ display:flex; gap:8px; flex-wrap:wrap; }
+    #shop .chip-btn{
+      padding:8px 12px; border-radius:999px; border:1px solid #223049; color:#a8c4e0; background:#0f1520; cursor:pointer;
+    }
+    #shop .chip-btn.active{ box-shadow:inset 0 0 0 2px #203045; color:#e6f4ff; }
+    #shop .sort{
+      display:flex; align-items:center; gap:8px; background:#0f1520; border:1px solid #213044; border-radius:12px; padding:8px 12px; color:#cfe9ff;
+      position: relative;
+    }
+    #shop select{ background:transparent; color:#e6f4ff; border:0; outline:none; }
+
+    /* CTA đôi: Zalo / Messenger (giữ đúng phong cách gốc) */
+    .btn.zalo{ background:#0f1520; }
+    .btn.msg{ background:linear-gradient(135deg,#00e6ff 0%,#2be7ff 30%,#ff25ff 100%); color:#05121a; font-weight:800; }
+
+    /* Ribbon NEW */
+    .ribbon{
+      position:absolute; top:10px; left:-6px; padding:6px 12px 6px 18px;
+      background:linear-gradient(90deg,var(--primary),var(--secondary)); color:#05121a; font-weight:800;
+      border-top-right-radius:999px; border-bottom-right-radius:999px; box-shadow:var(--shadow);
+      z-index: 100;
+    }
+
+    /* Grid responsive giữ phong cách gốc */
+    #shop .products-grid{ align-items:stretch; }
+    #shop .card .body{ align-items:center; text-align:center; gap:12px; }
+    #shop .row{ justify-content:center; }
+    #shop .price{ margin-left:0; }
+
+    /* Kết quả rỗng */
+    #empty{
+      display:none; text-align:center; color:#9fb7cf; border:1px dashed #223049; border-radius:16px; padding:24px;
+      background:linear-gradient(180deg,rgba(18,26,38,.7),rgba(18,26,38,.5));
+    }
+
+    @media (max-width:1024px){
+      #shop .toolbar{ grid-template-columns:1fr; position:relative; top:auto; }
+    }
+
+    /* ===== Sắp xếp: chevron & focus đẹp ===== */
+    #shop .sort label{ color:#bcd2e6; font-weight:600; white-space:nowrap; }
+    #shop #sortSel{
+      -webkit-appearance:none; appearance:none; background:transparent; color:#eaf7ff;
+      font-weight:700; padding:10px 36px 10px 8px; min-height:40px; border:0; outline:none; border-radius:10px;
+      text-shadow:0 0 8px rgba(0,230,255,.15);
+    }
+    #shop .sort::after{
+      content:""; position:absolute; right:12px; top:50%; margin-top:-6px; width:10px; height:10px;
+      border-right:2px solid #cfe9ff; border-bottom:2px solid #cfe9ff; transform:rotate(45deg);
+      pointer-events:none; filter:drop-shadow(0 0 10px rgba(0,230,255,.25));
+    }
+    #shop .sort:focus-within{ box-shadow:var(--shadow),0 0 0 2px rgba(0,230,255,.25); border-color:#3a4f6b; }
+    #shop #sortSel option{ color:#e6f4ff; background:#0f1520; }
+    @media (max-width:640px){
+      #shop .sort{ justify-content:space-between; gap:10px; padding-right:36px; }
+      #shop #sortSel{ width:54vw; }
+    }
+
+    /* ===== PRODUCT DIALOG (scope .p-*) – không ảnh hưởng layout hiện có ===== */
+    .p-modal{position:fixed;inset:0;z-index:1000;display:none;place-items:center}
+    .p-modal.open{display:grid}
+    .p-backdrop{position:absolute;inset:0;background:rgba(8,12,18,.65);backdrop-filter:blur(8px) saturate(120%)}
+    .p-dialog{
+      position:relative;z-index:1;width:min(1100px,96vw);max-height:90vh;
+      display:grid;grid-template-columns:5fr 7fr;gap:16px;padding:16px;
+      border:1px solid var(--border);border-radius:calc(var(--radius) + 2px);
+      background:linear-gradient(180deg,rgba(18,26,38,.96),rgba(18,26,38,.92));
+      box-shadow:var(--shadow),0 20px 60px rgba(0,0,0,.55);overflow:hidden;
+      animation:popIn .22s cubic-bezier(.2,.7,.2,1)
+    }
+    @keyframes popIn{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+
+    .p-hero{border:1px solid var(--border);border-radius:14px;overflow:hidden;display:grid;grid-template-rows:auto auto;gap:10px}
+    .p-hero-main{position:relative;aspect-ratio:16/10;background:#0d141e}
+    .p-hero-main img{width:100%;height:100%;object-fit:cover;display:block;filter:drop-shadow(0 12px 28px rgba(0,230,255,.12))}
+    .p-hero .navbtn{
+      position:absolute;top:50%;translate:0 -50%;width:40px;height:40px;border-radius:10px;border:1px solid #1f2a3a;
+      background:#0f1520cc;display:grid;place-items:center
+    }
+    .p-hero .navbtn::after{content:"";width:12px;height:12px;border-top:2px solid #cfe9ff;border-right:2px solid #cfe9ff;transform:rotate(45deg)}
+    .p-hero .prev{left:8px}.p-hero .prev::after{transform:rotate(225deg)}
+    .p-hero .next{right:8px}
+    .p-hero-nav{display:flex;justify-content:center;gap:8px;padding:2px;overflow:auto;scrollbar-width:none}
+    .p-hero-nav::-webkit-scrollbar{display:none}
+    .p-thumb{flex:0 0 auto;width:72px;aspect-ratio:1;border-radius:10px;border:1px solid #213044;overflow:hidden;opacity:.85;transition:.2s ease}
+    .p-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .p-thumb:hover{opacity:1;box-shadow:0 0 0 1px #203045}
+    .p-thumb.active{opacity:1;box-shadow:0 0 0 2px rgba(0,230,255,.35)}
+
+    .p-content{display:grid;grid-template-rows:auto 1fr auto;gap:12px;min-height:0}
+    .p-head{
+      display:grid;grid-template-columns:1fr auto;align-items:end;gap:12px;
+      padding-right:56px; /* chừa chỗ cho nút Close -> GIÁ không bị đè */
+    }
+    .p-title{font-size:clamp(20px,3.2vw,32px);font-weight:800;line-height:1.1}
+    .p-price{
+      font-weight:900;color:#e7fbff;
+      background:linear-gradient(90deg,rgba(0,230,255,.18),transparent);
+      padding:6px 10px;border-radius:10px
+    }
+    .p-scroll{overflow:auto;padding-right:4px;display:grid;gap:12px}
+    .p-badges{display:flex;gap:8px;flex-wrap:wrap}
+    .p-desc{color:#bcd2e6}
+    .p-high,.p-specs{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+    .p-high li::before{content:"✓ ";color:#9dff00;margin-right:4px}
+    .p-specs{color:#bcd2e6}
+    .p-specs li::before{content:"• ";color:#7fbfff;margin-right:4px}
+
+    .p-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+    .p-actions .btn{min-width:160px}
+    .p-close{
+      position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:10px;
+      border:1px solid #213044;background:#0f1520cc;color:#cfe9ff;display:grid;place-items:center;box-shadow:var(--shadow)
+    }
+    .p-close:hover{box-shadow:var(--shadow),0 0 0 2px rgba(0,230,255,.25)}
+
+    @media (max-width:900px){
+      .p-dialog{grid-template-columns:1fr;width:min(720px,96vw);max-height:92vh}
+      .p-actions{justify-content:center}
+    }
+  </style>
+</head>
+<body>
+  <div data-include="partials/header.html"></div>
+  
+  <!-- ==================== CONTENT ==================== -->
+  <main id="shop" class="section fx-section" aria-label="Danh sách sản phẩm">
+    <div class="container stack">
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#9fb7cf" aria-hidden="true"><path d="M10 4a6 6 0 104.472 10.03l4.249 4.25 1.414-1.414-4.25-4.249A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/></svg>
+          <input id="q" type="search" placeholder="Tìm: VR Quest, Phụ kiện, Trap..." aria-label="Tìm sản phẩm" />
+        </div>
+        <div class="chips" role="tablist" aria-label="Danh mục">
+          <button class="chip-btn active" data-cat="all" role="tab" aria-selected="true">Tất cả</button>
+          <button class="chip-btn" data-cat="new" role="tab" aria-selected="false">new</button>
+          <button class="chip-btn" data-cat="like new" role="tab" aria-selected="false">like new</button>
+          <button class="chip-btn" data-cat="Phụ Kiện" role="tab" aria-selected="false">Phụ Kiện</button>
+          <button class="chip-btn" data-cat="accessories" role="tab" aria-selected="false">Oder</button>
+        </div>
+        <div class="sort">
+          <label for="sortSel">Sắp xếp</label>
+          <select id="sortSel" aria-label="Sắp xếp">
+            <option value="popular">Phổ biến</option>
+            <option value="price-asc">Giá tăng dần</option>
+            <option value="price-desc">Giá giảm dần</option>
+            <option value="name-asc">Tên A–Z</option>
+            <option value="name-desc">Tên Z–A</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Grid -->
+      <section class="products-grid" id="grid" aria-live="polite">
+        <!-- HEADSETS -->
+        <article class="card neo fx-item fx-fade-up" data-cat="new" data-name="Meta quest 3s" data-price="8.990.000₫">
+          <div class="ribbon">NEW</div>
+          <div class="media"><img src="/quest3s/15.webp" alt="Meta quest 3s" loading="lazy" decoding="async"></div>
+          <div class="body">
+            <div class="row"><span class="chip">new 100%</span><span class="price">8.990.000₫</span></div>
+            <h3>Meta quest 3s</h3>
+            <p>Meta Quest 3S, bước vào vũ trụ ảo sống động, game cực mượt 120Hz</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+              <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card neo fx-item fx-fade-up" data-cat="like new" data-name="Meta quest 3s Like New" data-price="5.490.000đ">
+          <div class="ribbon">Like New</div>
+          <div class="media"><img src="/quest3s/15.webp" alt="Meta quest 3s Like New" loading="lazy" decoding="async"></div>
+          <div class="body">
+            <div class="row"><span class="chip">like new</span><span class="price">5.490.000đ</span></div>
+            <h3>Meta quest 3s Like New</h3>
+            <p>Meta Quest 3S, bước vào vũ trụ ảo sống động, game cực mượt 120Hz</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+              <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- CONTROLLERS -->
+        <article class="card neo fx-item fx-fade-up" data-cat="new" data-name="Meta quest 3" data-price="13.990.000đ">
+          <div class="ribbon">NEW</div>
+          <div class="media"><img src="/Quest 3/nen.webp" alt="Sense Controllers" loading="lazy"></div>
+          <div class="body">
+            <div class="row"><span class="chip">new</span><span class="price">13.990.000đ</span></div>
+            <h3>Meta quest 3</h3>
+            <p>Meta Quest 3, kính VR 4K 120Hz, XR2 Gen 2, trải nghiệm thực tế ảo đỉnh cao.</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+              <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card neo fx-item fx-fade-up" data-cat="like new" data-name="Meta quest 3 128GB Like New" data-price="10.790.000₫">
+          <div class="ribbon">Like New</div>
+          <div class="media"><img src="/Quest 3/nen.webp" alt="Air Wand" loading="lazy"></div>
+          <div class="body">
+            <div class="row"><span class="chip">like new</span><span class="price">10.790.000₫</span></div>
+            <h3>Meta quest 3 128GB Like New</h3>
+            <p>Meta Quest 3, kính VR 4K 120Hz, XR2 Gen 2, trải nghiệm thực tế ảo đỉnh cao.</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+              <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- HAPTICS -->
+        <article class="card neo fx-item fx-fade-up" data-cat="like new" data-name="Meta quest 3 512GB Like New" data-price="12.490000₫">
+          <div class="ribbon">Like New</div>
+          <div class="media"><img src="/Quest 3/nen.webp" alt="Pulse Vest" loading="lazy"></div>
+          <div class="body">
+            <div class="row"><span class="chip">like new</span><span class="price">12.490.000₫</span></div>
+            <h3>Meta quest 3 512GB Like New</h3>
+            <p>Meta Quest 3, kính VR 4K 120Hz, XR2 Gen 2, trải nghiệm thực tế ảo đỉnh cao.</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="card neo fx-item fx-fade-up" data-cat="new" data-name="Meta quest 3s 256GB" data-price="10.490.000đ">
+          <div class="ribbon">NEW</div>
+          <div class="media"><img src="/quest3s/15.webp" alt="Meta quest 3s 256GB" loading="lazy" decoding="async"></div>
+          <div class="body">
+            <div class="row"><span class="chip">new</span><span class="price">10.490.000₫</span></div>
+            <h3>Meta quest 3s 256GB</h3>
+            <p>Meta Quest 3S, bước vào vũ trụ ảo sống động, game cực mượt 120Hz</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+              <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card neo fx-item fx-fade-up" data-cat="like new" data-name="Meta quest 3s like new 256GB" data-price="6.790.000đ">
+          <div class="ribbon">like new</div>
+          <div class="media"><img src="/quest3s/15.webp" alt="Meta quest 3s 256GB" loading="lazy" decoding="async"></div>
+          <div class="body">
+            <div class="row"><span class="chip">like new</span><span class="price">6.790.000₫</span></div>
+            <h3>Meta quest 3s 256GB like new</h3>
+            <p>Meta Quest 3S, bước vào vũ trụ ảo sống động, game cực mượt 120Hz</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+              <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card neo fx-item fx-fade-up" data-cat="new" data-name="Ray-Ban Meta Wayfarer" data-price="9.490.000đ">
+          <div class="ribbon">new</div>
+          <div class="media"><img src="rayban/n.jpg" alt="Ray-Ban Meta Wayfarer" loading="lazy" decoding="async"></div>
+          <div class="body">
+            <div class="row"><span class="chip">new</span><span class="price">9.490.000₫</span></div>
+            <h3>Ray-Ban Meta Wayfarer</h3>
+            <p>Colors Ray-Ban: Shiny Black/Clear </br>
+                            Size S-50/53</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+              <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="card neo fx-item fx-fade-up" data-cat="like new" data-name="Ray-Ban Meta Wayfarer like new" data-price="8.490.000đ">
+          <div class="ribbon">new</div>
+          <div class="media"><img src="rayban/n.jpg" alt="Ray-Ban Meta Wayfarer like new" loading="lazy" decoding="async"></div>
+          <div class="body">
+            <div class="row"><span class="chip">like new</span><span class="price">8.490.000₫</span></div>
+            <h3>Ray-Ban Meta Wayfarer like new</h3>
+            <p>Colors Ray-Ban: Shiny Black/Clear </br>
+                            Size S-50/53</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+              <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card neo fx-item fx-fade-up" data-cat="new" data-name="Ray-Ban Meta Wayfarer Transitions" data-price="11.990.000đ">
+          <div class="ribbon">new</div>
+          <div class="media"><img src="rb/nen-Photoroom (1).png" alt="Ray-Ban Meta Wayfarer" loading="lazy" decoding="async"></div>
+          <div class="body">
+            <div class="row"><span class="chip">new</span><span class="price">11.990.000đ</span></div>
+            <h3>Ray-Ban Meta Wayfarer Transitions</h3>
+            <p>Colors Ray-Ban: Clear to Graphite Green Transitions</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card neo fx-item fx-fade-up" data-cat="like new" data-name="Ray-Ban Meta Wayfarer Transitions like new" data-price="9.890.000đ">
+          <div class="ribbon">like new</div>
+          <div class="media"><img src="rb/nen-Photoroom (1).png" alt="Ray-Ban Meta Wayfarer Transitions like new" loading="lazy" decoding="async"></div>
+          <div class="body">
+            <div class="row"><span class="chip">like new</span><span class="price">9.890.000₫</span></div>
+            <h3>Ray-Ban Meta Wayfarer Transitions like new</h3>
+            <p>Colors Ray-Ban: Clear to Graphite Green Transitions</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="card neo fx-item fx-fade-up" data-cat="Phụ Kiện" data-name="BOBOVR M3 Pro" data-price="1.500.000đ">
+          <div class="ribbon">new</div>
+          <div class="media"><img src="m3 pro/nen.webp" alt="BOBOVR M3 Pro" loading="lazy" decoding="async"></div>
+          <div class="body">
+            <div class="row"><span class="chip">Phụ Kiện</span><span class="price">1.500.000₫</span></div>
+            <h3>BOBOVR M3 Pro</h3>
+            <p>M3 Pro Strap chính hãng, pin rời tiện lợi, dùng tốt cho Quest 3 và 3S</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card neo fx-item fx-fade-up" data-cat="Phụ Kiện" data-name="BOBOVR E3 Pro" data-price="1.500.000đ">
+          <div class="ribbon">new</div>
+          <div class="media"><img src="e3pro/nen.webp" alt="BOBOVR E3 Pro" loading="lazy" decoding="async"></div>
+          <div class="body">
+            <div class="row"><span class="chip">Phụ Kiện</span><span class="price">1.500.000₫</span></div>
+            <h3>BOBOVR E3 Pro</h3>
+            <p>E3 Pro Strap chính hãng, pin rời tiện lợi, dùng tốt cho Quest 3 và 3S</p>
+            <div class="actions">
+              <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Strap S3 Pro -->
+<article class="card neo fx-item fx-fade-up" data-cat="Phụ Kiện" data-name="Strap S3 Pro" data-price="2.500.000₫">
+  <div class="ribbon">new</div>
+  <div class="media"><img src="/phukien/s3pro/nen.webp" alt="Strap S3 Pro" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">Phụ Kiện</span><span class="price">2.500.000₫</span></div>
+    <h3>Strap S3 Pro</h3>
+    <p>BOBOVR S-Series – dòng phụ kiện cao cấp cho Meta Quest</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+<!-- Pin BOBOVR B2 -->
+<article class="card neo fx-item fx-fade-up" data-cat="Phụ Kiện" data-name="Pin  BOBOVR B2" data-price="500.000₫">
+  <div class="ribbon">new</div>
+  <div class="media"><img src="/phukien/pinb2/nen.webp" alt="Pin BOBOVR B2" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">Phụ Kiện</span><span class="price">500.000₫</span></div>
+    <h3>Pin  BOBOVR B2</h3>
+    <p>Pin BOBOVR B2 chính hãng – nâng cấp trải nghiệm VR</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+<!-- Dock Sạc Kèm Pin B100 -->
+<article class="card neo fx-item fx-fade-up" data-cat="Phụ Kiện" data-name="Dock Sạc Kèm Pin B100" data-price="1.700.000₫">
+  <div class="ribbon">new</div>
+  <div class="media"><img src="/phukien/docksac_kempinb100/nen.webp" alt="Dock Sạc Kèm Pin B100" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">Phụ Kiện</span><span class="price">1.700.000₫</span></div>
+    <h3>Dock Sạc Kèm Pin B100</h3>
+    <p>Combo hoàn hảo: Dock sạc BD3 kèm Pin B100 dung lượng 10.000mAh.</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+<!-- Pin BOBOVR B100 -->
+<article class="card neo fx-item fx-fade-up" data-cat="Phụ Kiện" data-name="Pin BOBOVR B100" data-price="850.000₫">
+  <div class="ribbon">new</div>
+  <div class="media"><img src="/phukien/pinb100/nen.webp" alt="Pin BOBOVR B100" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">Phụ Kiện</span><span class="price">850.000₫</span></div>
+    <h3>Pin BOBOVR B100</h3>
+    <p>Pin BOBOVR B100 – nâng cấp đỉnh cao từ dòng B2</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+<!-- Dock Sạc Kèm Pin B2 -->
+<article class="card neo fx-item fx-fade-up" data-cat="Phụ Kiện" data-name="Dock Sạc Kèm Pin B2" data-price="750.000₫">
+  <div class="ribbon">new</div>
+  <div class="media"><img src="/phukien/pinb2/nen.webp" alt="Dock Sạc Kèm Pin B2" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">Phụ Kiện</span><span class="price">750.000₫</span></div>
+    <h3>Dock Sạc Kèm Pin B2</h3>
+    <p>Dock sạc siêu mỏng, tiết kiệm không gian, kèm pin B2 tiện lợi.</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+<!-- Túi chống sốc cao cấp Meta Quest 3/3S -->
+<article class="card neo fx-item fx-fade-up" data-cat="Phụ Kiện" data-name="Túi chống sốc cao cấp  Meta Quest 3/3S" data-price="480.000₫">
+  <div class="ribbon">new</div>
+  <div class="media"><img src="/phukien/tuichong_soc/nen.png" alt="Túi chống sốc cao cấp  Meta Quest 3/3S" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">Phụ Kiện</span><span class="price">480.000₫</span></div>
+    <h3>Túi chống sốc cao cấp  Meta Quest 3/3S</h3>
+    <p>Túi chống sốc cao cấp, thiết kế sang trọng, tối ưu cho Meta Quest 3 &amp; Quest 3S.</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+
+
+<!-- Pico 4 Ultra (new) -->
+<article class="card neo fx-item fx-fade-up" data-cat="new" data-name="Pico 4 ultra" data-price="14.900.000₫">
+  <div class="ribbon">NEW</div>
+  <div class="media"><img src="/website/pico4ultra/nen.webp" alt="Pico 4 Ultra" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">new 100%</span><span class="price">14.900.000₫</span></div>
+    <h3>Pico 4 ultra</h3>
+    <p>Pico 4 Ultra – phiên bản mới nhất, hỗ trợ Mixed Reality với hệ thống 3 camera hiện đại.</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+<!-- Pico 4 Ultra (like new) -->
+<article class="card neo fx-item fx-fade-up" data-cat="like new" data-name="Pico 4 ultra likenew" data-price="12.490.000₫">
+  <div class="ribbon">Like New</div>
+  <div class="media"><img src="/website/pico4ultra/nen.webp" alt="Pico 4 Ultra" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">like new</span><span class="price">12.490.000₫</span></div>
+    <h3>Pico 4 ultra likenew</h3>
+    <p>Pico 4 Ultra Like New – phiên bản mới nhất, hỗ trợ Mixed Reality với 3 camera hiện đại.</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+<!-- Kính Meta RayBan Display (new) -->
+<article class="card neo fx-item fx-fade-up" data-cat="new" data-name="Kính Thông Minh Meta Rayban - Display" data-price="24.990.000₫">
+  <div class="ribbon">NEW</div>
+  <div class="media"><img src="/website/raybandisplay/nen.webp" alt="Kính Thông Minh Meta Rayban - Display" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">new 100%</span><span class="price">24.990.000₫</span></div>
+    <h3>Kính Thông Minh Meta Rayban - Display</h3>
+    <p>Kính thông minh Meta Ray-Ban chính hãng, thiết kế sang trọng và hiện đại.</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+<!-- Kính Meta RayBan Wayfarer thế hệ 2 (new) -->
+<article class="card neo fx-item fx-fade-up" data-cat="new" data-name="Kính Thông Minh Meta Rayban Wayfarer thế hệ 2" data-price="15.990.000₫">
+  <div class="ribbon">NEW</div>
+  <div class="media"><img src="/website/rayban/ne.png" alt="Kính Thông Minh Meta Rayban Wayfarer thế hệ 2" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">new 100%</span><span class="price">15.990.000₫</span></div>
+    <h3>Kính Thông Minh Meta Rayban Wayfarer thế hệ 2</h3>
+    <p>Kính Ray-Ban chính hãng, thiết kế dựa trên nguyên mẫu Wayfarer kinh điển.</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+<!-- Kính Meta RayBan Wayfarer thế hệ 2 (like new) -->
+<article class="card neo fx-item fx-fade-up" data-cat="like new" data-name="Kính Thông Minh Meta Rayban Wayfarer thế hệ 2" data-price="12.490.000₫">
+  <div class="ribbon">Like New</div>
+  <div class="media"><img src="/website/rayban/ne.png" alt="Kính Thông Minh Meta Rayban Wayfarer thế hệ 2" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">like new</span><span class="price">12.490.000₫</span></div>
+    <h3>Kính Thông Minh Meta Rayban Wayfarer thế hệ 2</h3>
+    <p>Kính Ray-Ban chính hãng, thiết kế dựa trên nguyên mẫu Wayfarer kinh điển.</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+<!-- PSVR2 (like new) -->
+<article class="card neo fx-item fx-fade-up" data-cat="like new" data-name="kính thực tế ảo Sony Psvr 2" data-price="6.990.000₫">
+  <div class="ribbon">Like New</div>
+  <div class="media"><img src="/website/psvr2/nen.jpg" alt="kính thực tế ảo Sony Psvr 2" loading="lazy" decoding="async"></div>
+  <div class="body">
+    <div class="row"><span class="chip">like new</span><span class="price">6.990.000₫</span></div>
+    <h3>kính thực tế ảo Sony Psvr 2</h3>
+    <p>Kính thực tế ảo PSVR2 2nd 99%, trải nghiệm cao cấp với giá tiết kiệm</p>
+    <div class="actions">
+      <a class="btn zalo" href="https://www.facebook.com/pham.huuly.1?mibextid=ZbWKwL" target="_blank" rel="noopener">Thuê</a>
+      <a class="btn msg" href="https://zalo.me/0888312727" target="_blank" rel="noopener">Mua ngay</a>
+    </div>
+  </div>
+</article>
+
+        
+      </section>
+
+      <div id="empty">Không tìm thấy sản phẩm phù hợp. Hãy thử từ khóa khác hoặc chọn danh mục khác.</div>
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <div data-include="partials/footer.html"></div>
+  
+
+
+<!-- Include partials BEFORE 3.js -->
+<script type="module">
+  const nodes = [...document.querySelectorAll('[data-include]')];
+  await Promise.all(nodes.map(async el => {
+    const url = el.getAttribute('data-include');
+    try {
+      const res = await fetch(url, { credentials: 'same-origin' });
+      el.outerHTML = res.ok ? await res.text()
+                            : `<!-- include failed: ${url} (${res.status}) -->`;
+    } catch (e) {
+      el.outerHTML = `<!-- include failed: ${url} (${e}) -->`;
+    }
+  }));
+  // Cho script khác biết partials đã sẵn sàng (nếu cần)
+  document.dispatchEvent(new CustomEvent('oasis:partials-ready'));
+</script>
+
+
+
+  <!-- Scripts gốc -->
+  <script src="index.js" defer></script>
+
+  <!-- SHOP: filter + search + sort + tilt FX (GIỮ NGUYÊN HÀNH VI) -->
+  <script>
+  (() => {
+    const grid = document.getElementById('grid');
+    const items = Array.from(grid.querySelectorAll('.card'));
+    const q = document.getElementById('q');
+    const chips = Array.from(document.querySelectorAll('.chip-btn'));
+    const sortSel = document.getElementById('sortSel');
+    const empty = document.getElementById('empty');
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let state = { cat: 'all', q: '', sort: 'popular' };
+
+    function match(item){
+      const catOk = state.cat === 'all' || item.dataset.cat === state.cat;
+      const txt = (item.dataset.name || '').toLowerCase();
+      const qOk = !state.q || txt.includes(state.q);
+      return catOk && qOk;
+    }
+
+    function applyFilter(){
+      let visible = [];
+      items.forEach(it => {
+        const ok = match(it);
+        it.style.display = ok ? '' : 'none';
+        if (ok) visible.push(it);
+      });
+      empty.style.display = visible.length ? 'none' : 'block';
+      applySort(visible);
+    }
+
+    function applySort(list){
+      const by = state.sort;
+      const cmp = {
+        'popular': () => 0,
+        'price-asc': (a,b)=> (+a.dataset.price) - (+b.dataset.price),
+        'price-desc':(a,b)=> (+b.dataset.price) - (+a.dataset.price),
+        'name-asc' : (a,b)=> a.dataset.name.localeCompare(b.dataset.name,'vi'),
+        'name-desc': (a,b)=> b.dataset.name.localeCompare(a.dataset.name,'vi'),
+      }[by] || (()=>0);
+
+      list.sort(cmp).forEach(n => grid.appendChild(n));
+    }
+
+    q.addEventListener('input', () => { state.q = q.value.trim().toLowerCase(); applyFilter(); });
+    chips.forEach(c => c.addEventListener('click', () => {
+      chips.forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected','false'); });
+      c.classList.add('active'); c.setAttribute('aria-selected','true');
+      state.cat = c.dataset.cat; applyFilter();
+    }));
+    sortSel.addEventListener('change', () => { state.sort = sortSel.value; applyFilter(); });
+
+    applyFilter();
+
+    // Tilt FX nhẹ
+    if (!prefersReduced) {
+      const maxTilt = 6;
+      items.forEach(card => {
+        const media = card.querySelector('.media');
+        if (!media) return;
+        card.addEventListener('pointermove', e => {
+          const r = card.getBoundingClientRect();
+          const rx = (e.clientY - r.top) / r.height - .5;
+          const ry = (e.clientX - r.left) / r.width  - .5;
+          card.style.transform = `translateY(-6px) rotateX(${(-rx*maxTilt).toFixed(2)}deg) rotateY(${(ry*maxTilt).toFixed(2)}deg)`;
+        });
+        card.addEventListener('pointerleave', ()=> card.style.transform = '');
+      });
+    }
+  })();
+  </script>
+
+  <!-- ===== PRODUCT DIALOG: chỉ mở khi click vào card; không chặn link Thuê/Mua ===== -->
+  <script>
+  (() => {
+    const $  = (s,c=document)=>c.querySelector(s);
+    const $$ = (s,c=document)=>Array.from(c.querySelectorAll(s));
+
+    // Dữ liệu bổ sung cho dialog (theo tên sản phẩm)
+    const META = {
+      'Meta quest 3s':{
+        descLong:'Phiên bản rút gọn của Meta Quest 3 với thiết kế gọn nhẹ, chính hãng Meta.',
+        high:['Trang bị chip Snapdragon XR2 Gen 2, hỗ trợ tần số quét 90Hz mượt mà.','Camera Passthrough màu 4MP, sử dụng thấu kính Fresnel như trên Quest 2.','Kho ứng dụng Meta Store đa dạng game và trải nghiệm VR.'],
+        specs:['Ưu đãi: Voucher 200K khi mua kèm phụ kiện + tài khoản game bản quyền.','Bảo hành 12 tháng, 1 đổi 1 trong 30 ngày đầu, freeship toàn quốc.',],
+        gallery:[
+          './quest3s/15.webp',
+          '/quest3s/a11.webp',
+          '/quest3s/122.webp',
+        ]
+      },
+      'Meta quest 3s Like New':{
+        descLong:'Phiên bản rút gọn của Meta Quest 3 với thiết kế gọn nhẹ, chính hãng Meta.',
+        high:['Trang bị chip Snapdragon XR2 Gen 2, hỗ trợ tần số quét 90Hz mượt mà.','Camera Passthrough màu 4MP, sử dụng thấu kính Fresnel như trên Quest 2.','Kho ứng dụng Meta Store đa dạng game và trải nghiệm VR.'],
+        specs:['Ưu đãi: Voucher 200K khi mua kèm phụ kiện + tài khoản game bản quyền.','Bảo hành 12 tháng, 1 đổi 1 trong 30 ngày đầu, freeship toàn quốc.',],
+        gallery:[
+          './quest3s/15.webp',
+          '/quest3s/a11.webp',
+          '/quest3s/122.webp',
+        ]
+      },
+      'Meta quest 3':{
+        descLong:'Meta Quest 3 – Phiên bản 512GB cao cấp',
+        high:['Tặng kèm tài khoản game bản quyền khi mua máy.Bộ quà phụ kiện độc quyền trị giá 1.600K  (mặt nạ silicone, miếng lót thấu kính, khăn lau JSAUX, mã giảm giá 200K)','Trang bị CPU Snapdragon XR2 Gen 2, thấu kính Pancake thế hệ mới.','Màn hình 4K, hỗ trợ điều chỉnh IPD vật lý, tần số quét 120Hz.'],
+        specs:['Camera Passthrough màu, kho ứng dụng đa dạng trên Meta Store.','Bảo hành 12 tháng  Miễn phí vận chuyển toàn quốc'],
+        gallery:[
+          '/Quest 3/1.webp',
+          '/Quest 3/a2.jpg',
+          '/Quest 3/2.webp',
+        ]
+      },
+      'Meta quest 3 128GB Like New':{
+        escLong:'Meta Quest 3 – Phiên bản 512GB cao cấp',
+        high:['Tặng kèm tài khoản game bản quyền khi mua máy.Bộ quà phụ kiện độc quyền trị giá 1.600K  (mặt nạ silicone, miếng lót thấu kính, khăn lau JSAUX, mã giảm giá 200K)','Trang bị CPU Snapdragon XR2 Gen 2, thấu kính Pancake thế hệ mới.','Màn hình 4K, hỗ trợ điều chỉnh IPD vật lý, tần số quét 120Hz.'],
+        specs:['Camera Passthrough màu, kho ứng dụng đa dạng trên Meta Store.','Bảo hành 12 tháng  Miễn phí vận chuyển toàn quốc'],
+        gallery:[
+          '/Quest 3/1.webp',
+          '/Quest 3/a2.jpg',
+          '/Quest 3/2.webp',
+        ]
+      },
+      'Meta quest 3 512GB Like New':{
+        escLong:'Meta Quest 3 – Phiên bản 512GB cao cấp',
+        high:['Tặng kèm tài khoản game bản quyền khi mua máy.Bộ quà phụ kiện độc quyền trị giá 1.600K  (mặt nạ silicone, miếng lót thấu kính, khăn lau JSAUX, mã giảm giá 200K)','Trang bị CPU Snapdragon XR2 Gen 2, thấu kính Pancake thế hệ mới.','Màn hình 4K, hỗ trợ điều chỉnh IPD vật lý, tần số quét 120Hz.'],
+        specs:['Camera Passthrough màu, kho ứng dụng đa dạng trên Meta Store.','Bảo hành 12 tháng  Miễn phí vận chuyển toàn quốc'],
+        gallery:[
+          '/Quest 3/1.webp',
+          '/Quest 3/a2.jpg',
+          '/Quest 3/2.webp',
+        ]
+      },
+      'Meta quest 3s 256GB':{
+        descLong:'Phiên bản rút gọn của Meta Quest 3 với thiết kế gọn nhẹ, chính hãng Meta.',
+        high:['Trang bị chip Snapdragon XR2 Gen 2, hỗ trợ tần số quét 90Hz mượt mà.','Camera Passthrough màu 4MP, sử dụng thấu kính Fresnel như trên Quest 2.','Kho ứng dụng Meta Store đa dạng game và trải nghiệm VR.'],
+        specs:['Ưu đãi: Voucher 200K khi mua kèm phụ kiện + tài khoản game bản quyền.','Bảo hành 12 tháng, 1 đổi 1 trong 30 ngày đầu, freeship toàn quốc.',],
+        gallery:[
+          './quest3s/15.webp',
+          '/quest3s/a11.webp',
+          '/quest3s/122.webp',
+        ]
+      },
+      'Meta quest 3s 256GB like new':{
+        descLong:'Phiên bản rút gọn của Meta Quest 3 với thiết kế gọn nhẹ, chính hãng Meta.',
+        high:['Trang bị chip Snapdragon XR2 Gen 2, hỗ trợ tần số quét 90Hz mượt mà.','Camera Passthrough màu 4MP, sử dụng thấu kính Fresnel như trên Quest 2.','Kho ứng dụng Meta Store đa dạng game và trải nghiệm VR.'],
+        specs:['Ưu đãi: Voucher 200K khi mua kèm phụ kiện + tài khoản game bản quyền.','Bảo hành 12 tháng, 1 đổi 1 trong 30 ngày đầu, freeship toàn quốc.',],
+        gallery:[
+          './quest3s/15.webp',
+          '/quest3s/a11.webp',
+          '/quest3s/122.webp',
+        ]
+      },
+      'Ray-Ban Meta Wayfarer':{
+        descLong:'Ray-Ban Meta Gen 2 – kính thông minh Wayfarer kết hợp phong cách và công nghệ.',
+        high:['Camera 12MP ultra-wide, hỗ trợ livestream và quay video 3 phút.','Âm thanh sống động với 2 loa bass mạnh và 5 micro thu âm rõ.','Pin 4 giờ, hộp sạc đi kèm nâng tổng thời lượng lên 36 giờ.'],
+        specs:['Bộ nhớ 32GB, lưu trữ hàng trăm video và hơn 500 bức ảnh.','Chống nước IPX4, thay thế tai nghe Bluetooth nghe gọi tiện lợi.','Hàng chính hãng Ray-Ban, bảo hành 6 tháng, đổi mới 30 ngày.'],
+        gallery:[
+          './rayban/1.webp',
+          './rayban/2.webp',
+          './rayban/3.webp'
+        ]
+      },
+      'Ray-Ban Meta Wayfarer like new':{
+        descLong:'Ray-Ban Meta Gen 2 – kính thông minh Wayfarer kết hợp phong cách và công nghệ.',
+        high:['Camera 12MP ultra-wide, hỗ trợ livestream và quay video 3 phút.','Âm thanh sống động với 2 loa bass mạnh và 5 micro thu âm rõ.','Pin 4 giờ, hộp sạc đi kèm nâng tổng thời lượng lên 36 giờ.'],
+        specs:['Bộ nhớ 32GB, lưu trữ hàng trăm video và hơn 500 bức ảnh.','Chống nước IPX4, thay thế tai nghe Bluetooth nghe gọi tiện lợi.','Hàng chính hãng Ray-Ban, bảo hành 6 tháng, đổi mới 30 ngày.'],
+        gallery:[
+          './rayban/1.webp',
+          './rayban/2.webp',
+          './rayban/3.webp'
+        ]
+      },
+      'Ray-Ban Meta Wayfarer Transitions':{
+        descLong:'Ray-Ban Meta Gen 2 – kính thông minh Wayfarer kết hợp phong cách và công nghệ.',
+        high:['Camera 12MP ultra-wide, hỗ trợ livestream và quay video 3 phút.','Âm thanh sống động với 2 loa bass mạnh và 5 micro thu âm rõ.','Pin 4 giờ, hộp sạc đi kèm nâng tổng thời lượng lên 36 giờ.'],
+        specs:['Bộ nhớ 32GB, lưu trữ hàng trăm video và hơn 500 bức ảnh.','Tròng kính đổi màu Clear to Green, chống nước IPX4, thay thế tai nghe Bluetooth.','Hàng chính hãng Ray-Ban, bảo hành 6 tháng, đổi mới 30 ngày.'],
+        gallery:[
+          './rb/1.webp',
+          './rb/2.webp',
+          './rb/3.webp'
+        ]
+      },
+      'Ray-Ban Meta Wayfarer Transitions like new':{
+        descLong:'Ray-Ban Meta Gen 2 – kính thông minh Wayfarer kết hợp phong cách và công nghệ.',
+        high:['Camera 12MP ultra-wide, hỗ trợ livestream và quay video 3 phút.','Âm thanh sống động với 2 loa bass mạnh và 5 micro thu âm rõ.','Pin 4 giờ, hộp sạc đi kèm nâng tổng thời lượng lên 36 giờ.'],
+        specs:['Bộ nhớ 32GB, lưu trữ hàng trăm video và hơn 500 bức ảnh.','Tròng kính đổi màu Clear to Green, chống nước IPX4, thay thế tai nghe Bluetooth.','Hàng chính hãng Ray-Ban, bảo hành 6 tháng, đổi mới 30 ngày.'],
+        gallery:[
+          './rb/1.webp',
+          './rb/2.webp',
+          './rb/3.webp'
+        ]
+      },
+      'BOBOVR M3 Pro':{
+        descLong:'BOBOVR E3 Pro Strap – phụ kiện chính hãng cho Meta Quest 3 và Quest 3S',
+        high:['Sản phẩm đạt chứng nhận Made for Meta, đảm bảo chất lượng và độ tương thích cao.','Tích hợp jack cắm tai nghe 3.5mm, mang lại trải nghiệm âm thanh VR trọn vẹn.','Thiết kế nhẹ, công thái học, giúp thoải mái khi sử dụng trong thời gian dài.'],
+        specs:['Tặng kèm pin B2 dung lượng 5200mAh, tăng thêm khoảng 2 giờ chơi VR.','Kéo dài thời gian sử dụng lên tới 235% so với pin mặc định.','Hàng chính hãng BOBOVR, bảo hành 12 tháng, đổi mới 30 ngày.','Bảo hành 12 tháng chính hãng, yên tâm trong suốt quá trình trải nghiệm.'],
+        gallery:[
+          './m3 pro/1.webp',
+          './m3 pro/2.webp',
+          './m3 pro/3.webp'
+        ]
+      },
+      
+      'BOBOVR E3 Pro':{
+        descLong:'BOBOVR E3 Pro Strap – phụ kiện chính hãng cho Meta Quest 3 và Quest 3S',
+        high:['Sản phẩm đạt chứng nhận Made for Meta, đảm bảo chất lượng và độ tương thích cao.','Tích hợp jack cắm tai nghe 3.5mm, mang lại trải nghiệm âm thanh VR trọn vẹn.','Thiết kế nhẹ, công thái học, giúp thoải mái khi sử dụng trong thời gian dài.'],
+        specs:['Tặng kèm pin B100 dung lượng 10,000mAh, dòng xả 20W mạnh mẽ.','Kéo dài thời gian sử dụng lên tới 235% so với pin mặc định.','Hàng chính hãng BOBOVR, bảo hành 12 tháng, đổi mới 30 ngày.','Bảo hành 12 tháng chính hãng, yên tâm trong suốt quá trình trải nghiệm.'],
+        gallery:[
+          './e3pro/1.webp',
+          './e3pro/2.webp',
+          './e3pro/3.webp'
+        ]
+      },
+      'Strap S3 Pro':{
+        descLong:'Strap S3 Pro',
+        high:['Sản phẩm đạt chứng nhận Made for Meta, đảm bảo chất lượng và độ tương thích cao.','Tích hợp jack cắm tai nghe 3.5mm, mang lại trải nghiệm âm thanh VR trọn vẹn.','Thiết kế nhẹ, công thái học, giúp thoải mái khi sử dụng trong thời gian dài.'],
+        specs:['Tặng kèm pin B100 dung lượng 10,000mAh, dòng xả 20W mạnh mẽ.','Kéo dài thời gian sử dụng lên tới 235% so với pin mặc định.','Hàng chính hãng BOBOVR, bảo hành 12 tháng, đổi mới 30 ngày.','Bảo hành 12 tháng chính hãng, yên tâm trong suốt quá trình trải nghiệm.'],
+        gallery:[
+          './phukien/s3pro/1.webp',
+          './phukien/s3pro/2.webp',
+          './phukien/s3pro/3.webp'
+        ]
+      },
+      'Pin BOBOVR B100':{
+        descLong:'Pin dự phòng BOBOVR B100 – dung lượng 10,000mAh, dòng xả 20W mạnh mẽ.',
+        high:['Dung lượng lớn 10,000mAh, cung cấp năng lượng lâu dài cho các thiết bị di động.','Dòng xả tối đa 20W, hỗ trợ sạc nhanh cho điện thoại và máy tính bảng.','Thiết kế nhỏ gọn, dễ dàng mang theo bên mình trong các chuyến đi.'],
+        specs:['Tương thích với hầu hết các thiết bị sử dụng cổng USB-C và USB-A.','Đèn LED hiển thị mức pin còn lại, giúp người dùng dễ dàng kiểm soát.','Bảo hành 12 tháng chính hãng, yên tâm trong suốt quá trình sử dụng.'],
+        gallery:[
+          '/phukien/pinb100/1.webp',
+          '/phukien/pinb100/2.webp',
+          '/phukien/pinb100/3.webp'
+        ]
+      },
+      'Dock Sạc Kèm Pin B2':{
+        descLong:'Dock sạc kèm pin B2 – giải pháp sạc tiện lợi và tiết kiệm không gian.',
+        high:['Dock sạc siêu mỏng, tiết kiệm không gian, kèm         pin B2 tiện lợi.','Pin B2 dung lượng 5200mAh, tăng thêm khoảng 2 giờ chơi VR.','Tương thích với Meta Quest 3 và Quest 3S, dễ dàng lắp đặt và sử dụng.'],
+        specs:['Sản phẩm chính hãng, đảm bảo chất lượng và độ bền cao.','Bảo hành 12 tháng, yên tâm trong suốt quá trình sử dụng.'],
+        gallery:[   
+          '/phukien/pinb2/1.webp',
+          '/phukien/pinb2/2.webp',
+          '/phukien/pinb2/3.webp'
+        ] 
+      },
+      'Túi chống sốc cao cấp  Meta Quest 3/3S':
+
+      {
+        descLong:'Túi chống sốc cao cấp, thiết kế sang trọng, tối ưu cho Meta Quest 3 & Quest 3S.',
+        high:['Chất liệu EVA cao cấp, chống sốc và bảo vệ thiết bị hiệu quả.','Ngăn chứa rộng rãi, phù hợp với kính VR và các phụ kiện đi kèm.','Thiết kế thời trang, tiện lợi khi di chuyển và bảo quản.'],
+        specs:['Kích thước: 25 x 20 x 10 cm, trọng lượng nhẹ chỉ 300g.','Màu sắc: Đen sang trọng, phù hợp với mọi phong cách.','Bảo hành 6 tháng, yên tâm trong suốt quá trình sử dụng.'],
+        gallery:[
+          '/phukien/tuichong_soc/1.png',
+          '/phukien/tuichong_soc/2.png',
+          '/phukien/tuichong_soc/3.png'
+        ]
+      },
+      'Pico 4 ultra':{
+        descLong:'Pico 4 Ultra – Phiên bản mới nhất, hỗ trợ Mixed Reality với hệ thống 3 camera hiện đại.',
+        high:['Hệ thống 3 camera tiên tiến, hỗ trợ Mixed Reality mượt mà.','Độ phân giải cao, mang lại trải nghiệm hình ảnh sắc nét và chân thực.','Thiết kế nhẹ nhàng, thoải mái khi sử dụng trong thời gian dài.'],
+        specs:['Bộ nhớ trong 128GB, lưu trữ nhiều ứng dụng và trò chơi.','Hỗ trợ kết nối Wi-Fi và Bluetooth, dễ dàng kết nối với các thiết bị khác.','Bảo hành 12 tháng, yên tâm trong suốt quá trình sử dụng.'],
+        gallery:[
+          '/website/pico4ultra/1.webp',
+          '/website/pico4ultra/2.webp',
+          '/website/pico4ultra/3.webp'
+        ]
+      },
+      'Pico 4 ultra likenew':{
+        descLong:'Pico 4 Ultra – Phiên bản mới nhất, hỗ trợ Mixed Reality với hệ thống 3 camera hiện đại.',
+        high:['Hệ thống 3 camera tiên tiến, hỗ trợ Mixed Reality mượt mà.','Độ phân giải cao, mang lại trải nghiệm hình ảnh sắc nét và chân thực.','Thiết kế nhẹ nhàng, thoải mái khi sử dụng trong thời gian dài.'],
+        specs:['Bộ nhớ trong 128GB, lưu trữ nhiều ứng dụng và trò chơi.','Hỗ trợ kết nối Wi-Fi và Bluetooth, dễ dàng kết nối với các thiết bị khác.','Bảo hành 12 tháng, yên tâm trong suốt quá trình sử dụng.'],
+        gallery:[
+          '/website/pico4ultra/1.webp',
+          '/website/pico4ultra/2.webp',
+          '/website/pico4ultra/3.webp'
+        ]
+      },
+      'kính thực tế ảo Sony Psvr 2':{
+        descLong:'Kính thực tế ảo PSVR2 2nd 99%, trải nghiệm cao cấp với giá tiết kiệm',
+        high:['Tương thích hoàn toàn với PlayStation 5, mang lại trải nghiệm chơi game đỉnh cao.','Cảm biến theo dõi mắt và môi trường xung quanh, tăng cường độ chính xác và thực tế.','Thiết kế công thái học, thoải mái khi sử dụng trong thời gian dài.'],
+        specs:['Độ phân giải: 2000 x 2040 pixel cho mỗi mắt, mang lại hình ảnh sắc nét.','Tần số quét: 90Hz, đảm bảo trải nghiệm mượt mà.','Bảo hành 12 tháng, yên tâm trong suốt quá trình sử dụng.'],
+        gallery:[
+          '/website/psvr2/1.jpg',
+          '/website/psvr2/2.jpg',
+          '/website/psvr2/3.jpg'
+        ]
+      },
+
+      'Pin  BOBOVR B2':{
+        descLong:'Pin BOBOVR B2 – Giải pháp năng lượng cho trải nghiệm VR không gián đoạn.',
+        high:['Dung lượng pin lớn, kéo dài thời gian sử dụng thiết bị VR.','Thiết kế nhỏ gọn, dễ dàng mang theo bên mình.','Tương thích với nhiều thiết bị VR khác nhau.'],
+        specs:['Dung lượng: 5000mAh, cung cấp năng lượng lâu dài.','Cổng sạc: USB-C, tiện lợi và nhanh chóng.','Bảo hành 12 tháng, yên tâm trong suốt quá trình sử dụng.'],
+        gallery:[
+          '/phukien/pinb2/1.webp',
+          '/phukien/pinb2/2.webp',
+          '/phukien/pinb2/3.webp'
+        ]
+      },
+      'Dock Sạc Kèm Pin B100':{
+        descLong:'Dock Sạc Kèm Pin B100 – Giải pháp sạc tiện lợi cho thiết bị VR.',
+        high:['Thiết kế thông minh, tích hợp sạc và pin dự phòng.','Dễ dàng sử dụng, chỉ cần đặt thiết bị lên dock để sạc.','Tương thích với nhiều thiết bị VR khác nhau.'],
+        specs:['Cổng sạc: USB-C, tiện lợi và nhanh chóng.','Dung lượng pin: 10000mAh, cung cấp năng lượng lâu dài.','Bảo hành 12 tháng, yên tâm trong suốt quá trình sử dụng.'],
+        gallery:[
+          '/phukien/docksac_kempinb100/1.webp',
+          '/phukien/docksac_kempinb100/2.webp',
+          '/phukien/docksac_kempinb100/3.webp'
+        ]
+      },  
+      'Kính Thông Minh Meta Rayban - Display':{
+        descLong:'Kính thông minh Meta Ray-Ban chính hãng, thiết kế sang trọng và hiện đại.',
+        high:['Màn hình 600x600p hiển thị thông báo trực tiếp trên trong kính bên phải.','Vòng đeo Meta Neural nhận diện cử chỉ ngón tay để điều khiển linh hoạt.','Camera 12MP ultra-wide hỗ trợ zoom 3x, quay video 3 phút mỗi shot.'],
+        specs:['Bộ nhớ 32GB lưu trữ hơn 100 video 30s hoặc 500+ bức ảnh.','Pin chờ 6h, hỗ trợ sạc nhanh, sử dụng lên đến 30h sau khi sạc.','Hỗ trợ trả góp qua thẻ tín dụng, chống nước IPX4, trang kính đổi màu.'],
+        gallery:[
+          '/website/raybandisplay/1.webp',
+          '/website/raybandisplay/2.webp',
+          '/website/raybandisplay/3.webp'
+        ]
+      },
+
+      'Kính Thông Minh Meta Rayban Wayfarer thế hệ 2':{
+        descLong:'Kính Ray-Ban chính hãng, thiết kế dựa trên nguyên mẫu Wayfarer kính điện.',
+        high:['Tích hợp Meta AI (Meta View) để quản lý và cài đặt dữ liệu.','Camera 12MP ultra-wide, hỗ trợ livestream và quay video 3 phút mỗi shot.','5 micro toàn dải, loa nâng cấp lớn hơn với bass mạnh hơn 50% so với thế hệ 1'],
+        specs:['Hỗ trợ thẻ nhớ 32GB, pin gen 1 dùng 4h, gen 2 nâng cấp pin và quay video 3K 30fps.','Hỗ trợ trả góp qua thẻ tín dụng, chống nước IPX4, trang kính đổi màu.'],
+        gallery:[
+          '/website/rayban/1.webp',
+          '/website/rayban/2.webp',
+          '/website/rayban/3.webp'
+        ]
+      },
+
+
+    
+    };  
+
+
+    function ensureModal(){
+      let m = document.getElementById('pModal'); if (m) return m;
+      m = document.createElement('div');
+      m.id = 'pModal'; m.className = 'p-modal';
+      m.innerHTML = `
+        <div class="p-backdrop" data-close></div>
+        <div class="p-dialog" role="dialog" aria-modal="true" aria-labelledby="pTitle">
+          <button class="p-close" type="button" aria-label="Đóng" data-close>✕</button>
+
+          <div class="p-hero">
+            <div class="p-hero-main">
+              <button class="navbtn prev" type="button" aria-label="Ảnh trước"></button>
+              <img id="pHero" alt="" />
+              <button class="navbtn next" type="button" aria-label="Ảnh sau"></button>
+            </div>
+            <div class="p-hero-nav" id="pThumbs"></div>
+          </div>
+
+          <div class="p-content">
+            <div class="p-head">
+              <h2 class="p-title" id="pTitle"></h2>
+              <div class="p-price" id="pPrice"></div>
+            </div>
+
+            <div class="p-scroll">
+              <div class="p-badges" id="pBadges"></div>
+              <p class="p-desc" id="pDesc"></p>
+              <ul class="p-high" id="pHigh"></ul>
+              <ul class="p-specs" id="pSpecs"></ul>
+            </div>
+
+            <div class="p-actions">
+              <a class="btn primary" id="pContact" target="_blank" rel="noopener">Liên hệ (Zalo)</a>
+            </div>
+          </div>
+        </div>`;
+      document.body.appendChild(m);
+      return m;
+    }
+
+    function trapFocus(scope){
+      const F='a[href],button:not([disabled]),select,textarea,input,[tabindex]:not([tabindex="-1"])';
+      const nodes=$$(F,scope); if(!nodes.length) return ()=>{};
+      const first=nodes[0], last=nodes[nodes.length-1];
+      function onKey(e){
+        if(e.key!=='Tab') return;
+        if(e.shiftKey && document.activeElement===first){ last.focus(); e.preventDefault(); }
+        else if(!e.shiftKey && document.activeElement===last){ first.focus(); e.preventDefault(); }
+      }
+      scope.addEventListener('keydown', onKey);
+      return ()=> scope.removeEventListener('keydown', onKey);
+    }
+
+    function extractFromCard(card){
+      const img  = card.querySelector('.media img, img');
+      const title= card.querySelector('h3,h2,.title')?.textContent?.trim() || 'Sản phẩm';
+      const price= card.querySelector('.price')?.textContent?.trim() || '';
+      const desc = card.querySelector('p')?.textContent?.trim() || '';
+      const chips= $$('.chip',card).map(x=>x.textContent.trim());
+      const zalo = card.querySelector('a[href*="zalo.me"]')?.href || 'https://zalo.me/0123456789';
+      const meta = META[title] || {};
+      const gallery = (meta.gallery && meta.gallery.length>=3) ? meta.gallery
+        : (img?.src ? [img.src, img.src, img.src] : [
+            'https://wallpaperaccess.com/full/2399993.jpg',
+            'https://wallpaperaccess.com/full/2399993.jpg',
+            'https://wallpaperaccess.com/full/2399993.jpg'
+          ]);
+      return { title, price, descLong: meta.descLong || desc, badges: chips, high: meta.high||[], specs: meta.specs||[], gallery, zalo };
+    }
+
+    function renderGallery(modal, imgs, title){
+      const hero   = modal.querySelector('#pHero');
+      const thumbs = modal.querySelector('#pThumbs');
+      let idx = 0;
+      function setHero(i){
+        idx = (i+imgs.length)%imgs.length;
+        hero.src = imgs[idx];
+        hero.alt = `${title} — ảnh ${idx+1}/${imgs.length}`;
+        $$('.p-thumb',thumbs).forEach((t,i2)=> t.classList.toggle('active', i2===idx));
+      }
+      thumbs.innerHTML = imgs.map((u,i)=>`<button class="p-thumb" type="button" aria-label="Xem ảnh ${i+1}"><img src="${u}" alt=""></button>`).join('');
+      $$('.p-thumb',thumbs).forEach((b,i)=> b.addEventListener('click', ()=> setHero(i)));
+      modal.querySelector('.prev')?.addEventListener('click', ()=> setHero(idx-1));
+      modal.querySelector('.next')?.addEventListener('click', ()=> setHero(idx+1));
+      const main = hero.parentElement; let sx=null;
+      main.addEventListener('pointerdown', e=>{ sx=e.clientX; main.setPointerCapture(e.pointerId); });
+      main.addEventListener('pointerup',   e=>{ if(sx==null) return; const dx=e.clientX-sx; if(Math.abs(dx)>40){ dx<0?setHero(idx+1):setHero(idx-1); } sx=null; });
+      setHero(0);
+    }
+
+    
+
+
+    function openModal(data){
+  const m = ensureModal();
+  m.querySelector('#pTitle').textContent = data.title;
+  m.querySelector('#pPrice').textContent = data.price;
+  m.querySelector('#pBadges').innerHTML  = (data.badges||[]).map(b=>`<span class="chip">${b}</span>`).join('');
+  m.querySelector('#pDesc').textContent  = data.descLong || '';
+  m.querySelector('#pHigh').innerHTML    = (data.high||[]).map(x=>`<li>${x}</li>`).join('');
+  m.querySelector('#pSpecs').innerHTML   = (data.specs||[]).map(s=>`<li>${s}</li>`).join('');
+  m.querySelector('#pContact').href      = data.zalo;
+  renderGallery(m, data.gallery, data.title);
+
+  m.classList.add('open');
+
+  const dlg = m.querySelector('.p-dialog');
+  let untrap = typeof trapFocus === 'function' ? trapFocus(dlg) : ()=>{};
+
+  const close = ()=>{
+    m.classList.remove('open');
+    document.removeEventListener('keydown', onEsc);
+    untrap();
+  };
+
+  const onEsc = (e)=>{ if(e.key === 'Escape') close(); };
+  document.addEventListener('keydown', onEsc, { once:true });
+
+  //  close cho nút ✕, phần tử có data-close, và backdrop
+  m.querySelectorAll('.p-close, [data-close], .p-backdrop').forEach(el=>{
+    el.addEventListener('click', (ev)=>{
+      ev.preventDefault();
+      ev.stopPropagation();   // tránh click lọt xuống card mở lại modal
+      close();
+    }, { once:true });
+  });
+
+  m.querySelector('.p-close')?.focus({ preventScroll:true });
+}
+
+
+    function bind(){
+      const grid = document.querySelector('.products-grid');
+      if(!grid || grid.dataset.pdialog==='1') return;
+      grid.dataset.pdialog='1';
+
+      grid.addEventListener('click',(e)=>{
+        if (e.target.closest('a')) return; // để Thuê/Mua hoạt động như cũ
+        const card = e.target.closest('.card'); if(!card) return;
+        e.preventDefault();
+        openModal(extractFromCard(card));
+      });
+
+      grid.addEventListener('keydown',(e)=>{
+        if(e.key!=='Enter' && e.key!==' ') return;
+        if(document.activeElement?.closest('a')) return;
+        const card = e.target.closest('.card'); if(!card) return;
+        e.preventDefault();
+        openModal(extractFromCard(card));
+      });
+    }
+
+    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', bind, {once:true}); } else { bind(); }
+  })();
+  </script>
+
+
+
+</body>
+</html>
